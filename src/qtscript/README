@@ -1,0 +1,9 @@
+QtScript console via telnet
+
+Usage:
+Copy libqtscript.so to /usr/local/Kobo, open the library once so the plugin gets loaded and connect via "telnet <kobo ip> 1337".
+For more comfort use "rlwrap telnet <kobo ip> 1337".
+
+Example:
+Go to the homescreen and execute:
+aw.findChildren("label")[0].text = "QtScript"

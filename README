@@ -1,0 +1,7 @@
+Plugin development for the Kobo touch
+
+Requirements:
+- Kobo Touch with firmware version 1.9.16 and ssh/telnet access (see http://a3nm.net/blog/fnacbook_kobo_hacking.html)
+- Kobo development environment (see http://blog.ringerc.id.au/search/label/kobo)
+
+Build plugins with ~/kobo/qt/bin/qmake && make, copy lib*.so to /usr/local/Kobo on the device, reboot and open the library once to load the plugin.
