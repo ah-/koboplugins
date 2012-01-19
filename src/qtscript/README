@@ -7,3 +7,7 @@ For more comfort use "rlwrap telnet <kobo ip> 1337".
 Example:
 Go to the homescreen and execute:
 aw.findChildren("label")[0].text = "QtScript"
+
+Useful functions:
+function dump (o) { var p = []; for (n in o) { p += n + "\n" }; return p;}
+function dumpChildren(o) { var p = []; var children = o.findChildren(); for (n in children) { p = p + n + ": " + children(n) + "\n"};  return p;}
