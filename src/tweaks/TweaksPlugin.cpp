@@ -6,6 +6,10 @@
 #include "../../include/PluginLoader.h"
 #include "../../include/MainWindowController.h"
 #include "../../include/HomePageGridView.h"
+#include "../../include/Content.h"
+#include "../../include/Volume.h"
+#include "../../include/ReadingViewMixin.h"
+#include "../../include/N3ReaderOpener.h"
 #include "../qtscript/QtScriptPlugin.h"
 
 class GestureDelegate {
@@ -189,6 +193,11 @@ void TweaksPlugin::patchMenu()
 void TweaksPlugin::open(QString mimeType)
 {
     cout << "TweaksPlugin::open(\"" << mimeType.toStdString() << "\")" << endl << flush; 
+    Volume v;
+    v.setMimeType(mimeType);
+    v.setTitle("Tweaks");
+    N3ReaderOpener *ro = (N3ReaderOpener*) ((ReadingViewMixin*) this)->createReader(v, NULL);
+    ro->openReader();
 }
 
 Q_EXPORT_PLUGIN2(tictactoe, TweaksPlugin)
