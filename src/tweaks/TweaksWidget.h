@@ -4,18 +4,19 @@
 #include <QtGui>
 #include "../../include/PluginInterface.h"
 
-class TweaksWidget : public QPushButton
+#include "ui_tweakview.h"
+
+class TweaksWidget : public QWidget, private Ui::TweakView
 {
 	Q_OBJECT
 
 public:
-    TweaksWidget();
 	TweaksWidget(const QString& text, QWidget *parent);
 
     bool event(QEvent* event);
 
 public slots:
-    void onPush(bool);
+    //void onPush(bool);
 
     void onResume();
 
@@ -26,6 +27,14 @@ public slots:
     void displayTitlePage();
 
     void homeKeyPressed();
+
+private slots:
+    void redLedOn();
+    void redLedOff();
+    void greenLedOn();
+    void greenLedOff();
+    void blueLedOn();
+    void blueLedOff();
 
 signals:
     void setHeaderText(const QString&);
@@ -42,7 +51,6 @@ signals:
     //void processSwipe(SwipeGesture *);
     void showHideDogEar();
     void hideSplash();
-
 };
 
 #endif

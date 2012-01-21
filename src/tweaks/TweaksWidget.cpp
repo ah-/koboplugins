@@ -5,44 +5,72 @@
 
 using namespace std;
 
-TweaksWidget::TweaksWidget() :
-    QPushButton() {}
-
-TweaksWidget::TweaksWidget(const QString& text, QWidget *parent=0) :
-    QPushButton(text, parent)
+TweaksWidget::TweaksWidget(const QString& text, QWidget *parent=0)
+    : QWidget(parent)
 {
-   cout << "TweaksWidget()" << endl << flush; 
-   QWidget::setAttribute(Qt::WA_AcceptTouchEvents);
-   QObject::connect(this, SIGNAL(clicked(bool)), this, SLOT(onPush(bool)));
+    setupUi(this);
+    cout << "TweaksWidget()" << endl << flush; 
+    QWidget::setAttribute(Qt::WA_AcceptTouchEvents);
+    QObject::connect(this, SIGNAL(clicked(bool)), this, SLOT(onPush(bool)));
 
-   // TODO: register with qtscript
-   // TODO: hide "advertising" at the bottom
-   // TODO: turn leds on/off
-   // TODO: disconnect wirelesswatchdog timer signal
+    // TODO: register with qtscript
+    // TODO: hide recommendations on home screen
+    // TODO: disconnect wirelesswatchdog timer signal
+    
+    redOn->setAttribute(Qt::WA_AcceptTouchEvents);
+    redOff->setAttribute(Qt::WA_AcceptTouchEvents);
+    greenOn->setAttribute(Qt::WA_AcceptTouchEvents);
+    greenOff->setAttribute(Qt::WA_AcceptTouchEvents);
+    blueOn->setAttribute(Qt::WA_AcceptTouchEvents);
+    blueOff->setAttribute(Qt::WA_AcceptTouchEvents);
+    connect(redOn, SIGNAL(pressed()), this, SLOT(redLedOn()));
+    connect(redOff, SIGNAL(pressed()), this, SLOT(redLedOff()));
+    connect(greenOn, SIGNAL(pressed()), this, SLOT(greenLedOn()));
+    connect(greenOff, SIGNAL(pressed()), this, SLOT(greenLedOff()));
+    connect(blueOn, SIGNAL(pressed()), this, SLOT(blueLedOn()));
+    connect(blueOff, SIGNAL(pressed()), this, SLOT(blueLedOff()));
 }
 
 bool TweaksWidget::event(QEvent* event) {
     cout << "TweaksWidget::event " << event->type() << endl << flush;
-    return QPushButton::event(event);
+    return QWidget::event(event);
 }
 
-void TweaksWidget::onPush(bool)
+void TweaksWidget::redLedOn()
 {
-   cout << "TweaksWidget::onPush()" << endl << flush; 
-   setText(text() + " push");
+    LedManager::sharedInstance()->redOn();
+}
 
-   LedManager *lm = LedManager::sharedInstance();
-   cout << "Kobo LedManager: " << lm << endl << flush; 
-   lm->blueOn();
-   cout << "Kobo LedManager turned blue on" << endl << flush; 
+void TweaksWidget::redLedOff()
+{
+    LedManager::sharedInstance()->redOff();
+}
+
+void TweaksWidget::greenLedOn()
+{
+    LedManager::sharedInstance()->greenOn();
+}
+
+void TweaksWidget::greenLedOff()
+{
+    LedManager::sharedInstance()->greenOff();
+}
+
+void TweaksWidget::blueLedOn()
+{
+    LedManager::sharedInstance()->blueOn();
+}
+
+void TweaksWidget::blueLedOff()
+{
+    LedManager::sharedInstance()->blueOff();
 }
 
 void TweaksWidget::onResume()
 {
-   cout << "Kobo onResume()" << endl << flush; 
-   setText(text() + " onResume");
-   emit setHeaderText("TweaksWidget::onResume()");
-   //emit openFooterMenu();
+    cout << "Kobo onResume()" << endl << flush; 
+    emit setHeaderText("TweaksWidget::onResume()");
+    //emit openFooterMenu();
 }
 
 void TweaksWidget::goToNextPage()
@@ -53,9 +81,9 @@ void TweaksWidget::goToNextPage()
 
 void TweaksWidget::goToPrevPage()
 {
-   cout << "Kobo goToPrevPage() " << endl << flush;
-   emit setHeaderText("Hello Kobo: PrevPage");
-   emit openFooterMenu();
+    cout << "Kobo goToPrevPage() " << endl << flush;
+    emit setHeaderText("Hello Kobo: PrevPage");
+    emit openFooterMenu();
 }
 
 void TweaksWidget::onDisplayMenuRequested(QList<PluginInterface::MenuGroup>&)
