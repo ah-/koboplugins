@@ -5,11 +5,12 @@
 #include <QtNetwork>
 #include <QtScript>
 #include "../../include/PluginInterface.h"
+#include "../../include/QtScriptPluginInterface.h"
 
-class QtScriptPlugin : public QObject, public PluginInterface
+class QtScriptPlugin : public QObject, public PluginInterface, public QtScriptPluginInterface
 {
 	Q_OBJECT
-	Q_INTERFACES(PluginInterface)
+	Q_INTERFACES(PluginInterface QtScriptPluginInterface)
 
 public:
 	QtScriptPlugin();
@@ -17,7 +18,12 @@ public:
 
 	QStringList mimeTypes();
 	QWidget *reader(void* plugin_state, QWidget *parent = 0);
-	ParserInterface *parser();
+    ParserInterface *parser();
+
+    void registerObject(QObject *object, QString name);
+
+public slots:
+    void open(QString mimetype);
 
 private slots:
     void getConnection();

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-SocketHandler::SocketHandler(QTcpSocket *sock, QScriptEngine *engine)
+SocketHandler::SocketHandler(QTcpSocket *sock, QScriptEngine *engine, QtScriptPlugin *plugin)
 {
     clientSocket = sock;
     this->engine = engine;
@@ -15,6 +15,7 @@ SocketHandler::SocketHandler(QTcpSocket *sock, QScriptEngine *engine)
 
     cout << "QtScript console started, connect with \"telnet <kobo ip> 1337\"" << endl;
     sock->write("Welcome to the Kobo QtScript console!\n> ");
+    connect(this, SIGNAL(open(QString)), plugin, SLOT(open(QString)), Qt::QueuedConnection);
 }
 
 void SocketHandler::echo()
@@ -30,6 +31,9 @@ void SocketHandler::echo()
         clientSocket->write("bye\n");
         clientSocket->waitForBytesWritten(1000);
         clientSocket->disconnectFromHost();
+    }
+    if (request.startsWith("open")) {
+        emit open("application/x-games-Sudoku");
     } else {
         QString result = engine->evaluate(request).toString();
         response = "result: " + result + "\n> ";

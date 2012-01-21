@@ -5,11 +5,15 @@
 #include <QtNetwork>
 #include <QtScript>
 
+#include "QtScriptPlugin.h"
+
 class SocketHandler : public QObject
 {
     Q_OBJECT
 public:
-    SocketHandler(QTcpSocket *, QScriptEngine *engine);
+    SocketHandler(QTcpSocket *, QScriptEngine *engine, QtScriptPlugin *plugin);
+signals:
+    void open(QString);
 private slots:
     void echo();
     void killMe();
