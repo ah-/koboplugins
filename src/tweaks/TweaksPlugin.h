@@ -19,10 +19,15 @@ public:
 	QWidget *reader(void* plugin_state, QWidget *parent = 0);
 	ParserInterface *parser();
 
+    bool wirelessTimeoutEnabled();
+
 public slots:
     void windowChanged(int index);
     void patchMenu();
     void open(QString mimeType);
+    void enableBrowserShortcut(bool enable);
+    void enableWirelessTimeout(bool enable);
+    void hideRecommendations(bool enable);
 
 private:
     TweaksWidget *w;

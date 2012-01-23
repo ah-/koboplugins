@@ -6,18 +6,18 @@
 
 #include "ui_tweakview.h"
 
+class TweaksPlugin;
+
 class TweaksWidget : public QWidget, private Ui::TweakView
 {
 	Q_OBJECT
 
 public:
-	TweaksWidget(const QString& text, QWidget *parent);
+	TweaksWidget(TweaksPlugin *plugin, QWidget *parent);
 
     bool event(QEvent* event);
 
 public slots:
-    //void onPush(bool);
-
     void onResume();
 
     void goToNextPage();
@@ -51,6 +51,9 @@ signals:
     //void processSwipe(SwipeGesture *);
     void showHideDogEar();
     void hideSplash();
+
+private:
+    TweaksPlugin *plugin;
 };
 
 #endif

@@ -1,19 +1,25 @@
 #include "TweaksWidget.h"
 #include <iostream>
 #include "../../include/LedManager.h"
+#include "TweaksPlugin.h"
 
 
 using namespace std;
 
-TweaksWidget::TweaksWidget(const QString& text, QWidget *parent=0)
-    : QWidget(parent)
+TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
+    : QWidget(parent),
+    plugin(plugin)
 {
     setupUi(this);
+    QSettings settings;
+    browserShortcut->setChecked(settings.value("Tweaks/enableBrowserShortcut", true).toBool());
+    wifiTimeout->setChecked(settings.value("Tweaks/enableWirelessTimeout", false).toBool());
+    wifiTimeout->hide(); // not done yet
+    hideRecommendations->setChecked(settings.value("Tweaks/hideRecommendations", false).toBool());
     cout << "TweaksWidget()" << endl << flush; 
     QWidget::setAttribute(Qt::WA_AcceptTouchEvents);
     QObject::connect(this, SIGNAL(clicked(bool)), this, SLOT(onPush(bool)));
 
-    // TODO: register with qtscript
     // TODO: hide recommendations on home screen
     // TODO: disconnect wirelesswatchdog timer signal
     
@@ -23,12 +29,18 @@ TweaksWidget::TweaksWidget(const QString& text, QWidget *parent=0)
     greenOff->setAttribute(Qt::WA_AcceptTouchEvents);
     blueOn->setAttribute(Qt::WA_AcceptTouchEvents);
     blueOff->setAttribute(Qt::WA_AcceptTouchEvents);
+    browserShortcut->setAttribute(Qt::WA_AcceptTouchEvents);
+    wifiTimeout->setAttribute(Qt::WA_AcceptTouchEvents);
+    hideRecommendations->setAttribute(Qt::WA_AcceptTouchEvents);
     connect(redOn, SIGNAL(pressed()), this, SLOT(redLedOn()));
     connect(redOff, SIGNAL(pressed()), this, SLOT(redLedOff()));
     connect(greenOn, SIGNAL(pressed()), this, SLOT(greenLedOn()));
     connect(greenOff, SIGNAL(pressed()), this, SLOT(greenLedOff()));
     connect(blueOn, SIGNAL(pressed()), this, SLOT(blueLedOn()));
     connect(blueOff, SIGNAL(pressed()), this, SLOT(blueLedOff()));
+    connect(browserShortcut, SIGNAL(toggled(bool)), plugin, SLOT(enableBrowserShortcut(bool)));
+    connect(wifiTimeout, SIGNAL(toggled(bool)), plugin, SLOT(enableWirelessTimeout(bool)));
+    connect(hideRecommendations, SIGNAL(toggled(bool)), plugin, SLOT(hideRecommendations(bool)));
 }
 
 bool TweaksWidget::event(QEvent* event) {
@@ -69,7 +81,7 @@ void TweaksWidget::blueLedOff()
 void TweaksWidget::onResume()
 {
     cout << "Kobo onResume()" << endl << flush; 
-    emit setHeaderText("TweaksWidget::onResume()");
+    //emit setHeaderText("TweaksWidget::onResume()");
     //emit openFooterMenu();
 }
 

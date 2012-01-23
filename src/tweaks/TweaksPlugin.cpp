@@ -10,6 +10,7 @@
 #include "../../include/Volume.h"
 #include "../../include/ReadingViewMixin.h"
 #include "../../include/N3ReaderOpener.h"
+#include "../../include/WirelessWorkflowManager.h"
 #include "../qtscript/QtScriptPlugin.h"
 
 class GestureDelegate {
@@ -79,6 +80,8 @@ public:
     TextHeader *home();
 };
 
+class HomePageGridViewFooter : public QWidget {
+};
 
 using namespace std;
 
@@ -109,6 +112,7 @@ TweaksPlugin::TweaksPlugin() :
     }
 
     connect(&mapper, SIGNAL(mapped(QString)), this, SLOT(open(QString)));
+    //enableWirelessTimeout(settings.value("Tweaks/enableWirelessTimeout", false).toBool());
 }
 
 TweaksPlugin::~TweaksPlugin()
@@ -129,7 +133,7 @@ QWidget *TweaksPlugin::reader(void* plugin_state, QWidget *parent)
 {
     cout << "TweaksPlugin::reader()" << endl << flush; 
 
-    w = new TweaksWidget("Kobo Touch Tweaks", parent);
+    w = new TweaksWidget(this, parent);
     QObject::connect(w, SIGNAL(clicked(void)), w, SLOT(onPush(void)));
     w->setGeometry(0, 0, 600, 734);
     w->update();
@@ -166,6 +170,12 @@ void TweaksPlugin::windowChanged(int index)
                 // patch menu when it's displayed for the first time
                 connect(home, SIGNAL(mouseDown()), this, SLOT(patchMenu()),(Qt::ConnectionType)  0);
             }
+
+            QSettings settings;
+            if(settings.value("Tweaks/hideRecommendations", false).toBool()) {
+                HomePageGridViewFooter *footer = hpgv->findChild<HomePageGridViewFooter *>("footer");
+                footer->hide();
+            }
         }
     }
 }
@@ -181,8 +191,15 @@ void TweaksPlugin::patchMenu()
         mti->setSelectedImage(":/images/menu/trilogy_settings.png");
         mti->setSelected(true);
         hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-kobo-tweaks", true, true);
-        //hmc->addWidgetAction(ntm, mti, SLOT(store()), true, true);
         ntm->addSeparator();
+
+        QSettings settings;
+        if(settings.value("Tweaks/enableBrowserShortcut", true).toBool()) {
+            MenuTextItem *mti = hmc->createMenuTextItem(ntm, QString("Browser"), false);
+            // Hack, since there's no actual way to launch "applications"
+            hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-browser", true, true);
+            ntm->addSeparator();
+        }
 
         // store that we already patched this menu so the item doesn't get added twice
         lastPatchedMenu = (void *) ntm;
@@ -193,11 +210,41 @@ void TweaksPlugin::patchMenu()
 void TweaksPlugin::open(QString mimeType)
 {
     cout << "TweaksPlugin::open(\"" << mimeType.toStdString() << "\")" << endl << flush; 
-    Volume v;
-    v.setMimeType(mimeType);
-    v.setTitle("Tweaks");
-    N3ReaderOpener *ro = (N3ReaderOpener*) ((ReadingViewMixin*) this)->createReader(v, NULL);
-    ro->openReader();
+    if (mimeType == "application/x-browser") {
+        WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
+    } else {
+        Volume v;
+        v.setMimeType(mimeType);
+        v.setTitle("Tweaks");
+        N3ReaderOpener *ro = (N3ReaderOpener*) ((ReadingViewMixin*) this)->createReader(v, NULL);
+        ro->openReader();
+    }
+}
+
+void TweaksPlugin::enableBrowserShortcut(bool enable)
+{
+    cout << "TweaksPlugin::enableBrowserShortcut(): " << enable << endl << flush; 
+    QSettings settings;
+    settings.setValue("Tweaks/enableBrowserShortcut", enable);
+}
+
+void TweaksPlugin::enableWirelessTimeout(bool enable)
+{
+    cout << "TweaksPlugin::enableWirelessTimeout(): " << enable << endl << flush; 
+    QSettings settings;
+    settings.setValue("Tweaks/enableWirelessTimeout", enable);
+}
+
+bool TweaksPlugin::wirelessTimeoutEnabled()
+{
+    return true;
+}
+
+void TweaksPlugin::hideRecommendations(bool enable)
+{
+    cout << "TweaksPlugin::hideRecommendations(): " << enable << endl << flush; 
+    QSettings settings;
+    settings.setValue("Tweaks/hideRecommendations", enable);
 }
 
 Q_EXPORT_PLUGIN2(tictactoe, TweaksPlugin)
