@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+	<qresource prefix="/koboplugins/icons/menu/" >
+		<file alias="browser_01.png">browser_01.png</file>
+		<file alias="tweak_01.png">tweak_01.png</file>
+	</qresource>
+</RCC>
