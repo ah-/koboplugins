@@ -11,77 +11,10 @@
 #include "../../include/ReadingViewMixin.h"
 #include "../../include/N3ReaderOpener.h"
 #include "../../include/WirelessWorkflowManager.h"
+#include "../../include/HomeMenuController.h"
+#include "../../include/N3SettingsController.h"
 #include "../qtscript/QtScriptPlugin.h"
 
-class GestureDelegate {
-};
-
-class GestureReceiver {
-public:
-    void setGestureDelegate(GestureDelegate *);
-    GestureDelegate *gestureDelegate();
-};
-
-class AbstractMenuController : public QObject, public GestureDelegate {
-    Q_OBJECT
-public:
-    void addWidgetAction(QMenu *, QWidget *, char const *, bool, bool);
-    void addWidgetActionWithMapper(QMenu *, QWidget *, QSignalMapper *, QString, bool, bool);
-    void grabTapGesture(GestureReceiver *);
-public slots:
-    void show();
-};
-
-
-class MenuTextItem : public QWidget, public GestureReceiver {
-public:
-    void setSelectedImage(const QString &);
-    void setSelected(bool);
-    QString &text();
-    void setText(const QString& t);
-};
-
-class AbstractNickelMenuController : public AbstractMenuController {
-public:
-    MenuTextItem * createMenuTextItem(QMenu *, const QString &, bool);
-};
-
-enum DecorationPosition { ONE };
-
-class TouchMenu : public QMenu {
-public:
-    TouchMenu(QString const&, QWidget *);
-    void initialize();
-};
-
-class NickelTouchMenu : public TouchMenu {
-public:
-    NickelTouchMenu(QWidget*, DecorationPosition);
-};
-
-class HomeMenuController : public AbstractNickelMenuController {
-public:
-    void store();
-};
-
-class TextHeader : public QWidget {
-    Q_OBJECT
-public:
-    void setText(const QString &);
-    QString &getText();
-signals:
-    void mouseDown();
-    void mouseUp();
-    void clicked();
-};
-
-class HomePageGridViewHeader : public QWidget {
-public: 
-    TextHeader *home();
-};
-
-class HomePageGridViewFooter : public QWidget {
-};
 
 using namespace std;
 
@@ -187,19 +120,53 @@ void TweaksPlugin::patchMenu()
     NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
     cout << "TweaksPlugin::patchMenu(), ntm: " << ntm << ", hmc: " << hmc << endl << flush; 
     if (hmc && ntm && lastPatchedMenu != (void *) ntm) {
-        MenuTextItem *mti = hmc->createMenuTextItem(ntm, QString("Tweaks"), false);
+        /* Clear menu and add entries based on configuration
+         *
+         *
+        ntm->clear();
+        MenuTextItem *mti = hmc->createMenuTextItem(ntm, QString("Library"), false);
+        mti->setSelectedImage(":/images/menu/trilogy_library.png");
+        mti->setSelected(true);
+        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "library", true, true);
+        ntm->addSeparator();
+
+        mti = hmc->createMenuTextItem(ntm, QString("Dictionary"), false);
+        mti->setSelectedImage(":/images/menu/trilogy_readinglife.png");
+        mti->setSelected(true);
+        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "dictionary", true, true);
+        ntm->addSeparator();
+
+        mti = hmc->createMenuTextItem(ntm, QString("Settings"), false);
         mti->setSelectedImage(":/images/menu/trilogy_settings.png");
+        mti->setSelected(true);
+        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "settings", true, true);
+        ntm->addSeparator();
+        */
+
+        MenuTextItem *mti = hmc->createMenuTextItem(ntm, QString("Tweaks"), false);
+        mti->setSelectedImage(":/koboplugins/icons/menu/tweak_01.png");
         mti->setSelected(true);
         hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-kobo-tweaks", true, true);
         ntm->addSeparator();
 
         QSettings settings;
         if(settings.value("Tweaks/enableBrowserShortcut", true).toBool()) {
-            MenuTextItem *mti = hmc->createMenuTextItem(ntm, QString("Browser"), false);
+            mti = hmc->createMenuTextItem(ntm, QString("Browser"), false);
+	        mti->setSelectedImage(":/koboplugins/icons/menu/browser_01.png");	
             // Hack, since there's no actual way to launch "applications"
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-browser", true, true);
             ntm->addSeparator();
         }
+
+        /* Clear menu and add entries based on configuration
+         *
+         *
+        mti = hmc->createMenuTextItem(ntm, QString("Toggle Airplane Mode"), false);
+        mti->setSelectedImage(":/images/statusbar/wifi_airplane.png");
+        mti->setSelected(true);
+        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "airplaneMode", true, true);
+        ntm->addSeparator();
+        */
 
         // store that we already patched this menu so the item doesn't get added twice
         lastPatchedMenu = (void *) ntm;
@@ -209,10 +176,30 @@ void TweaksPlugin::patchMenu()
 
 void TweaksPlugin::open(QString mimeType)
 {
+    HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
+
     cout << "TweaksPlugin::open(\"" << mimeType.toStdString() << "\")" << endl << flush; 
     if (mimeType == "application/x-browser") {
         WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
-    } else {
+    } 
+	else if (mimeType == "library") {
+		if(hmc)
+			hmc->library();
+	}
+	else if (mimeType == "dictionary") {
+		if(hmc)
+			hmc->dictionary();
+	}
+	else if (mimeType == "settings") {
+		if(hmc)
+			hmc->settings();
+	}
+	else if (mimeType == "airplaneMode") {
+        N3SettingsWirelessController* p = QApplication::activeWindow()->findChild<N3SettingsWirelessController *>();    
+        if(p)
+            p->airplaneModeToggled();
+	}
+	else {
         Volume v;
         v.setMimeType(mimeType);
         v.setTitle("Tweaks");

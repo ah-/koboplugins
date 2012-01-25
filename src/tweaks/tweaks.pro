@@ -5,13 +5,16 @@ CONFIG += noqca
 QT += script
 
 TEMPLATE = lib
-CONFIG += plugin
-TARGET = tweaks
+CONFIG += plugin \
+          resources
 
+TARGET = tweaks
 FORMS = tweakview.ui
 
 SOURCES += TweaksPlugin.cpp \
     TweaksWidget.cpp
+
+RESOURCES += ../../res/koboplugins.qrc
 
 HEADERS += ../../include/PluginInterface.h \
     TweaksPlugin.h \
