@@ -1,6 +1,7 @@
 #include "TweaksPlugin.h"
 #include <QLocale>
 #include <QTranslator>
+#include <QMessageBox>
 #include <iostream>
 
 #include "../../include/PluginInterface.h"
@@ -15,6 +16,7 @@
 #include "../../include/WirelessWorkflowManager.h"
 #include "../../include/HomeMenuController.h"
 #include "../../include/N3SettingsController.h"
+#include "../../include/WirelessWatchdog.h"
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
 
@@ -153,7 +155,22 @@ void TweaksPlugin::windowChanged(int index)
             if(pConfig->value("Tweaks/hideRecommendations", false).toBool()) {
                 HomePageGridViewFooter *footer = hpgv->findChild<HomePageGridViewFooter *>("footer");
                 footer->hide();
-            }
+           	}
+
+            if(pConfig->value("Tweaks/hideSyncIcon", false).toBool()) {
+		        TouchLabel *syncIcon = qApp->activeWindow()->findChild<TouchLabel *>("syncIcon");
+				if(syncIcon)
+		        	syncIcon->hide();
+			}
+
+			// TODO can't get instance for WirelessWatchdog --> WHY??
+		    WirelessWatchdog *wd = WirelessWatchdog::sharedInstance();
+			if(wd) {
+				if(wirelessTimeoutEnabled())
+					wd->setEnabled(true);
+				else
+					wd->setEnabled(false);
+				}
         }
     }
 }
@@ -189,6 +206,14 @@ void TweaksPlugin::patchMenu()
                 mti->setSelectedImage(":/koboplugins/icons/menu/shortlist_01.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "shortlist", true, true);
+                ntm->addSeparator();
+            }
+
+            if(lmc && pConfig->value("Menu/showSearch", true).toBool()) {
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Library Search")), false);
+                mti->setSelectedImage(":/koboplugins/icons/menu/search_01.png");
+                mti->setSelected(true);
+                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "search", true, true);
                 ntm->addSeparator();
             }
 
@@ -314,6 +339,11 @@ void TweaksPlugin::open(QString mimeType)
         if(lmc)
             lmc->favourites();
 	    }
+	else if (mimeType == "search") {
+	    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+        if(lmc)
+            lmc->search();
+	    }
 	else {
         Volume v;
         v.setMimeType(mimeType);
@@ -340,7 +370,8 @@ void TweaksPlugin::enableWirelessTimeout(bool enable)
 
 bool TweaksPlugin::wirelessTimeoutEnabled()
 {
-    return true;
+    PluginsConfig* pConfig = PluginsConfig::get();
+    return pConfig->value("Tweaks/enableWirelessTimeout", true).toBool();
 }
 
 void TweaksPlugin::hideRecommendations(bool enable)
@@ -348,6 +379,11 @@ void TweaksPlugin::hideRecommendations(bool enable)
     cout << "TweaksPlugin::hideRecommendations(): " << enable << endl << flush; 
     PluginsConfig* pConfig = PluginsConfig::get();
     pConfig->setValue("Tweaks/hideRecommendations", enable);
+}
+
+void TweaksPlugin::uninstallPlugin()
+{
+	QFile::remove("/usr/local/Kobo/libtweaks.so");
 }
 
 bool TweaksPlugin::checkFirmwareVersion()

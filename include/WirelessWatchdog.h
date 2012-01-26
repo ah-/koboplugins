@@ -4,6 +4,8 @@
 class WirelessWatchdog : public QObject {
 public:
     static WirelessWatchdog *sharedInstance();
+	
+	void setEnabled(bool bEnable);
     
     QTimer timer;
 };

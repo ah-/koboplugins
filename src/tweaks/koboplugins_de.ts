@@ -69,118 +69,133 @@
     </message>
     <message>
         <location filename="tweakview.ui" line="154"/>
-        <location filename="tweakview.ui" line="245"/>
-        <location filename="tweakview.ui" line="294"/>
+        <location filename="tweakview.ui" line="251"/>
+        <location filename="tweakview.ui" line="300"/>
         <source>On</source>
         <translation>Ein</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="170"/>
-        <location filename="tweakview.ui" line="261"/>
-        <location filename="tweakview.ui" line="310"/>
+        <location filename="tweakview.ui" line="176"/>
+        <location filename="tweakview.ui" line="267"/>
+        <location filename="tweakview.ui" line="316"/>
         <source>Off</source>
         <translation>Aus</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="197"/>
+        <location filename="tweakview.ui" line="203"/>
         <source>Blue</source>
         <translation>Blau</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="218"/>
+        <location filename="tweakview.ui" line="224"/>
         <source>Green</source>
         <translation>Grün</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="337"/>
+        <location filename="tweakview.ui" line="343"/>
         <source>Home Menu</source>
         <translation>Start Menü</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="365"/>
+        <location filename="tweakview.ui" line="371"/>
         <source>Add shortcuts to the home menu.</source>
-        <translation>Füge Verknüpfungen zum Start Menü hinzu.</translation>
+        <translation>Füge Verknüpfungen zum Startmenü hinzu.</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="430"/>
+        <location filename="tweakview.ui" line="436"/>
         <source>Add browser shortcut</source>
-        <translation>Füge Webbroweser Verknüpfung hinzu</translation>
+        <translation>Webbrowser</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="442"/>
+        <location filename="tweakview.ui" line="448"/>
         <source>Miscellaneous Settings</source>
         <translation>Verschiedene Einstellungen</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="470"/>
+        <location filename="tweakview.ui" line="476"/>
         <source>Random stuff.</source>
-        <translation></translation>
+        <translation>Verschiedenes.</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="532"/>
+        <location filename="tweakview.ui" line="538"/>
         <source>Enable wireless timeout</source>
         <translation>Aktiviere WLan Timeout</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="556"/>
+        <location filename="tweakview.ui" line="562"/>
         <source>Hide recommendations</source>
         <translation>Empfehlungen ausblenden</translation>
+    </message>
+    <message>
+        <location filename="tweakview.ui" line="586"/>
+        <source>font: 22px Avenir; border: 2px solid black; border-radius: 5px;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="tweakview.ui" line="589"/>
+        <source>Uninstall Plugin</source>
+        <translation>Plugin deinstallieren</translation>
     </message>
 </context>
 <context>
     <name>TweaksPlugin</name>
     <message>
-        <location filename="TweaksPlugin.cpp" line="180"/>
+        <location filename="TweaksPlugin.cpp" line="194"/>
         <source>Library</source>
         <translation>Bibliothek</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="196"/>
+        <location filename="TweaksPlugin.cpp" line="218"/>
         <source>Dictionary</source>
         <translation>Wörterbuch</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="188"/>
+        <location filename="TweaksPlugin.cpp" line="202"/>
         <source>Shortlist</source>
         <translation>Favoriten</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="204"/>
+        <location filename="TweaksPlugin.cpp" line="210"/>
+        <source>Library Search</source>
+        <translation>Bibliothekssuche</translation>
+    </message>
+    <message>
+        <location filename="TweaksPlugin.cpp" line="226"/>
         <source>Reading Life</source>
         <translation>Reading Life</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="212"/>
+        <location filename="TweaksPlugin.cpp" line="234"/>
         <source>Store</source>
         <translation>Shop</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="220"/>
+        <location filename="TweaksPlugin.cpp" line="242"/>
         <source>Sync</source>
         <translation>Sync</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="228"/>
+        <location filename="TweaksPlugin.cpp" line="250"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="235"/>
+        <location filename="TweaksPlugin.cpp" line="257"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="242"/>
+        <location filename="TweaksPlugin.cpp" line="264"/>
         <source>Tweaks</source>
         <translation>Tweaks</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="249"/>
+        <location filename="TweaksPlugin.cpp" line="271"/>
         <source>Browser</source>
         <translation>Browser</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="258"/>
+        <location filename="TweaksPlugin.cpp" line="280"/>
         <source>Toggle WiFi</source>
         <translation>WiFI Ein/Aus</translation>
     </message>

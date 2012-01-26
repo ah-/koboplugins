@@ -64,10 +64,16 @@ class ReversibleLabel : public QWidget
 		ReversibleLabel(QWidget* p = NULL);
 };
 
+class TouchLabel : public QWidget
+{
+	public:
+};
+
 class LibraryMenuController : public QObject
     {
     public:
         void favourites();
+		void search();
     };
 
 #endif // __HOME_MENU_CONTROLLER_H__

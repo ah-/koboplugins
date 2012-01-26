@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>800</height>
+    <height>805</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>80</height>
+       <height>60</height>
       </size>
      </property>
     </spacer>
@@ -144,7 +144,7 @@ padding-bottom: 10;</string>
          <property name="minimumSize">
           <size>
            <width>80</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -153,6 +153,12 @@ padding-bottom: 10;</string>
          <property name="text">
           <string>On</string>
          </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
         </widget>
        </item>
        <item>
@@ -160,7 +166,7 @@ padding-bottom: 10;</string>
          <property name="minimumSize">
           <size>
            <width>80</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -235,7 +241,7 @@ padding-bottom: 10;</string>
          <property name="minimumSize">
           <size>
            <width>80</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -251,7 +257,7 @@ padding-bottom: 10;</string>
          <property name="minimumSize">
           <size>
            <width>80</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -284,7 +290,7 @@ padding-bottom: 10;</string>
          <property name="minimumSize">
           <size>
            <width>80</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -300,7 +306,7 @@ padding-bottom: 10;</string>
          <property name="minimumSize">
           <size>
            <width>80</width>
-           <height>40</height>
+           <height>30</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -560,6 +566,39 @@ QCheckBox::indicator:disabled {
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="uninstallButton">
+       <property name="styleSheet">
+        <string>font: 22px Avenir; border: 2px solid black; border-radius: 5px;</string>
+       </property>
+       <property name="text">
+        <string>Uninstall Plugin</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>18</width>
+         <height>24</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -567,7 +606,7 @@ QCheckBox::indicator:disabled {
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>306</height>
+       <height>40</height>
       </size>
      </property>
     </spacer>

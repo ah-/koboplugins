@@ -5,7 +5,7 @@
 		<file alias="tweak_01.png">tweak_01.png</file>
         <file alias="dictionary_01.png">dictionary_01.png</file>
         <file alias="search_01.png">search_01.png</file>
-        <file alias="shortlist_01.png">search_01.png</file>
+        <file alias="shortlist_01.png">shortlist_01.png</file>
 	</qresource>
 	<qresource prefix="/koboplugins/templates/" >
 		<file alias="koboplugins.ini">../templates/koboplugins.ini</file>

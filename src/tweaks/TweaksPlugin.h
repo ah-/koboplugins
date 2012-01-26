@@ -28,6 +28,7 @@ public slots:
     void enableBrowserShortcut(bool enable);
     void enableWirelessTimeout(bool enable);
     void hideRecommendations(bool enable);
+	void uninstallPlugin();
 
 private:
     bool checkFirmwareVersion();
