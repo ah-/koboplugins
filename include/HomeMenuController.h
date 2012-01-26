@@ -53,6 +53,15 @@ public:
 	void settings();
 	void dictionary();
 	void library();
+    void readingLife();
+    void sync();
+    void help();
+};
+
+class ReversibleLabel : public QWidget
+{
+	public:
+		ReversibleLabel(QWidget* p = NULL);
 };
 
 #endif // __HOME_MENU_CONTROLLER_H__

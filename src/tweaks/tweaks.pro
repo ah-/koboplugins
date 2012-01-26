@@ -12,11 +12,13 @@ TARGET = tweaks
 FORMS = tweakview.ui
 
 SOURCES += TweaksPlugin.cpp \
-    TweaksWidget.cpp
+    TweaksWidget.cpp \
+    config.cpp
 
 RESOURCES += ../../res/koboplugins.qrc
 
 HEADERS += ../../include/PluginInterface.h \
     TweaksPlugin.h \
-    TweaksWidget.h
+    TweaksWidget.h \
+    config.h
 

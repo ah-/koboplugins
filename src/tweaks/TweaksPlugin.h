@@ -30,6 +30,9 @@ public slots:
     void hideRecommendations(bool enable);
 
 private:
+    bool checkFirmwareVersion();
+
+private:
     TweaksWidget *w;
     QSignalMapper mapper;
     QStackedWidget *sw;

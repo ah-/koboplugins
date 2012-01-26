@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../../include/LedManager.h"
 #include "TweaksPlugin.h"
-
+#include "config.h"
 
 using namespace std;
 
@@ -11,11 +11,12 @@ TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
     plugin(plugin)
 {
     setupUi(this);
-    QSettings settings;
-    browserShortcut->setChecked(settings.value("Tweaks/enableBrowserShortcut", true).toBool());
-    wifiTimeout->setChecked(settings.value("Tweaks/enableWirelessTimeout", false).toBool());
+    PluginsConfig* pConfig = PluginsConfig::get();
+
+    browserShortcut->setChecked(pConfig->value("Menu/showBrowser", true).toBool());
+    wifiTimeout->setChecked(pConfig->value("Tweaks/enableWirelessTimeout", false).toBool());
     wifiTimeout->hide(); // not done yet
-    hideRecommendations->setChecked(settings.value("Tweaks/hideRecommendations", false).toBool());
+    hideRecommendations->setChecked(pConfig->value("Tweaks/hideRecommendations", false).toBool());
     cout << "TweaksWidget()" << endl << flush; 
     QWidget::setAttribute(Qt::WA_AcceptTouchEvents);
     QObject::connect(this, SIGNAL(clicked(bool)), this, SLOT(onPush(bool)));
