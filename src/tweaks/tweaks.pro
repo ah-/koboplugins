@@ -22,3 +22,5 @@ HEADERS += ../../include/PluginInterface.h \
     TweaksWidget.h \
     config.h
 
+TRANSLATIONS = koboplugins_de.ts \
+               koboplugins_fr.ts

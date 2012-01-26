@@ -1,4 +1,6 @@
 #include "TweaksPlugin.h"
+#include <QLocale>
+#include <QTranslator>
 #include <iostream>
 
 #include "../../include/PluginInterface.h"
@@ -31,6 +33,11 @@ TweaksPlugin::TweaksPlugin() :
 
     if(!checkFirmwareVersion())
         return;
+
+    QTranslator* pTranslator = new QTranslator;
+    QString locale = QLocale::system().name();
+    pTranslator->load(QString("koboplugins_") + PluginsConfig::get()->value("Global/language", "en").toString(), ":/koboplugins/translations/");
+    qApp->installTranslator(pTranslator);
 
     cout << "TweaksPlugin()" << endl << flush; 
 
@@ -155,6 +162,7 @@ void TweaksPlugin::patchMenu()
 {
     cout << "TweaksPlugin::patchMenu()" << endl << flush; 
     HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
+    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
     NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
     PluginsConfig* pConfig = PluginsConfig::get();
 
@@ -169,23 +177,31 @@ void TweaksPlugin::patchMenu()
             ntm->clear();
 
             if(pConfig->value("Menu/showLibrary", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString("Library"), false);
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Library")), false);
                 mti->setSelectedImage(":/images/menu/trilogy_library.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "library", true, true);
                 ntm->addSeparator();
             }
 
+            if(lmc && pConfig->value("Menu/showShortlist", true).toBool()) {
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Shortlist")), false);
+                mti->setSelectedImage(":/koboplugins/icons/menu/shortlist_01.png");
+                mti->setSelected(true);
+                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "shortlist", true, true);
+                ntm->addSeparator();
+            }
+
             if(pConfig->value("Menu/showDictionary", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString("Dictionary"), false);
-                mti->setSelectedImage(":/images/menu/trilogy_readinglife.png");
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Dictionary")), false);
+                mti->setSelectedImage(":/koboplugins/icons/menu/dictionary_01.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "dictionary", true, true);
                 ntm->addSeparator();
             }
 
             if(pConfig->value("Menu/showReadingLife", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString("Reading Life"), false);
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Reading Life")), false);
                 mti->setSelectedImage(":/images/menu/trilogy_readinglife.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "readingLife", true, true);
@@ -193,7 +209,7 @@ void TweaksPlugin::patchMenu()
             }
 
             if(pConfig->value("Menu/showStore", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString("Store"), false);
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Store")), false);
                 mti->setSelectedImage(":/images/menu/trilogy_store.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "store", true, true);
@@ -201,7 +217,7 @@ void TweaksPlugin::patchMenu()
             }
 
             if(pConfig->value("Menu/showSync", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString("Sync"), false);
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Sync")), false);
                 mti->setSelectedImage(":/images/menu/trilogy_sync.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "sync", true, true);
@@ -209,28 +225,28 @@ void TweaksPlugin::patchMenu()
             }
 
             if(pConfig->value("Menu/showHelp", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString("Help"), false);
+                mti = hmc->createMenuTextItem(ntm, QString(tr("Help")), false);
                 mti->setSelectedImage(":/images/menu/trilogy_help.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "help", true, true);
                 ntm->addSeparator();
             }
 
-            mti = hmc->createMenuTextItem(ntm, QString("Settings"), false);
+            mti = hmc->createMenuTextItem(ntm, QString(tr("Settings")), false);
             mti->setSelectedImage(":/images/menu/trilogy_settings.png");
             mti->setSelected(true);
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "settings", true, true);
             ntm->addSeparator();
             }
 
-        mti = hmc->createMenuTextItem(ntm, QString("Tweaks"), false);
+        mti = hmc->createMenuTextItem(ntm, QString(tr("Tweaks")), false);
         mti->setSelectedImage(":/koboplugins/icons/menu/tweak_01.png");
         mti->setSelected(true);
         hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-kobo-tweaks", true, true);
         ntm->addSeparator();
 
         if(pConfig->value("Menu/showBrowser", false).toBool()) {
-            mti = hmc->createMenuTextItem(ntm, QString("Browser"), false);
+            mti = hmc->createMenuTextItem(ntm, QString(tr("Browser")), false);
 	        mti->setSelectedImage(":/koboplugins/icons/menu/browser_01.png");	
 			mti->setSelected(true);
             // Hack, since there's no actual way to launch "applications"
@@ -239,7 +255,7 @@ void TweaksPlugin::patchMenu()
             }
 
         if(pConfig->value("Menu/showAirplaneMode", false).toBool()) {
-            mti = hmc->createMenuTextItem(ntm, QString("Toggle WiFi"), false);
+            mti = hmc->createMenuTextItem(ntm, QString(tr("Toggle WiFi")), false);
             mti->setSelectedImage(":/images/statusbar/wifi_airplane.png");
             mti->setSelected(true);
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "airplaneMode", true, true);
@@ -293,6 +309,11 @@ void TweaksPlugin::open(QString mimeType)
         if(p)
             p->airplaneModeToggled();
 	}
+	else if (mimeType == "shortlist") {
+	    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+        if(lmc)
+            lmc->favourites();
+	    }
 	else {
         Volume v;
         v.setMimeType(mimeType);
