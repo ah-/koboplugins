@@ -234,7 +234,7 @@ void TweaksPlugin::patchMenu()
             }
 
         if(pConfig->value("Menu/showAirplaneMode", false).toBool()) {
-            mti = hmc->createMenuTextItem(ntm, QString("Toggle Airplane Mode"), false);
+            mti = hmc->createMenuTextItem(ntm, QString("Toggle WiFi"), false);
             mti->setSelectedImage(":/images/statusbar/wifi_airplane.png");
             mti->setSelected(true);
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "airplaneMode", true, true);
