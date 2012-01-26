@@ -22,6 +22,11 @@ TweaksPlugin::TweaksPlugin() :
     sw(NULL),
     lastPatchedMenu(NULL)
 {
+    // check if koboplugins.ini exists otherwise extract resource
+    QFile f("/mnt/onboard/.kobo/koboplugins.ini");
+    if(!f.exists())
+        QFile::copy(":/koboplugins/templates/koboplugins.ini", "/mnt/onboard/.kobo/koboplugins.ini");
+
     PluginsConfig::init("/mnt/onboard/.kobo/koboplugins.ini");
 
     if(!checkFirmwareVersion())

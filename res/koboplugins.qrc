@@ -4,4 +4,7 @@
 		<file alias="browser_01.png">browser_01.png</file>
 		<file alias="tweak_01.png">tweak_01.png</file>
 	</qresource>
+	<qresource prefix="/koboplugins/templates/" >
+		<file alias="koboplugins.ini">../templates/koboplugins.ini</file>
+	</qresource>
 </RCC>
