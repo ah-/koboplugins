@@ -83,7 +83,7 @@
         <translation>Enable wireless timeout</translation>
     </message>
     <message>
-        <location filename="tweakview.ui" line="556"/>
+        <location filename="tweakview.ui" line="562"/>
         <source>Hide recommendations</source>
         <translation>Cacher les recommandations</translation>
     </message>
