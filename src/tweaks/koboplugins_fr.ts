@@ -11,7 +11,7 @@
     <message>
         <location filename="tweakview.ui" line="39"/>
         <source>TWEAKS</source>
-        <translation>TWEAKS</translation>
+        <translation>Réglages</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="61"/>
@@ -148,7 +148,7 @@
     <message>
         <location filename="TweaksPlugin.cpp" line="264"/>
         <source>Tweaks</source>
-        <translation>Tweaks</translation>
+        <translation>Réglages</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="271"/>
