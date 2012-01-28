@@ -53,7 +53,28 @@ public:
 	void settings();
 	void dictionary();
 	void library();
+    void readingLife();
+    void sync();
+    void help();
 };
+
+class ReversibleLabel : public QWidget
+{
+	public:
+		ReversibleLabel(QWidget* p = NULL);
+};
+
+class TouchLabel : public QWidget
+{
+	public:
+};
+
+class LibraryMenuController : public QObject
+    {
+    public:
+        void favourites();
+		void search();
+    };
 
 #endif // __HOME_MENU_CONTROLLER_H__
 

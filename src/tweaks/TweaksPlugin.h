@@ -29,6 +29,10 @@ public slots:
     void enableWirelessTimeout(bool enable);
     void hideRecommendations(bool enable);
     void sync(bool);
+	void uninstallPlugin();
+
+private:
+    bool checkFirmwareVersion();
 
 private:
     TweaksWidget *w;

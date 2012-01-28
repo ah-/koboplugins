@@ -3,5 +3,15 @@
 	<qresource prefix="/koboplugins/icons/menu/" >
 		<file alias="browser_01.png">browser_01.png</file>
 		<file alias="tweak_01.png">tweak_01.png</file>
+        <file alias="dictionary_01.png">dictionary_01.png</file>
+        <file alias="search_01.png">search_01.png</file>
+        <file alias="shortlist_01.png">shortlist_01.png</file>
 	</qresource>
+	<qresource prefix="/koboplugins/templates/" >
+		<file alias="koboplugins.ini">../templates/koboplugins.ini</file>
+	</qresource>
+    <qresource prefix="/koboplugins/translations/" >
+        <file alias="koboplugins_de.qm">../src/tweaks/koboplugins_de.qm</file>
+        <file alias="koboplugins_fr.qm">../src/tweaks/koboplugins_fr.qm</file>
+    </qresource>
 </RCC>

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../../include/LedManager.h"
 #include "TweaksPlugin.h"
-
+#include "config.h"
 
 using namespace std;
 
@@ -11,18 +11,16 @@ TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
     plugin(plugin)
 {
     setupUi(this);
+
+    cout << "TweaksWidget()" << endl << flush; 
+    PluginsConfig* pConfig = PluginsConfig::get();
+
+    browserShortcut->setChecked(pConfig->value("Menu/showBrowser", true).toBool());
+    wifiTimeout->setChecked(pConfig->value("Tweaks/enableWirelessTimeout", true).toBool());
+    hideRecommendations->setChecked(pConfig->value("Tweaks/hideRecommendations", false).toBool());
     cout << "TweaksWidget()" << endl << flush; 
 
-    QSettings settings;
-    browserShortcut->setChecked(settings.value("Tweaks/enableBrowserShortcut", true).toBool());
-    wifiTimeout->setChecked(settings.value("Tweaks/enableWirelessTimeout", false).toBool());
-    wifiTimeout->hide(); // not done yet
-    hideRecommendations->setChecked(settings.value("Tweaks/hideRecommendations", false).toBool());
     QWidget::setAttribute(Qt::WA_AcceptTouchEvents);
-
-    // TODO: hide recommendations on home screen
-    // TODO: disconnect wirelesswatchdog timer signal
-    
     redOn->setAttribute(Qt::WA_AcceptTouchEvents);
     redOff->setAttribute(Qt::WA_AcceptTouchEvents);
     greenOn->setAttribute(Qt::WA_AcceptTouchEvents);
@@ -33,6 +31,8 @@ TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
     wifiTimeout->setAttribute(Qt::WA_AcceptTouchEvents);
     hideRecommendations->setAttribute(Qt::WA_AcceptTouchEvents);
     syncButton->setAttribute(Qt::WA_AcceptTouchEvents);
+    uninstallButton->setAttribute(Qt::WA_AcceptTouchEvents);
+
     connect(redOn, SIGNAL(pressed()), this, SLOT(redLedOn()));
     connect(redOff, SIGNAL(pressed()), this, SLOT(redLedOff()));
     connect(greenOn, SIGNAL(pressed()), this, SLOT(greenLedOn()));
@@ -43,6 +43,7 @@ TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
     connect(wifiTimeout, SIGNAL(toggled(bool)), plugin, SLOT(enableWirelessTimeout(bool)));
     connect(hideRecommendations, SIGNAL(toggled(bool)), plugin, SLOT(hideRecommendations(bool)));
     connect(syncButton, SIGNAL(clicked(bool)), plugin, SLOT(sync(bool)));
+	connect(uninstallButton, SIGNAL(clicked()), plugin, SLOT(uninstallPlugin()));
 }
 
 bool TweaksWidget::event(QEvent* event) {
