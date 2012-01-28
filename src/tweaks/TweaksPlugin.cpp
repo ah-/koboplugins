@@ -66,7 +66,7 @@ TweaksPlugin::TweaksPlugin() :
     }
 
     connect(&mapper, SIGNAL(mapped(QString)), this, SLOT(open(QString)));
-    //enableWirelessTimeout(settings.value("Tweaks/enableWirelessTimeout", false).toBool());
+    enableWirelessTimeout(PluginsConfig::get()->value("Tweaks/enableWirelessTimeout", false).toBool());
 }
 
 TweaksPlugin::~TweaksPlugin()
@@ -101,7 +101,7 @@ ParserInterface *TweaksPlugin::parser()
 
 void TweaksPlugin::windowChanged(int index)
 {
-	static QPushButton* b = NULL;
+	//static QPushButton* b = NULL;
 
     cout << "TweaksPlugin::windowChanged()" << endl << flush; 
 
@@ -124,7 +124,7 @@ void TweaksPlugin::windowChanged(int index)
 
             if (home) {
                 // patch menu when it's displayed for the first time
-                connect(home, SIGNAL(mouseDown()), this, SLOT(patchMenu()),(Qt::ConnectionType)  0);
+                connect(home, SIGNAL(mouseDown()), this, SLOT(patchMenu()), (Qt::ConnectionType) 0);
             }
 
 			/*
@@ -164,15 +164,6 @@ void TweaksPlugin::windowChanged(int index)
 				if(syncIcon)
 		        	syncIcon->hide();
 			}
-
-			// TODO can't get instance for WirelessWatchdog --> WHY??
-		    WirelessWatchdog *wd = WirelessWatchdog::sharedInstance();
-			if(wd) {
-				if(wirelessTimeoutEnabled())
-					wd->setEnabled(true);
-				else
-					wd->setEnabled(false);
-				}
         }
     }
 }
@@ -187,9 +178,7 @@ void TweaksPlugin::patchMenu()
 
     cout << "TweaksPlugin::patchMenu(), ntm: " << ntm << ", hmc: " << hmc << endl << flush; 
     if (hmc && ntm && lastPatchedMenu != (void *) ntm) {
-        /* Clear menu and add entries based on configuration
-         *
-         */
+        // Clear menu and add entries based on configuration
         MenuTextItem *mti = NULL;
 
         if(pConfig->value("Menu/customMenuEnabled", false).toBool()) {
@@ -366,8 +355,13 @@ void TweaksPlugin::enableBrowserShortcut(bool enable)
 void TweaksPlugin::enableWirelessTimeout(bool enable)
 {
     cout << "TweaksPlugin::enableWirelessTimeout(): " << enable << endl << flush; 
-    PluginsConfig* pConfig = PluginsConfig::get();
-    pConfig->setValue("Tweaks/enableWirelessTimeout", enable);
+    PluginsConfig::get()->setValue("Tweaks/enableWirelessTimeout", enable);
+
+    WirelessWatchdog *wd = WirelessWatchdog::sharedInstance();
+    cout << "TweaksPlugin::enableWirelessTimeout(): " << wd << endl << flush; 
+    if(wd) {
+        wd->setEnabled(enable);
+    }
 }
 
 bool TweaksPlugin::wirelessTimeoutEnabled()
