@@ -25,7 +25,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>80</height>
+       <height>60</height>
       </size>
      </property>
     </spacer>
@@ -554,6 +554,22 @@ QCheckBox::indicator:disabled {
        </property>
        <property name="text">
         <string>Hide recommendations</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="syncButton">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 22px Avenir; border: 2px solid black; border-radius: 5px;</string>
+       </property>
+       <property name="text">
+        <string>Sync now</string>
        </property>
       </widget>
      </item>

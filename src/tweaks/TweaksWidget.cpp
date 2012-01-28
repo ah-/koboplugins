@@ -11,14 +11,14 @@ TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
     plugin(plugin)
 {
     setupUi(this);
+    cout << "TweaksWidget()" << endl << flush; 
+
     QSettings settings;
     browserShortcut->setChecked(settings.value("Tweaks/enableBrowserShortcut", true).toBool());
     wifiTimeout->setChecked(settings.value("Tweaks/enableWirelessTimeout", false).toBool());
     wifiTimeout->hide(); // not done yet
     hideRecommendations->setChecked(settings.value("Tweaks/hideRecommendations", false).toBool());
-    cout << "TweaksWidget()" << endl << flush; 
     QWidget::setAttribute(Qt::WA_AcceptTouchEvents);
-    QObject::connect(this, SIGNAL(clicked(bool)), this, SLOT(onPush(bool)));
 
     // TODO: hide recommendations on home screen
     // TODO: disconnect wirelesswatchdog timer signal
@@ -32,6 +32,7 @@ TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
     browserShortcut->setAttribute(Qt::WA_AcceptTouchEvents);
     wifiTimeout->setAttribute(Qt::WA_AcceptTouchEvents);
     hideRecommendations->setAttribute(Qt::WA_AcceptTouchEvents);
+    syncButton->setAttribute(Qt::WA_AcceptTouchEvents);
     connect(redOn, SIGNAL(pressed()), this, SLOT(redLedOn()));
     connect(redOff, SIGNAL(pressed()), this, SLOT(redLedOff()));
     connect(greenOn, SIGNAL(pressed()), this, SLOT(greenLedOn()));
@@ -41,6 +42,7 @@ TweaksWidget::TweaksWidget(TweaksPlugin *plugin, QWidget *parent=0)
     connect(browserShortcut, SIGNAL(toggled(bool)), plugin, SLOT(enableBrowserShortcut(bool)));
     connect(wifiTimeout, SIGNAL(toggled(bool)), plugin, SLOT(enableWirelessTimeout(bool)));
     connect(hideRecommendations, SIGNAL(toggled(bool)), plugin, SLOT(hideRecommendations(bool)));
+    connect(syncButton, SIGNAL(clicked(bool)), plugin, SLOT(sync(bool)));
 }
 
 bool TweaksWidget::event(QEvent* event) {

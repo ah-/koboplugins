@@ -10,9 +10,10 @@
 #include "../../include/Volume.h"
 #include "../../include/ReadingViewMixin.h"
 #include "../../include/N3ReaderOpener.h"
+#include "../../include/N3SettingsController.h"
+#include "../../include/N3SyncManager.h"
 #include "../../include/WirelessWorkflowManager.h"
 #include "../../include/HomeMenuController.h"
-#include "../../include/N3SettingsController.h"
 #include "../qtscript/QtScriptPlugin.h"
 
 
@@ -232,6 +233,12 @@ void TweaksPlugin::hideRecommendations(bool enable)
     cout << "TweaksPlugin::hideRecommendations(): " << enable << endl << flush; 
     QSettings settings;
     settings.setValue("Tweaks/hideRecommendations", enable);
+}
+
+void TweaksPlugin::sync(bool)
+{
+    cout << "TweaksPlugin::sync()" << endl << flush; 
+    N3SyncManager::sharedInstance()->sync();
 }
 
 Q_EXPORT_PLUGIN2(tictactoe, TweaksPlugin)
