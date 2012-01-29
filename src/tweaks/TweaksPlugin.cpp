@@ -202,7 +202,7 @@ void TweaksPlugin::patchMenu()
 
             if(lmc && pConfig->value("Menu/showSearch", true).toBool()) {
                 mti = hmc->createMenuTextItem(ntm, QString(tr("Library Search")), false);
-                mti->setSelectedImage(":/koboplugins/icons/menu/search_01.png");
+                mti->setSelectedImage(":/koboplugins/icons/menu/search_02.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "search", true, true);
                 ntm->addSeparator();
@@ -263,7 +263,7 @@ void TweaksPlugin::patchMenu()
 
         if(pConfig->value("Menu/showBrowser", false).toBool()) {
             mti = hmc->createMenuTextItem(ntm, QString(tr("Browser")), false);
-	        mti->setSelectedImage(":/koboplugins/icons/menu/browser_01.png");	
+            mti->setSelectedImage(":/koboplugins/icons/menu/browser_02.png");
 			mti->setSelected(true);
             // Hack, since there's no actual way to launch "applications"
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-browser", true, true);
