@@ -3,6 +3,7 @@
 #include <QTranslator>
 #include <QMessageBox>
 #include <iostream>
+#include <QFile>
 
 #include "../../include/PluginInterface.h"
 //#include "../../include/QtScriptPluginInterface.h"
@@ -19,6 +20,7 @@
 #include "../../include/HomeMenuController.h"
 #include "../../include/N3SettingsController.h"
 #include "../../include/WirelessWatchdog.h"
+#include "../../include/DevicePowerWorkflowManager.h"
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
 
@@ -278,6 +280,14 @@ void TweaksPlugin::patchMenu()
             ntm->addSeparator();
             }
 
+        if(pConfig->value("Menu/showPowerOff", true).toBool()) {
+            mti = hmc->createMenuTextItem(ntm, QString(tr("Power Off")), false);
+            mti->setSelectedImage(":/images/icons/power_01.png");
+            mti->setSelected(true);
+            hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "powerOff", true, true);
+            ntm->addSeparator();
+            }
+
         // store that we already patched this menu so the item doesn't get added twice
         lastPatchedMenu = (void *) ntm;
         cout << "TweaksPlugin::patchMenu(), success!" << endl << flush; 
@@ -335,6 +345,11 @@ void TweaksPlugin::open(QString mimeType)
         if(lmc)
             lmc->search();
 	    }
+	else if (mimeType == "powerOff") {
+        DevicePowerWorkflowManager* p = QApplication::activeWindow()->findChild<DevicePowerWorkflowManager *>();    
+        if(p)
+            p->powerOff(true);
+	}
 	else {
         Volume v;
         v.setMimeType(mimeType);

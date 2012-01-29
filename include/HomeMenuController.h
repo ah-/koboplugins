@@ -1,6 +1,7 @@
 #ifndef __HOME_MENU_CONTROLLER_H__
 #define __HOME_MENU_CONTROLLER_H__
 
+
 class GestureDelegate {
 };
 
