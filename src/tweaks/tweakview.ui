@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>805</height>
+    <height>826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -414,7 +414,7 @@ padding-bottom: 10;</string>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QCheckBox" name="browserShortcut">
+      <widget class="TouchCheckBox" name="browserShortcut">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
     spacing: 15px;
@@ -516,7 +516,7 @@ padding-bottom: 10;</string>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QCheckBox" name="wifiTimeout">
+      <widget class="TouchCheckBox" name="wifiTimeout">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
     spacing: 15px;
@@ -540,7 +540,7 @@ QCheckBox::indicator:disabled {
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QCheckBox" name="hideRecommendations">
+      <widget class="TouchCheckBox" name="hideRecommendations">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
     spacing: 15px;
@@ -629,6 +629,13 @@ QCheckBox::indicator:disabled {
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TouchCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>TouchCheckBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

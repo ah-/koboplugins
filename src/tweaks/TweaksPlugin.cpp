@@ -14,10 +14,9 @@
 #include "../../include/ReadingViewMixin.h"
 #include "../../include/N3ReaderOpener.h"
 #include "../../include/N3SettingsController.h"
-#include "../../include/N3SyncManager.h"
+#include "../../include/N3FSSyncManager.h"
 #include "../../include/WirelessWorkflowManager.h"
 #include "../../include/HomeMenuController.h"
-#include "../../include/N3SettingsController.h"
 #include "../../include/WirelessWatchdog.h"
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
@@ -385,7 +384,9 @@ void TweaksPlugin::uninstallPlugin()
 void TweaksPlugin::sync(bool)
 {
     cout << "TweaksPlugin::sync()" << endl << flush; 
-    N3SyncManager::sharedInstance()->sync();
+    QStringList paths;
+    paths << "/mnt/onboard/";
+    N3FSSyncManager::sharedInstance()->sync(paths);
 }
 
 bool TweaksPlugin::checkFirmwareVersion()

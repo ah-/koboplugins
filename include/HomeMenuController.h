@@ -1,14 +1,8 @@
 #ifndef __HOME_MENU_CONTROLLER_H__
 #define __HOME_MENU_CONTROLLER_H__
 
-class GestureDelegate {
-};
-
-class GestureReceiver {
-public:
-    void setGestureDelegate(GestureDelegate *);
-    GestureDelegate *gestureDelegate();
-};
+#include "GestureDelegate.h"
+#include "GestureReceiver.h"
 
 class AbstractMenuController : public QObject, public GestureDelegate {
     Q_OBJECT

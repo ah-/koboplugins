@@ -8,6 +8,8 @@ TEMPLATE = lib
 CONFIG += plugin \
           resources
 
+INCLUDEPATH += ../../include
+
 TARGET = tweaks
 FORMS = tweakview.ui
 

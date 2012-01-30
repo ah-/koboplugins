@@ -1,6 +1,6 @@
 #include "TweaksWidget.h"
 #include <iostream>
-#include "../../include/LedManager.h"
+#include "LedManager.h"
 #include "TweaksPlugin.h"
 #include "config.h"
 

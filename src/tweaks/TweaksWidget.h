@@ -2,7 +2,7 @@
 #define __TWEAKS_WIDGET_H__
 
 #include <QtGui>
-#include "../../include/PluginInterface.h"
+#include "PluginInterface.h"
 
 #include "ui_tweakview.h"
 
