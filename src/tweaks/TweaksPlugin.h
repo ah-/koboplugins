@@ -3,7 +3,7 @@
 
 #include <QtGui>
 #include "../../include/PluginInterface.h"
-#include "TweaksWidget.h"
+#include "TweaksSettingsPageView.h"
 
 class TweaksPlugin : public QObject, public PluginInterface
 {
@@ -35,7 +35,8 @@ private:
     bool checkFirmwareVersion();
 
 private:
-    TweaksWidget *w;
+    //TweaksWidget *w;
+    TweaksSettingsPageView *settingsPageView;
     QSignalMapper mapper;
     QStackedWidget *sw;
     void *lastPatchedMenu;

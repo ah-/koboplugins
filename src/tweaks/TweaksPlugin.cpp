@@ -87,11 +87,9 @@ QWidget *TweaksPlugin::reader(void* plugin_state, QWidget *parent)
 {
     cout << "TweaksPlugin::reader()" << endl << flush; 
 
-    w = new TweaksWidget(this, parent);
-    QObject::connect(w, SIGNAL(clicked(void)), w, SLOT(onPush(void)));
-    w->setGeometry(0, 0, 600, 734);
-    w->update();
-	return w;
+    settingsPageView = new TweaksSettingsPageView(parent);
+    settingsPageView->update();
+	return settingsPageView;
 }
 
 ParserInterface *TweaksPlugin::parser()

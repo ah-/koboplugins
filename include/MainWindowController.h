@@ -4,6 +4,7 @@
 class MainWindowController : public QObject {
 public:
     static MainWindowController *sharedInstance();
+    void popView(QWidget *);
 };
 
 #endif
