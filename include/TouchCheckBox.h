@@ -10,7 +10,4 @@ public:
     TouchCheckBox(QWidget *);
 };
 
-//template<int s> struct size_check;
-//size_check<sizeof(TouchCheckBox)> foo;
-
 #endif

@@ -3,6 +3,7 @@
 
 #include "GestureDelegate.h"
 #include "GestureReceiver.h"
+#include "TouchLabel.h"
 
 class AbstractMenuController : public QObject, public GestureDelegate {
     Q_OBJECT
@@ -50,17 +51,6 @@ public:
     void readingLife();
     void sync();
     void help();
-};
-
-class ReversibleLabel : public QWidget
-{
-	public:
-		ReversibleLabel(QWidget* p = NULL);
-};
-
-class TouchLabel : public QWidget
-{
-	public:
 };
 
 class LibraryMenuController : public QObject

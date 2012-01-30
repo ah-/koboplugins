@@ -79,7 +79,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_3">
+    <widget class="TouchLabel" name="label_3">
      <property name="styleSheet">
       <string notr="true">font: 20px &quot;Avenir&quot;; 
 padding-top: 10px; 
@@ -634,6 +634,11 @@ QCheckBox::indicator:disabled {
    <class>TouchCheckBox</class>
    <extends>QCheckBox</extends>
    <header>TouchCheckBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TouchLabel</class>
+   <extends>QLabel</extends>
+   <header>TouchLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
