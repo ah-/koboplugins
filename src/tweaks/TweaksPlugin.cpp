@@ -3,6 +3,7 @@
 #include <QTranslator>
 #include <QMessageBox>
 #include <iostream>
+#include <QFile>
 
 #include "../../include/PluginInterface.h"
 //#include "../../include/QtScriptPluginInterface.h"
@@ -18,6 +19,7 @@
 #include "../../include/WirelessWorkflowManager.h"
 #include "../../include/HomeMenuController.h"
 #include "../../include/WirelessWatchdog.h"
+#include "../../include/DevicePowerWorkflowManager.h"
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
 
@@ -201,7 +203,7 @@ void TweaksPlugin::patchMenu()
 
             if(lmc && pConfig->value("Menu/showSearch", true).toBool()) {
                 mti = hmc->createMenuTextItem(ntm, QString(tr("Library Search")), false);
-                mti->setSelectedImage(":/koboplugins/icons/menu/search_01.png");
+                mti->setSelectedImage(":/koboplugins/icons/menu/search_02.png");
                 mti->setSelected(true);
                 hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "search", true, true);
                 ntm->addSeparator();
@@ -262,7 +264,7 @@ void TweaksPlugin::patchMenu()
 
         if(pConfig->value("Menu/showBrowser", false).toBool()) {
             mti = hmc->createMenuTextItem(ntm, QString(tr("Browser")), false);
-	        mti->setSelectedImage(":/koboplugins/icons/menu/browser_01.png");	
+            mti->setSelectedImage(":/koboplugins/icons/menu/browser_02.png");
 			mti->setSelected(true);
             // Hack, since there's no actual way to launch "applications"
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-browser", true, true);
@@ -274,6 +276,14 @@ void TweaksPlugin::patchMenu()
             mti->setSelectedImage(":/images/statusbar/wifi_airplane.png");
             mti->setSelected(true);
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "airplaneMode", true, true);
+            ntm->addSeparator();
+            }
+
+        if(pConfig->value("Menu/showPowerOff", true).toBool()) {
+            mti = hmc->createMenuTextItem(ntm, QString(tr("Power Off")), false);
+            mti->setSelectedImage(":/images/icons/power_01.png");
+            mti->setSelected(true);
+            hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "powerOff", true, true);
             ntm->addSeparator();
             }
 
@@ -334,6 +344,11 @@ void TweaksPlugin::open(QString mimeType)
         if(lmc)
             lmc->search();
 	    }
+	else if (mimeType == "powerOff") {
+        DevicePowerWorkflowManager* p = QApplication::activeWindow()->findChild<DevicePowerWorkflowManager *>();    
+        if(p)
+            p->powerOff(true);
+	}
 	else {
         Volume v;
         v.setMimeType(mimeType);

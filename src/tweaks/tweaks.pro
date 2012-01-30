@@ -22,7 +22,7 @@ RESOURCES += ../../res/koboplugins.qrc
 HEADERS += ../../include/PluginInterface.h \
     TweaksPlugin.h \
     TweaksWidget.h \
-    config.h
+    config.h 
 
 TRANSLATIONS = koboplugins_de.ts \
                koboplugins_fr.ts
