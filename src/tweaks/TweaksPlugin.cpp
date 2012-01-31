@@ -5,22 +5,20 @@
 #include <iostream>
 #include <QFile>
 
-#include "../../include/PluginInterface.h"
-//#include "../../include/QtScriptPluginInterface.h"
-#include "../../include/PluginLoader.h"
-#include "../../include/MainWindowController.h"
-#include "../../include/HomePageGridView.h"
-#include "../../include/Content.h"
-#include "../../include/Volume.h"
-#include "../../include/ReadingViewMixin.h"
-#include "../../include/N3ReaderOpener.h"
-#include "../../include/N3SettingsController.h"
-#include "../../include/N3SyncManager.h"
-#include "../../include/WirelessWorkflowManager.h"
-#include "../../include/HomeMenuController.h"
-#include "../../include/N3SettingsController.h"
-#include "../../include/WirelessWatchdog.h"
-#include "../../include/DevicePowerWorkflowManager.h"
+#include "PluginInterface.h"
+#include "PluginLoader.h"
+#include "MainWindowController.h"
+#include "HomePageGridView.h"
+#include "Content.h"
+#include "Volume.h"
+#include "ReadingViewMixin.h"
+#include "N3ReaderOpener.h"
+#include "N3SettingsController.h"
+#include "N3FSSyncManager.h"
+#include "WirelessWorkflowManager.h"
+#include "HomeMenuController.h"
+#include "WirelessWatchdog.h"
+#include "DevicePowerWorkflowManager.h"
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
 
@@ -402,7 +400,9 @@ void TweaksPlugin::uninstallPlugin()
 void TweaksPlugin::sync(bool)
 {
     cout << "TweaksPlugin::sync()" << endl << flush; 
-    N3SyncManager::sharedInstance()->sync();
+    QStringList paths;
+    paths << "/mnt/onboard/";
+    N3FSSyncManager::sharedInstance()->sync(paths);
 }
 
 bool TweaksPlugin::checkFirmwareVersion()

@@ -1,15 +1,9 @@
 #ifndef __HOME_MENU_CONTROLLER_H__
 #define __HOME_MENU_CONTROLLER_H__
 
-
-class GestureDelegate {
-};
-
-class GestureReceiver {
-public:
-    void setGestureDelegate(GestureDelegate *);
-    GestureDelegate *gestureDelegate();
-};
+#include "GestureDelegate.h"
+#include "GestureReceiver.h"
+#include "TouchLabel.h"
 
 class AbstractMenuController : public QObject, public GestureDelegate {
     Q_OBJECT
@@ -57,17 +51,6 @@ public:
     void readingLife();
     void sync();
     void help();
-};
-
-class ReversibleLabel : public QWidget
-{
-	public:
-		ReversibleLabel(QWidget* p = NULL);
-};
-
-class TouchLabel : public QWidget
-{
-	public:
 };
 
 class LibraryMenuController : public QObject
