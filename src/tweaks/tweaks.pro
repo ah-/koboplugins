@@ -12,11 +12,13 @@ INCLUDEPATH += ../../include
 
 TARGET = tweaks
 FORMS = tweakview.ui \
+    TweaksSettingsPageHeader.ui \
     TweaksSettingsPageView.ui \
     TweaksSettingsView.ui
 
 SOURCES += TweaksPlugin.cpp \
     TweaksWidget.cpp \
+    TweaksSettingsPageHeader.cpp \
     TweaksSettingsPageView.cpp \
     TweaksSettingsView.cpp \
     config.cpp
@@ -26,6 +28,7 @@ RESOURCES += ../../res/koboplugins.qrc
 HEADERS += ../../include/PluginInterface.h \
     TweaksPlugin.h \
     TweaksWidget.h \
+    TweaksSettingsPageHeader.h \
     TweaksSettingsPageView.h \
     TweaksSettingsView.h \
     config.h 

@@ -21,6 +21,7 @@
 #include "DevicePowerWorkflowManager.h"
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
+#include "TweaksSettingsPageView.h"
 
 using namespace std;
 
@@ -256,7 +257,7 @@ void TweaksPlugin::patchMenu()
         mti = hmc->createMenuTextItem(ntm, QString(tr("Tweaks")), false);
         mti->setSelectedImage(":/koboplugins/icons/menu/tweak_01.png");
         mti->setSelected(true);
-        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-kobo-tweaks", true, true);
+        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "tweaks", true, true);
         ntm->addSeparator();
 
         if(pConfig->value("Menu/showBrowser", false).toBool()) {
@@ -298,6 +299,11 @@ void TweaksPlugin::open(QString mimeType)
     if (mimeType == "application/x-browser") {
         WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
     } 
+	else if (mimeType == "tweaks") {
+        // TODO: proper parent/lifecycle management
+        TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow());
+        MainWindowController::sharedInstance()->pushView(v);
+	}
 	else if (mimeType == "library") {
 		if(hmc)
 			hmc->library();
