@@ -282,7 +282,7 @@ void TweaksPlugin::patchMenu()
 
         if(pConfig->value("Menu/showPowerOff", true).toBool()) {
             mti = hmc->createMenuTextItem(ntm, QString(tr("Power Off")), false);
-            mti->setSelectedImage(":/images/icons/power_01.png");
+            mti->setSelectedImage(":/koboplugins/icons/menu/power_01.png");
             mti->setSelected(true);
             hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "powerOff", true, true);
             ntm->addSeparator();
@@ -346,9 +346,11 @@ void TweaksPlugin::open(QString mimeType)
             lmc->search();
 	    }
 	else if (mimeType == "powerOff") {
-        DevicePowerWorkflowManager* p = QApplication::activeWindow()->findChild<DevicePowerWorkflowManager *>();    
+		N3PowerWorkflowManager::sharedInstance()->showPowerOffView();
+
+        DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();    
         if(p)
-            p->powerOff(true);
+            p->powerOff(false);
 	}
 	else {
         Volume v;
@@ -407,6 +409,10 @@ bool TweaksPlugin::checkFirmwareVersion()
 {
     PluginsConfig* pConfig = PluginsConfig::get();
 
+	QString requiredVersion = pConfig->value("Global/compatFirmware", "1.9.16").toString();
+	if(requiredVersion == "0.0.0")
+		return true;	
+	
     // check if firmware version matches 1.9.16
     QFile f("/mnt/onboard/.kobo/version");
     if(!f.open(QIODevice::ReadOnly))
@@ -420,7 +426,7 @@ bool TweaksPlugin::checkFirmwareVersion()
         return false;
 
     // now check fw version
-    if(versionParts[2] != pConfig->value("Global/compatFirmware", "1.9.16").toString())
+    if(versionParts[2] != requiredVersion)
         return false;
 
     return true;

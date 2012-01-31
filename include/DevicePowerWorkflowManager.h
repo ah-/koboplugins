@@ -7,4 +7,13 @@ class DevicePowerWorkflowManager : public QObject
 		void powerOff(bool b);
 };
 
+
+class N3PowerWorkflowManager : public QObject
+{
+	public:
+		static N3PowerWorkflowManager* sharedInstance();
+
+		void showPowerOffView();
+};
+
 #endif // __DEVICE_POWER_WORKFLOW_MANAGER_H__
