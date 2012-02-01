@@ -11,6 +11,9 @@ class TweaksSettingsPageHeader : public QWidget, private Ui::TweaksSettingsPageH
 
 public:
 	TweaksSettingsPageHeader(QWidget *parent);
+
+signals:
+    void back();
 };
 
 #endif

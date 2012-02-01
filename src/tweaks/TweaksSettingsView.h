@@ -11,6 +11,11 @@ class TweaksSettingsView : public QWidget, private Ui::TweaksSettingsView
 
 public:
 	TweaksSettingsView(QWidget *parent);
+
+public slots:
+    void led();
+    void misc();
+    void homeMenu();
 };
 
 #endif

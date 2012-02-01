@@ -6,14 +6,15 @@
 
 using namespace std;
 
-TweaksSettingsPageView::TweaksSettingsPageView(QWidget *parent=0)
+TweaksSettingsPageView::TweaksSettingsPageView(QWidget *parent, QWidget *contentWidget)
     : QWidget(parent)
 {
     cout << "TweaksSettingsPageView()" << endl << flush; 
     setupUi(this);
 
-    TweaksSettingsView *settingsView = new TweaksSettingsView(this);
-    setContentWidget(settingsView);
+    contentWidget->setParent(this);
+    setContentWidget(contentWidget);
+    connect(header, SIGNAL(back()), this, SLOT(dismissDialog()));
 }
 
 void TweaksSettingsPageView::changeEvent(QEvent *e)
@@ -34,6 +35,9 @@ QWidget *TweaksSettingsPageView::getContentWidget()
 
 void TweaksSettingsPageView::setContentWidget(QWidget *w)
 {
+    if (contentWidget)
+        contentLayout->removeWidget(contentWidget);
+
     contentWidget = w;
     contentLayout->addWidget(w);
 }

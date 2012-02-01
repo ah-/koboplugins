@@ -33,7 +33,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QLabel" name="back">
+    <widget class="TouchLabel" name="backLabel">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>0</horstretch>
@@ -44,7 +44,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../res/koboplugins.qrc">:/koboplugins/icons/menu/power_01.png</pixmap>
+      <pixmap resource="../../res/koboplugins.qrc">:/images/search/trilogy_icon_circle_arrow.png</pixmap>
      </property>
     </widget>
    </item>
@@ -92,6 +92,13 @@ padding-top:5px;</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TouchLabel</class>
+   <extends>QLabel</extends>
+   <header>TouchLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../res/koboplugins.qrc"/>
  </resources>

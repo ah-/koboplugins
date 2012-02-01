@@ -30,7 +30,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="TweaksSettingsPageHeader" name="widget" native="true">
+    <widget class="TweaksSettingsPageHeader" name="header" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
        <horstretch>0</horstretch>

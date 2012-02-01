@@ -22,6 +22,7 @@
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
 #include "TweaksSettingsPageView.h"
+#include "TweaksSettingsView.h"
 
 using namespace std;
 
@@ -88,9 +89,11 @@ QWidget *TweaksPlugin::reader(void* plugin_state, QWidget *parent)
 {
     cout << "TweaksPlugin::reader()" << endl << flush; 
 
-    settingsPageView = new TweaksSettingsPageView(parent);
-    settingsPageView->update();
-	return settingsPageView;
+    //settingsPageView = new TweaksSettingsPageView(parent);
+    //settingsPageView->update();
+	//return settingsPageView;
+
+    return NULL;
 }
 
 ParserInterface *TweaksPlugin::parser()
@@ -301,7 +304,8 @@ void TweaksPlugin::open(QString mimeType)
     } 
 	else if (mimeType == "tweaks") {
         // TODO: proper parent/lifecycle management
-        TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow());
+        TweaksSettingsView *settingsView = new TweaksSettingsView(0);
+        TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow(), settingsView);
         MainWindowController::sharedInstance()->pushView(v);
 	}
 	else if (mimeType == "library") {

@@ -21,7 +21,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="homeMenu">
+    <widget class="TouchLabel" name="homeMenu">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -47,7 +47,7 @@ border-top: 1px solid black;</string>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="misc">
+    <widget class="TouchLabel" name="misc">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -73,7 +73,7 @@ border-top: 1px solid black;</string>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="leds">
+    <widget class="TouchLabel" name="leds">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -113,6 +113,13 @@ border-top: 1px solid black;</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TouchLabel</class>
+   <extends>QLabel</extends>
+   <header>TouchLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
