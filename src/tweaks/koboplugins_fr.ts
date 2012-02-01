@@ -125,7 +125,7 @@
         <location filename="TweaksPlugin.cpp" line="189"/>
         <location filename="TweaksPlugin.cpp" line="259"/>
         <source>Bookshelves</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Étagères</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="192"/>
@@ -182,17 +182,17 @@
         <location filename="TweaksPlugin.cpp" line="225"/>
         <source>Power Off</source>
         <oldsource>Power off</oldsource>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Éteindre</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="247"/>
         <source>Books</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Livres</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="258"/>
         <source>Create Shelf</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nouvelle étagère</translation>
     </message>
 </context>
 </TS>
