@@ -9,6 +9,13 @@ public:
     static WirelessWorkflowManager *sharedInstance();
 public slots:
     void openBrowser(const QUrl&);
+    void connectWireless();
+    void connectWirelessSilently();
+    void turnWifiOff();
+    void setAirplaneMode(bool bAirMode);
+
+    bool isAirplaneMode();
+    bool isConnectedToHotspot();
 };
 
 #endif

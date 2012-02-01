@@ -53,11 +53,14 @@ public:
     void help();
 };
 
-class LibraryMenuController : public QObject
+class LibraryMenuController : public AbstractNickelMenuController
     {
     public:
         void favourites();
 		void search();
+		void shelves();
+		void createShelf();
+		void lists();
     };
 
 #endif // __HOME_MENU_CONTROLLER_H__

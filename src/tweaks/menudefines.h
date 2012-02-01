@@ -1,0 +1,46 @@
+#ifndef __MENU_DEFINES_H__
+#define __MENU_DEFINES_H__
+
+/**************************************************************************************
+ *
+ * File < menudefines.h > created < Jan 31, 2012 > by < mast >
+ *
+ **************************************************************************************/
+
+// Qt Includes
+
+// Windows Includes
+
+// Linux Includes
+
+// Library Includes
+
+// Application Includes
+
+// Defines
+
+// Prototypes
+
+/**************************************************************************************/
+
+#define MENTRY_LIBRARY          "Library"
+#define MENTRY_HELP             "Help"
+#define MENTRY_SHORTLIST        "Shortlist"
+#define MENTRY_LIBRARYSEARCH    "Library Search"
+#define MENTRY_DICTIONARY       "Dictionary"
+#define MENTRY_READINGLIFE      "Reading Life"
+#define MENTRY_STORE            "Store"
+#define MENTRY_SYNC             "Sync"
+#define MENTRY_SETTINGS         "Settings"
+#define MENTRY_TWEAKS           "Tweaks"
+#define MENTRY_BROWSER          "Browser"
+#define MENTRY_AIRPLANEMODE     "Toggle WiFi"
+#define MENTRY_POWEROFF         "Power Off"
+#define MENTRY_WIFIONOFF        "WiFi On/Off"
+#define MENTRY_CREATESHELF      "Create Shelf"
+#define MENTRY_SHELVES          "Bookshelves"
+#define MENTRY_BOOKS            "Books"
+
+/**************************************************************************************/
+
+#endif // __MENU_DEFINES_H__

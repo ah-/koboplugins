@@ -25,4 +25,5 @@ HEADERS += ../../include/PluginInterface.h \
     config.h 
 
 TRANSLATIONS = koboplugins_de.ts \
-               koboplugins_fr.ts
+               koboplugins_fr.ts \
+               koboplugins_es.ts
