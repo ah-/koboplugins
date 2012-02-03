@@ -8,7 +8,12 @@ TEMPLATE = lib
 CONFIG += plugin \
           resources
 
-INCLUDEPATH += ../../include
+INCLUDEPATH += ../../include \
+                ../../libs/common/include \
+                ../../libs/support/include
+
+LIBS += -lsupport
+LIBS += -L../../libs/release
 
 TARGET = tweaks
 FORMS = tweakview.ui

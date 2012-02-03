@@ -9,6 +9,7 @@
         <file alias="search_02.png">search_02.png</file>
         <file alias="browser_02.png">browser_02.png</file>
         <file alias="power_01.png">power_01.png</file>
+        <file alias="shelve_01.png">shelve_01.png</file>
     </qresource>
     <qresource prefix="/koboplugins/templates">
         <file alias="koboplugins.ini">../templates/koboplugins.ini</file>

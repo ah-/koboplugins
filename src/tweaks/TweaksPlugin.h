@@ -3,6 +3,7 @@
 
 #include <QtGui>
 #include "../../include/PluginInterface.h"
+#include "loggerlib.h"
 #include "TweaksWidget.h"
 
 class TweaksPlugin : public QObject, public PluginInterface
@@ -45,6 +46,7 @@ private:
     QStackedWidget *sw;
     void *lastPatchedMenu;
     void *lastPatchedLibraryMenu;
+    LoggerBase* m_pLogBase;
 };
 
 #endif

@@ -34,6 +34,14 @@ TweaksPlugin::TweaksPlugin() :
     lastPatchedMenu(NULL),
     lastPatchedLibraryMenu(NULL)
 {
+    // init logging engine
+    m_pLogBase = LoggerBase::get();
+    FileLogger* pLoggerFile = new FileLogger("/mnt/onboard/", true);
+    m_pLogBase->addLogObject("FileLogger", pLoggerFile);
+    m_pLogBase->start();
+
+    LOG("checking for koboplugins.ini");
+
     // check if koboplugins.ini exists otherwise extract resource
     QFile f("/mnt/onboard/.kobo/koboplugins.ini");
     if(!f.exists())
@@ -41,20 +49,24 @@ TweaksPlugin::TweaksPlugin() :
 
     PluginsConfig::init("/mnt/onboard/.kobo/koboplugins.ini");
 
+    LOG("checking firmware version");
+
     if(!checkFirmwareVersion())
         return;
+
+    LOG("init translator");
 
     QTranslator* pTranslator = new QTranslator;
     pTranslator->load(QString("koboplugins_") + PluginsConfig::get()->value("Global/language", "en").toString(), ":/koboplugins/translations/");
     qApp->installTranslator(pTranslator);
 
-    cout << "TweaksPlugin()" << endl << flush; 
+    LOG("TweaksPlugin()");
 
     // try to register with the qtscript plugin
     // TODO: use interface, proper casting
     QtScriptPlugin *qtscriptPlugin = (QtScriptPlugin *) PluginLoader::forMimeType("application/x-qt-script");
     if (qtscriptPlugin) {
-        cout << "found qtscript plugin: " << qtscriptPlugin << endl << flush;
+        LOG("found qtscript plugin: 0x%x>",qtscriptPlugin);
         qtscriptPlugin->registerObject(this, "TweaksPlugin");
     }
 
@@ -166,6 +178,8 @@ void TweaksPlugin::windowChanged(int index)
 
 void TweaksPlugin::patchMenu()
 {
+    LOG("patchMenu");
+
     cout << "TweaksPlugin::patchMenu()" << endl << flush; 
     HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
     LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
@@ -186,7 +200,7 @@ void TweaksPlugin::patchMenu()
             createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"));
 
         if(lmc && pConfig->value("Menu/showShelves", true).toBool())
-            createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shortlist_01.png", tr("Bookshelves"));
+            createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_01.png", tr("Bookshelves"));
 
         if(lmc && pConfig->value("Menu/showSearch", true).toBool())
             createHomeMenuEntry(MENTRY_LIBRARYSEARCH, ":/koboplugins/icons/menu/search_02.png", tr("Library Search"));
