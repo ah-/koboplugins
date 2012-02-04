@@ -185,10 +185,10 @@ void TweaksPlugin::patchMenu()
             if(pluginSettings->value("Menu/showLibrary", true).toBool())
                 createHomeMenuEntry(MENTRY_LIBRARY, ":/images/menu/trilogy_library.png", tr("Library"));
 
-            if(lmc && pluginSettings->value("Menu/showShortlist", true).toBool())
+            if(lmc && pluginSettings->value("Menu/showShortlist", false).toBool())
                 createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"));
 
-            if(lmc && pluginSettings->value("Menu/showShelves", true).toBool())
+            if(lmc && pluginSettings->value("Menu/showShelves", false).toBool())
                 createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_01.png", tr("Bookshelves"));
 
             if(lmc && pluginSettings->value("Menu/showSearch", true).toBool())
@@ -210,6 +210,9 @@ void TweaksPlugin::patchMenu()
                 createHomeMenuEntry(MENTRY_HELP, ":/images/menu/trilogy_help.png", tr("Help"));
 
             createHomeMenuEntry(MENTRY_SETTINGS, ":/images/menu/trilogy_settings.png", tr("Settings"));
+        } else {
+            if(lmc && pluginSettings->value("Menu/showShortlist", false).toBool())
+                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"));
         }
 
         if(pluginSettings->value("Menu/showTweaksEntry", true).toBool())
@@ -277,7 +280,7 @@ void TweaksPlugin::open(QString mimeType)
     } 
     else if (mimeType == MENTRY_TWEAKS) {
         // TODO: proper parent/lifecycle management
-        TweaksSettingsView *settingsView = new TweaksSettingsView(0);
+        TweaksSettingsView *settingsView = new TweaksSettingsView(this, 0);
         TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow(), settingsView);
         MainWindowController::sharedInstance()->pushView(v);
     }

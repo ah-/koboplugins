@@ -3,6 +3,8 @@
 
 #include <QtGui>
 
+#include "TweaksPlugin.h"
+
 #include "ui_TweaksSettingsView.h"
 
 class TweaksSettingsView : public QWidget, private Ui::TweaksSettingsView
@@ -10,12 +12,15 @@ class TweaksSettingsView : public QWidget, private Ui::TweaksSettingsView
 	Q_OBJECT
 
 public:
-	TweaksSettingsView(QWidget *parent);
+	TweaksSettingsView(TweaksPlugin *plugin, QWidget *parent);
 
 public slots:
     void led();
     void misc();
     void homeMenu();
+
+private:
+    TweaksPlugin *plugin;
 };
 
 #endif
