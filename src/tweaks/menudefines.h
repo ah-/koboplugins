@@ -1,28 +1,6 @@
 #ifndef __MENU_DEFINES_H__
 #define __MENU_DEFINES_H__
 
-/**************************************************************************************
- *
- * File < menudefines.h > created < Jan 31, 2012 > by < mast >
- *
- **************************************************************************************/
-
-// Qt Includes
-
-// Windows Includes
-
-// Linux Includes
-
-// Library Includes
-
-// Application Includes
-
-// Defines
-
-// Prototypes
-
-/**************************************************************************************/
-
 #define MENTRY_LIBRARY          "Library"
 #define MENTRY_HELP             "Help"
 #define MENTRY_SHORTLIST        "Shortlist"
@@ -40,7 +18,5 @@
 #define MENTRY_CREATESHELF      "Create Shelf"
 #define MENTRY_SHELVES          "Bookshelves"
 #define MENTRY_BOOKS            "Books"
-
-/**************************************************************************************/
 
 #endif // __MENU_DEFINES_H__

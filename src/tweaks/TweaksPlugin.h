@@ -4,7 +4,7 @@
 #include <QtGui>
 #include "../../include/PluginInterface.h"
 #include "TweaksSettingsPageView.h"
-#include "loggerlib.h"
+//#include "loggerlib.h"
 
 class TweaksPlugin : public QObject, public PluginInterface
 {
@@ -46,7 +46,7 @@ private:
     QStackedWidget *sw;
     void *lastPatchedMenu;
     void *lastPatchedLibraryMenu;
-    LoggerBase* m_pLogBase;
+    //LoggerBase* m_pLogBase;
 };
 
 #endif

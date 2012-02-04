@@ -37,12 +37,12 @@ TweaksPlugin::TweaksPlugin() :
     lastPatchedLibraryMenu(NULL)
 {
     // init logging engine
-    m_pLogBase = LoggerBase::get();
-    FileLogger* pLoggerFile = new FileLogger("/mnt/onboard/", true);
-    m_pLogBase->addLogObject("FileLogger", pLoggerFile);
-    m_pLogBase->start();
+    //m_pLogBase = LoggerBase::get();
+    //FileLogger* pLoggerFile = new FileLogger("/mnt/onboard/", true);
+    //m_pLogBase->addLogObject("FileLogger", pLoggerFile);
+    //m_pLogBase->start();
 
-    LOG("checking for koboplugins.ini");
+    //LOG("checking for koboplugins.ini");
 
     // check if koboplugins.ini exists otherwise extract resource
     QFile f("/mnt/onboard/.kobo/koboplugins.ini");
@@ -51,24 +51,24 @@ TweaksPlugin::TweaksPlugin() :
 
     PluginsConfig::init("/mnt/onboard/.kobo/koboplugins.ini");
 
-    LOG("checking firmware version");
+    //LOG("checking firmware version");
 
     if(!checkFirmwareVersion())
         return;
 
-    LOG("init translator");
+    //LOG("init translator");
 
     QTranslator* pTranslator = new QTranslator;
     pTranslator->load(QString("koboplugins_") + PluginsConfig::get()->value("Global/language", "en").toString(), ":/koboplugins/translations/");
     qApp->installTranslator(pTranslator);
 
-    LOG("TweaksPlugin()");
+    //LOG("TweaksPlugin()");
 
     // try to register with the qtscript plugin
     // TODO: use interface, proper casting
     QtScriptPlugin *qtscriptPlugin = (QtScriptPlugin *) PluginLoader::forMimeType("application/x-qt-script");
     if (qtscriptPlugin) {
-        LOG("found qtscript plugin: 0x%x>",qtscriptPlugin);
+        //LOG("found qtscript plugin: 0x%x>",qtscriptPlugin);
         qtscriptPlugin->registerObject(this, "TweaksPlugin");
     }
 
@@ -105,11 +105,6 @@ QStringList TweaksPlugin::mimeTypes()
 QWidget *TweaksPlugin::reader(void* /*plugin_state*/, QWidget *parent)
 {
     cout << "TweaksPlugin::reader()" << endl << flush; 
-
-    //settingsPageView = new TweaksSettingsPageView(parent);
-    //settingsPageView->update();
-	//return settingsPageView;
-
     return NULL;
 }
 
@@ -180,7 +175,7 @@ void TweaksPlugin::windowChanged(int index)
 
 void TweaksPlugin::patchMenu()
 {
-    LOG("patchMenu");
+    //LOG("patchMenu");
 
     cout << "TweaksPlugin::patchMenu()" << endl << flush; 
     HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
@@ -290,7 +285,7 @@ void TweaksPlugin::open(QString mimeType)
     if (mimeType == MENTRY_BROWSER) {
         WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
     } 
-	else if (mimeType == "tweaks") {
+	else if (mimeType == MENTRY_TWEAKS) {
         // TODO: proper parent/lifecycle management
         TweaksSettingsView *settingsView = new TweaksSettingsView(0);
         TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow(), settingsView);
