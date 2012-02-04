@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fr_FR" sourcelanguage="en">
+<TS version="2.0" language="es_ES" sourcelanguage="en">
 <context>
     <name>TweakView</name>
     <message>
@@ -21,12 +21,12 @@
     <message>
         <location filename="tweakview.ui" line="89"/>
         <source>Manually control the power LEDs.</source>
-        <translation>Contrôle manuel des LEDs d&apos;alimentation.</translation>
+        <translation>Controlar manualmente los LEDs de alimentación.</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="127"/>
         <source>Red</source>
-        <translation>Rouge</translation>
+        <translation>Rojo</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="154"/>
@@ -45,32 +45,32 @@
     <message>
         <location filename="tweakview.ui" line="203"/>
         <source>Blue</source>
-        <translation>Bleu</translation>
+        <translation>Azul</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="224"/>
         <source>Green</source>
-        <translation>Vert</translation>
+        <translation>Verde</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="343"/>
         <source>Home Menu</source>
-        <translation>Menu Accueil</translation>
+        <translation>Menú principal</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="371"/>
         <source>Add shortcuts to the home menu.</source>
-        <translation>Ajouter un raccourci au menu Accueil.</translation>
+        <translation>Añadir favoritos al menú principal.</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="436"/>
         <source>Add browser shortcut</source>
-        <translation>Raccourci vers le navigateur</translation>
+        <translation>Añadir favoritos del navegador</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="448"/>
         <source>Miscellaneous Settings</source>
-        <translation>Réglages divers</translation>
+        <translation>Configuraciones diversas</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="476"/>
@@ -80,12 +80,12 @@
     <message>
         <location filename="tweakview.ui" line="538"/>
         <source>Enable wireless timeout</source>
-        <translation>Enable wireless timeout</translation>
+        <translation>Activar temporización de WIFI</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="562"/>
         <source>Hide recommendations</source>
-        <translation>Cacher les recommandations</translation>
+        <translation>Ocultar recomendaciones</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="578"/>
@@ -100,7 +100,7 @@
     <message>
         <location filename="tweakview.ui" line="605"/>
         <source>Uninstall Plugin</source>
-        <translation>Désinstaller</translation>
+        <translation>Desinstalar</translation>
     </message>
 </context>
 <context>
@@ -108,91 +108,90 @@
     <message>
         <location filename="TweaksPlugin.cpp" line="183"/>
         <source>Library</source>
-        <translation type="unfinished">Bibliothèque</translation>
+        <translation>Biblioteca</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="195"/>
         <source>Dictionary</source>
-        <translation type="unfinished">Dictionnaire</translation>
+        <translation>Diccionario</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="186"/>
         <location filename="TweaksPlugin.cpp" line="250"/>
         <source>Shortlist</source>
-        <translation type="unfinished">Favoris</translation>
+        <translation>Favoritos</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="189"/>
         <location filename="TweaksPlugin.cpp" line="259"/>
         <source>Bookshelves</source>
-        <translation type="unfinished">Étagères</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="192"/>
         <location filename="TweaksPlugin.cpp" line="253"/>
         <source>Library Search</source>
-        <translation type="unfinished">Rechercher</translation>
+        <translation>Búsqueda</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="198"/>
         <source>Reading Life</source>
-        <translation type="unfinished">Reading Life</translation>
+        <translation>Reading Life</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="201"/>
         <source>Store</source>
-        <translation type="unfinished">Librairie</translation>
+        <translation>Tienda</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="204"/>
         <source>Sync</source>
-        <translation type="unfinished">Synchroniser</translation>
+        <translation>Sincronizar</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="207"/>
         <source>Help</source>
-        <translation type="unfinished">Aide</translation>
+        <translation>Ayuda</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="209"/>
         <source>Settings</source>
-        <translation type="unfinished">Paramètres</translation>
+        <translation>Parámetros</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="213"/>
         <source>Tweaks</source>
-        <translation type="unfinished">Tweaks</translation>
+        <translation>Tweaks</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="216"/>
         <source>Browser</source>
-        <translation type="unfinished">Navigateur</translation>
+        <translation>Navegador</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="219"/>
         <source>Toggle WiFi</source>
-        <translation type="unfinished">WiFi On/Off</translation>
+        <translation>WiFi On/Off</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="222"/>
         <source>WiFi On/Off</source>
-        <translation type="unfinished">WiFi On/Off</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="225"/>
         <source>Power Off</source>
-        <oldsource>Power off</oldsource>
-        <translation type="unfinished">Éteindre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="247"/>
         <source>Books</source>
-        <translation type="unfinished">Livres</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="258"/>
         <source>Create Shelf</source>
-        <translation type="unfinished">Nouvelle étagère</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

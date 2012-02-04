@@ -9,16 +9,21 @@
 #include "PluginLoader.h"
 #include "MainWindowController.h"
 #include "HomePageGridView.h"
+#include "ReadingView.h"
 #include "Content.h"
 #include "Volume.h"
 #include "ReadingViewMixin.h"
 #include "N3ReaderOpener.h"
+#include "LedManager.h"
 #include "N3SettingsController.h"
 #include "N3FSSyncManager.h"
 #include "WirelessWorkflowManager.h"
 #include "HomeMenuController.h"
 #include "WirelessWatchdog.h"
+#include "TouchLabel.h"
 #include "DevicePowerWorkflowManager.h"
+#include "GridAndListLibraryView.h"
+#include "menudefines.h"
 #include "../qtscript/QtScriptPlugin.h"
 #include "config.h"
 #include "TweaksSettingsPageView.h"
@@ -28,8 +33,17 @@ using namespace std;
 
 TweaksPlugin::TweaksPlugin() :
     sw(NULL),
-    lastPatchedMenu(NULL)
+    lastPatchedMenu(NULL),
+    lastPatchedLibraryMenu(NULL)
 {
+    // init logging engine
+    m_pLogBase = LoggerBase::get();
+    FileLogger* pLoggerFile = new FileLogger("/mnt/onboard/", true);
+    m_pLogBase->addLogObject("FileLogger", pLoggerFile);
+    m_pLogBase->start();
+
+    LOG("checking for koboplugins.ini");
+
     // check if koboplugins.ini exists otherwise extract resource
     QFile f("/mnt/onboard/.kobo/koboplugins.ini");
     if(!f.exists())
@@ -37,21 +51,24 @@ TweaksPlugin::TweaksPlugin() :
 
     PluginsConfig::init("/mnt/onboard/.kobo/koboplugins.ini");
 
+    LOG("checking firmware version");
+
     if(!checkFirmwareVersion())
         return;
 
+    LOG("init translator");
+
     QTranslator* pTranslator = new QTranslator;
-    QString locale = QLocale::system().name();
     pTranslator->load(QString("koboplugins_") + PluginsConfig::get()->value("Global/language", "en").toString(), ":/koboplugins/translations/");
     qApp->installTranslator(pTranslator);
 
-    cout << "TweaksPlugin()" << endl << flush; 
+    LOG("TweaksPlugin()");
 
     // try to register with the qtscript plugin
     // TODO: use interface, proper casting
     QtScriptPlugin *qtscriptPlugin = (QtScriptPlugin *) PluginLoader::forMimeType("application/x-qt-script");
     if (qtscriptPlugin) {
-        cout << "found qtscript plugin: " << qtscriptPlugin << endl << flush;
+        LOG("found qtscript plugin: 0x%x>",qtscriptPlugin);
         qtscriptPlugin->registerObject(this, "TweaksPlugin");
     }
 
@@ -85,7 +102,7 @@ QStringList TweaksPlugin::mimeTypes()
 	return mimeTypes;
 }
 
-QWidget *TweaksPlugin::reader(void* plugin_state, QWidget *parent)
+QWidget *TweaksPlugin::reader(void* /*plugin_state*/, QWidget *parent)
 {
     cout << "TweaksPlugin::reader()" << endl << flush; 
 
@@ -103,8 +120,6 @@ ParserInterface *TweaksPlugin::parser()
 
 void TweaksPlugin::windowChanged(int index)
 {
-	//static QPushButton* b = NULL;
-
     cout << "TweaksPlugin::windowChanged()" << endl << flush; 
 
     QWidget *currentWidget = const_cast<QWidget *>(sw->widget(index));
@@ -113,10 +128,18 @@ void TweaksPlugin::windowChanged(int index)
         cout << " at " << currentWidget << endl << flush; 
 
         HomePageGridView *hpgv = qobject_cast<HomePageGridView *>(currentWidget);
-        if (hpgv) {
+        GridAndListLibraryView *gallv = qobject_cast<GridAndListLibraryView *>(currentWidget);
+        ReadingView *readv = qobject_cast<ReadingView *>(currentWidget);
+        PluginsConfig* pConfig = PluginsConfig::get();
+
+        if(readv)
+            {
+            if(pConfig->value("Reader/tweakFooter", false).toBool())
+                connect(readv, SIGNAL(footerMenuOpened()), this, SLOT(bookFooterOpened()));
+            }
+        else if (hpgv) {
             cout << "TweaksPlugin::windowChanged() found HomePageGridView, trying to patch menu" << endl << flush; 
 
-            HomePageGridView *hpgv = qobject_cast<HomePageGridView *>(currentWidget);
             HomePageGridViewHeader *hpgvh = hpgv->findChild<HomePageGridViewHeader *>("header");
             TextHeader *home = NULL;
             if (hpgvh)
@@ -129,33 +152,6 @@ void TweaksPlugin::windowChanged(int index)
                 connect(home, SIGNAL(mouseDown()), this, SLOT(patchMenu()), (Qt::ConnectionType) 0);
             }
 
-			/*
-			 Hide START menu and display Buttons instead of menu
-		     So far the menu hide works --> button is not yet displayed
-			 
-			ReversibleLabel *pLabel = hpgv->findChild<ReversibleLabel *>();
-		
-			QLayout* parent = pLabel->layout();
-			if(parent)
-				{
-				QBoxLayout* bL = dynamic_cast<QBoxLayout*>(parent);
-				if(bL)
-					{
-					int menuIdx = bL->indexOf(pLabel);
-					pLabel->hide();
-					if(!b)
-						{
-						b = new QPushButton("Testbtn");
-						b->setMinimumWidth(100);
-						b->setMinimumHeight(40);
-						bL->insertWidget(menuIdx, b);
-						}
-					b->show();
-					}
-				}
-			*/
-
-            PluginsConfig* pConfig = PluginsConfig::get();
             if(pConfig->value("Tweaks/hideRecommendations", false).toBool()) {
                 HomePageGridViewFooter *footer = hpgv->findChild<HomePageGridViewFooter *>("footer");
                 footer->hide();
@@ -167,11 +163,25 @@ void TweaksPlugin::windowChanged(int index)
 		        	syncIcon->hide();
 			}
         }
+        else if (gallv) {
+            cout << "TweaksPlugin::windowChanged() found HomePageGridView, trying to patch menu" << endl << flush;
+
+            LibraryViewHeader *gallvh = gallv->findChild<LibraryViewHeader *>("header");
+            TextHeader *home = NULL;
+            if (gallvh)
+                home = gallvh->findChild<TextHeader *>("libraryLabel");
+
+            if (home) {
+                connect(home, SIGNAL(mouseDown()), this, SLOT(patchLibraryMenu()), (Qt::ConnectionType) 0);
+            }
+        }
     }
 }
 
 void TweaksPlugin::patchMenu()
 {
+    LOG("patchMenu");
+
     cout << "TweaksPlugin::patchMenu()" << endl << flush; 
     HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
     LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
@@ -181,112 +191,54 @@ void TweaksPlugin::patchMenu()
     cout << "TweaksPlugin::patchMenu(), ntm: " << ntm << ", hmc: " << hmc << endl << flush; 
     if (hmc && ntm && lastPatchedMenu != (void *) ntm) {
         // Clear menu and add entries based on configuration
-        MenuTextItem *mti = NULL;
 
         if(pConfig->value("Menu/customMenuEnabled", false).toBool()) {
             ntm->clear();
 
-            if(pConfig->value("Menu/showLibrary", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Library")), false);
-                mti->setSelectedImage(":/images/menu/trilogy_library.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "library", true, true);
-                ntm->addSeparator();
-            }
+            if(pConfig->value("Menu/showLibrary", true).toBool())
+                createHomeMenuEntry(MENTRY_LIBRARY, ":/images/menu/trilogy_library.png", tr("Library"));
 
-            if(lmc && pConfig->value("Menu/showShortlist", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Shortlist")), false);
-                mti->setSelectedImage(":/koboplugins/icons/menu/shortlist_01.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "shortlist", true, true);
-                ntm->addSeparator();
-            }
+            if(lmc && pConfig->value("Menu/showShortlist", true).toBool())
+                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"));
 
-            if(lmc && pConfig->value("Menu/showSearch", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Library Search")), false);
-                mti->setSelectedImage(":/koboplugins/icons/menu/search_02.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "search", true, true);
-                ntm->addSeparator();
-            }
+            if(lmc && pConfig->value("Menu/showShelves", true).toBool())
+                createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_01.png", tr("Bookshelves"));
 
-            if(pConfig->value("Menu/showDictionary", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Dictionary")), false);
-                mti->setSelectedImage(":/koboplugins/icons/menu/dictionary_01.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "dictionary", true, true);
-                ntm->addSeparator();
-            }
+            if(lmc && pConfig->value("Menu/showSearch", true).toBool())
+                createHomeMenuEntry(MENTRY_LIBRARYSEARCH, ":/koboplugins/icons/menu/search_02.png", tr("Library Search"));
 
-            if(pConfig->value("Menu/showReadingLife", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Reading Life")), false);
-                mti->setSelectedImage(":/images/menu/trilogy_readinglife.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "readingLife", true, true);
-                ntm->addSeparator();
-            }
+            if(pConfig->value("Menu/showDictionary", true).toBool())
+                createHomeMenuEntry(MENTRY_DICTIONARY, ":/koboplugins/icons/menu/dictionary_01.png", tr("Dictionary"));
 
-            if(pConfig->value("Menu/showStore", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Store")), false);
-                mti->setSelectedImage(":/images/menu/trilogy_store.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "store", true, true);
-                ntm->addSeparator();
-            }
+            if(pConfig->value("Menu/showReadingLife", true).toBool())
+                createHomeMenuEntry(MENTRY_READINGLIFE, ":/images/menu/trilogy_readinglife.png", tr("Reading Life"));
 
-            if(pConfig->value("Menu/showSync", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Sync")), false);
-                mti->setSelectedImage(":/images/menu/trilogy_sync.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "sync", true, true);
-                ntm->addSeparator();
-            }
+            if(pConfig->value("Menu/showStore", true).toBool())
+                createHomeMenuEntry(MENTRY_STORE, ":/images/menu/trilogy_store.png", tr("Store"));
 
-            if(pConfig->value("Menu/showHelp", true).toBool()) {
-                mti = hmc->createMenuTextItem(ntm, QString(tr("Help")), false);
-                mti->setSelectedImage(":/images/menu/trilogy_help.png");
-                mti->setSelected(true);
-                hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "help", true, true);
-                ntm->addSeparator();
-            }
+            if(pConfig->value("Menu/showSync", true).toBool())
+                createHomeMenuEntry(MENTRY_SYNC, ":/images/menu/trilogy_sync.png", tr("Sync"));
 
-            mti = hmc->createMenuTextItem(ntm, QString(tr("Settings")), false);
-            mti->setSelectedImage(":/images/menu/trilogy_settings.png");
-            mti->setSelected(true);
-            hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "settings", true, true);
-            ntm->addSeparator();
-            }
+            if(pConfig->value("Menu/showHelp", true).toBool())
+                createHomeMenuEntry(MENTRY_HELP, ":/images/menu/trilogy_help.png", tr("Help"));
 
-        mti = hmc->createMenuTextItem(ntm, QString(tr("Tweaks")), false);
-        mti->setSelectedImage(":/koboplugins/icons/menu/tweak_01.png");
-        mti->setSelected(true);
-        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "tweaks", true, true);
-        ntm->addSeparator();
+            createHomeMenuEntry(MENTRY_SETTINGS, ":/images/menu/trilogy_settings.png", tr("Settings"));
+        }
 
-        if(pConfig->value("Menu/showBrowser", false).toBool()) {
-            mti = hmc->createMenuTextItem(ntm, QString(tr("Browser")), false);
-            mti->setSelectedImage(":/koboplugins/icons/menu/browser_02.png");
-			mti->setSelected(true);
-            // Hack, since there's no actual way to launch "applications"
-            hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "application/x-browser", true, true);
-            ntm->addSeparator();
-            }
+        if(pConfig->value("Menu/showTweaksEntry", true).toBool())
+            createHomeMenuEntry(MENTRY_TWEAKS, ":/koboplugins/icons/menu/tweak_01.png", tr("Tweaks"));
 
-        if(pConfig->value("Menu/showAirplaneMode", false).toBool()) {
-            mti = hmc->createMenuTextItem(ntm, QString(tr("Toggle WiFi")), false);
-            mti->setSelectedImage(":/images/statusbar/wifi_airplane.png");
-            mti->setSelected(true);
-            hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "airplaneMode", true, true);
-            ntm->addSeparator();
-            }
+        if(pConfig->value("Menu/showBrowser", false).toBool())
+            createHomeMenuEntry(MENTRY_BROWSER, ":/koboplugins/icons/menu/browser_02.png", tr("Browser"));
 
-        if(pConfig->value("Menu/showPowerOff", true).toBool()) {
-            mti = hmc->createMenuTextItem(ntm, QString(tr("Power Off")), false);
-            mti->setSelectedImage(":/images/icons/power_01.png");
-            mti->setSelected(true);
-            hmc->addWidgetActionWithMapper(ntm, mti, &mapper, "powerOff", true, true);
-            ntm->addSeparator();
-            }
+        if(pConfig->value("Menu/showAirplaneMode", false).toBool())
+            createHomeMenuEntry(MENTRY_AIRPLANEMODE, ":/images/statusbar/wifi_airplane.png", tr("Toggle WiFi"));
+
+        if(pConfig->value("Menu/showWifiOnOff", false).toBool())
+            createHomeMenuEntry(MENTRY_WIFIONOFF, ":/images/statusbar/wifi_4.png", tr("WiFi On/Off"));
+
+        if(pConfig->value("Menu/showPowerOff", true).toBool())
+            createHomeMenuEntry(MENTRY_POWEROFF, ":/koboplugins/icons/menu/power_01.png", tr("Power Off"));
 
         // store that we already patched this menu so the item doesn't get added twice
         lastPatchedMenu = (void *) ntm;
@@ -294,12 +246,48 @@ void TweaksPlugin::patchMenu()
     }
 }
 
+void TweaksPlugin::patchLibraryMenu()
+{
+    cout << "TweaksPlugin::patchMenu()" << endl << flush;
+    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+    NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
+    PluginsConfig* pConfig = PluginsConfig::get();
+
+    if (lmc && ntm && lastPatchedLibraryMenu != (void *) ntm) {
+        // Clear menu and add entries based on configuration
+
+        if(pConfig->value("Library/customMenuEnabled", false).toBool()) {
+            ntm->clear();
+
+        if(pConfig->value("Library/showBooks", true).toBool())
+            createLibraryMenuEntry(MENTRY_BOOKS, tr("Books"));
+
+        if(pConfig->value("Library/showSortlist", true).toBool())
+            createLibraryMenuEntry(MENTRY_SHORTLIST, tr("Shortlist"));
+
+        if(pConfig->value("Library/showSearch", true).toBool())
+            createLibraryMenuEntry(MENTRY_LIBRARYSEARCH, tr("Library Search"));
+        }
+
+        if(pConfig->value("Library/showShelves", true).toBool())
+            {
+            createLibraryMenuEntry(MENTRY_CREATESHELF, tr("Create Shelf"));
+            createLibraryMenuEntry(MENTRY_SHELVES, tr("Bookshelves"));
+            }
+
+        // store that we already patched this menu so the item doesn't get added twice
+        lastPatchedLibraryMenu = (void *) ntm;
+        cout << "TweaksPlugin::patchMenu(), success!" << endl << flush;
+    }
+}
+
 void TweaksPlugin::open(QString mimeType)
 {
     HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
+    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
 
     cout << "TweaksPlugin::open(\"" << mimeType.toStdString() << "\")" << endl << flush; 
-    if (mimeType == "application/x-browser") {
+    if (mimeType == MENTRY_BROWSER) {
         WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
     } 
 	else if (mimeType == "tweaks") {
@@ -308,53 +296,79 @@ void TweaksPlugin::open(QString mimeType)
         TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow(), settingsView);
         MainWindowController::sharedInstance()->pushView(v);
 	}
-	else if (mimeType == "library") {
+    else if (mimeType == MENTRY_WIFIONOFF) {
+        WirelessWorkflowManager* wfm = WirelessWorkflowManager::sharedInstance();
+        if(!wfm->isAirplaneMode())
+        {
+            wfm->turnWifiOff();
+            wfm->setAirplaneMode(true);
+        }
+        else
+        {
+            wfm->setAirplaneMode(false);
+            wfm->connectWirelessSilently();
+            enableWirelessTimeout(wirelessTimeoutEnabled());
+        }
+    }
+	else if (mimeType == MENTRY_LIBRARY) {
 		if(hmc)
 			hmc->library();
 	}
-	else if (mimeType == "dictionary") {
+	else if (mimeType == MENTRY_DICTIONARY) {
 		if(hmc)
 			hmc->dictionary();
 	}
-	else if (mimeType == "settings") {
+	else if (mimeType == MENTRY_SETTINGS) {
 		if(hmc)
 			hmc->settings();
 	}
-    else if (mimeType == "readingLife") {
+    else if (mimeType == MENTRY_READINGLIFE) {
         if(hmc)
             hmc->readingLife();
     }
-    else if (mimeType == "store") {
+    else if (mimeType == MENTRY_STORE) {
         if(hmc)
             hmc->store();
     }
-    else if (mimeType == "sync") {
+    else if (mimeType == MENTRY_SYNC) {
         if(hmc)
             hmc->sync();
     }
-    else if (mimeType == "help") {
+    else if (mimeType == MENTRY_HELP) {
         if(hmc)
             hmc->help();
     }
-	else if (mimeType == "airplaneMode") {
+	else if (mimeType == MENTRY_AIRPLANEMODE) {
         N3SettingsWirelessController* p = QApplication::activeWindow()->findChild<N3SettingsWirelessController *>();    
         if(p)
             p->airplaneModeToggled();
 	}
-	else if (mimeType == "shortlist") {
-	    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+	else if (mimeType == MENTRY_SHORTLIST) {
         if(lmc)
             lmc->favourites();
 	    }
-	else if (mimeType == "search") {
-	    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+    else if (mimeType == MENTRY_BOOKS) {
+        if(lmc)
+            lmc->lists();
+        }
+    else if (mimeType == MENTRY_CREATESHELF) {
+        if(lmc)
+            lmc->createShelf();
+        }
+    else if (mimeType == MENTRY_SHELVES) {
+        if(lmc)
+            lmc->shelves();
+        }
+	else if (mimeType == MENTRY_LIBRARYSEARCH) {
         if(lmc)
             lmc->search();
 	    }
-	else if (mimeType == "powerOff") {
-        DevicePowerWorkflowManager* p = QApplication::activeWindow()->findChild<DevicePowerWorkflowManager *>();    
+	else if (mimeType == MENTRY_POWEROFF) {
+		N3PowerWorkflowManager::sharedInstance()->showPowerOffView();
+
+        DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();    
         if(p)
-            p->powerOff(true);
+            p->powerOff(false);
 	}
 	else {
         Volume v;
@@ -411,10 +425,64 @@ void TweaksPlugin::sync(bool)
     N3FSSyncManager::sharedInstance()->sync(paths);
 }
 
+void TweaksPlugin::openBrowser()
+    {
+    WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
+    }
+
+void TweaksPlugin::bookFooterOpened()
+    {
+    PluginsConfig* pConfig = PluginsConfig::get();
+
+    if(pConfig->value("Reader/showBrowser", false).toBool())
+        {
+        // add browser icon before dict label
+        if(!qApp->activeWindow()->findChild<TouchLabel *>("readerBrowserLabel"))
+            {
+            TouchLabel *dict = qApp->activeWindow()->findChild<TouchLabel *>("dict");
+            if(dict)
+                {
+                QList<QHBoxLayout*> layouts = qApp->activeWindow()->findChildren<QHBoxLayout *>("horizontalLayout_2");
+                QHBoxLayout* parent = NULL;
+                if(layouts.size() >= 4)
+                    parent = layouts.at(3);
+
+                if(parent)
+                    {
+                    TouchLabel *browser = new TouchLabel("Browser", qApp->activeWindow());
+                    if(browser)
+                        {
+                        browser->setObjectName("readerBrowserLabel");
+    //                    browser->setSelectedPixmap(":/koboplugins/icons/menu/browser_02.png");
+    //                    browser->setDeselectedPixmap(":/koboplugins/icons/menu/browser_02.png");
+                        connect(browser, SIGNAL(tapped()), this, SLOT(openBrowser()));
+                        parent->addWidget(browser);
+                        LedManager::sharedInstance()->redOn();
+                        browser->show();
+                        }
+                    }
+                }
+            }
+        }
+    else
+        {
+        if(qApp->activeWindow()->findChild<TouchLabel *>("readerBrowserLabel"))
+            {
+            TouchLabel *browser = qApp->activeWindow()->findChild<TouchLabel *>("readerBrowserLabel");
+            if(browser)
+                browser->hide();
+            }
+        }
+    }
+
 bool TweaksPlugin::checkFirmwareVersion()
 {
     PluginsConfig* pConfig = PluginsConfig::get();
 
+	QString requiredVersion = pConfig->value("Global/compatFirmware", "1.9.16").toString();
+	if(requiredVersion == "0.0.0")
+		return true;	
+	
     // check if firmware version matches 1.9.16
     QFile f("/mnt/onboard/.kobo/version");
     if(!f.open(QIODevice::ReadOnly))
@@ -428,10 +496,38 @@ bool TweaksPlugin::checkFirmwareVersion()
         return false;
 
     // now check fw version
-    if(versionParts[2] != pConfig->value("Global/compatFirmware", "1.9.16").toString())
+    if(versionParts[2] != requiredVersion)
         return false;
 
     return true;
 }
+
+bool TweaksPlugin::createHomeMenuEntry(QString mapping, QString icon, QString text)
+    {
+    HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
+    NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
+    MenuTextItem *mti = NULL;
+
+    mti = hmc->createMenuTextItem(ntm, text, false);
+    if(!icon.isEmpty())
+        mti->setSelectedImage(icon);
+
+    mti->setSelected(true);
+    hmc->addWidgetActionWithMapper(ntm, mti, &mapper, mapping, true, true);
+    ntm->addSeparator();
+    return true;
+    }
+
+bool TweaksPlugin::createLibraryMenuEntry(QString mapping,QString text)
+    {
+    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+    NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
+    MenuTextItem *mti = NULL;
+
+    mti = lmc->createMenuTextItem(ntm, text, false);
+    lmc->addWidgetActionWithMapper(ntm, mti, &mapper, mapping, true, true);
+    ntm->addSeparator();
+    return true;
+    }
 
 Q_EXPORT_PLUGIN2(tictactoe, TweaksPlugin)

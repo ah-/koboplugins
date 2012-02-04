@@ -8,7 +8,12 @@ TEMPLATE = lib
 CONFIG += plugin \
           resources
 
-INCLUDEPATH += ../../include
+INCLUDEPATH += ../../include \
+                ../../libs/common/include \
+                ../../libs/support/include
+
+;LIBS += -lsupport
+;LIBS += -L../../libs/release
 
 TARGET = tweaks
 FORMS = tweakview.ui \
@@ -37,4 +42,5 @@ HEADERS += ../../include/PluginInterface.h \
     config.h 
 
 TRANSLATIONS = koboplugins_de.ts \
-               koboplugins_fr.ts
+               koboplugins_fr.ts \
+               koboplugins_es.ts

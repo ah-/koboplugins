@@ -4,6 +4,7 @@
 #include <QtGui>
 #include "../../include/PluginInterface.h"
 #include "TweaksSettingsPageView.h"
+#include "loggerlib.h"
 
 class TweaksPlugin : public QObject, public PluginInterface
 {
@@ -24,22 +25,28 @@ public:
 public slots:
     void windowChanged(int index);
     void patchMenu();
+    void patchLibraryMenu();
     void open(QString mimeType);
     void enableBrowserShortcut(bool enable);
     void enableWirelessTimeout(bool enable);
     void hideRecommendations(bool enable);
     void sync(bool);
 	void uninstallPlugin();
+	void bookFooterOpened();
+	void openBrowser();
 
 private:
     bool checkFirmwareVersion();
+    bool createHomeMenuEntry(QString mapping, QString icon, QString text);
+    bool createLibraryMenuEntry(QString mapping, QString text);
 
 private:
-    //TweaksWidget *w;
     TweaksSettingsPageView *settingsPageView;
     QSignalMapper mapper;
     QStackedWidget *sw;
     void *lastPatchedMenu;
+    void *lastPatchedLibraryMenu;
+    LoggerBase* m_pLogBase;
 };
 
 #endif
