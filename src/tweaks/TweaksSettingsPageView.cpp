@@ -17,11 +17,6 @@ TweaksSettingsPageView::TweaksSettingsPageView(QWidget *parent, QWidget *content
     connect(header, SIGNAL(back()), this, SLOT(dismissDialog()));
 }
 
-void TweaksSettingsPageView::changeEvent(QEvent *e)
-{
-    cout << "TweaksSettingsPageView::changeEvent(QEvent *e)" << endl << flush;
-}
-
 void TweaksSettingsPageView::dismissDialog()
 {
     cout << "TweaksSettingsPageView::dismissDialog()" << endl << flush;

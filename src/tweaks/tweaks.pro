@@ -24,25 +24,21 @@ FORMS = tweakview.ui \
     TweaksSettingsHomeMenuView.ui
 
 SOURCES += TweaksPlugin.cpp \
-    TweaksWidget.cpp \
     TweaksSettingsPageHeader.cpp \
     TweaksSettingsPageView.cpp \
     TweaksSettingsView.cpp \
     TweaksSettingsLEDView.cpp \
-    TweaksSettingsHomeMenuView.cpp \
-    config.cpp
+    TweaksSettingsHomeMenuView.cpp
 
 RESOURCES += ../../res/koboplugins.qrc
 
 HEADERS += ../../include/PluginInterface.h \
     TweaksPlugin.h \
-    TweaksWidget.h \
     TweaksSettingsPageHeader.h \
     TweaksSettingsPageView.h \
     TweaksSettingsView.h \
     TweaksSettingsLEDView.h \
-    TweaksSettingsHomeMenuView.h \
-    config.h 
+    TweaksSettingsHomeMenuView.h
 
 TRANSLATIONS = koboplugins_de.ts \
                koboplugins_fr.ts \

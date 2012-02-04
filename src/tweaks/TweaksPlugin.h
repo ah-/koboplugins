@@ -2,23 +2,27 @@
 #define __TWEAKS_PLUGIN_H__
 
 #include <QtGui>
-#include "../../include/PluginInterface.h"
+#include "PluginInterface.h"
 #include "TweaksSettingsPageView.h"
 //#include "loggerlib.h"
 
+#define CONFIG_PATH "/mnt/onboard/.kobo/koboplugins.ini"
+
 class TweaksPlugin : public QObject, public PluginInterface
 {
-	Q_OBJECT
-	Q_INTERFACES(PluginInterface)
+Q_OBJECT
+    Q_INTERFACES(PluginInterface)
 
 public:
-	TweaksPlugin();
-	~TweaksPlugin();
+    TweaksPlugin();
+    ~TweaksPlugin();
 
-	QStringList mimeTypes();
+    QStringList mimeTypes();
 
-	QWidget *reader(void* plugin_state, QWidget *parent = 0);
-	ParserInterface *parser();
+    QWidget *reader(void* plugin_state, QWidget *parent = 0);
+    ParserInterface *parser();
+
+    QSharedPointer<QSettings> settings();
 
     bool wirelessTimeoutEnabled();
 
@@ -31,9 +35,9 @@ public slots:
     void enableWirelessTimeout(bool enable);
     void hideRecommendations(bool enable);
     void sync(bool);
-	void uninstallPlugin();
-	void bookFooterOpened();
-	void openBrowser();
+    void uninstallPlugin();
+    void bookFooterOpened();
+    void openBrowser();
 
 private:
     bool checkFirmwareVersion();
@@ -41,6 +45,7 @@ private:
     bool createLibraryMenuEntry(QString mapping, QString text);
 
 private:
+    QSharedPointer<QSettings> pluginSettings;
     TweaksSettingsPageView *settingsPageView;
     QSignalMapper mapper;
     QStackedWidget *sw;

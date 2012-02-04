@@ -12,7 +12,6 @@ class TweaksSettingsPageView : public QWidget, private Ui::TweaksSettingsPageVie
 public:
 	TweaksSettingsPageView(QWidget *parent, QWidget *contentWidget=0);
 
-    void changeEvent(QEvent *e);
     QWidget *getContentWidget();
     void setContentWidget(QWidget *);
     //void setHeader(QString s, bool b);
@@ -24,11 +23,6 @@ private slots:
 
 signals:
     //void setHeaderText(const QString&);
-    //void processTap(QPoint);
-    //void processTapAndHold(TapGesture *);
-    //void processSwipe(SwipeGesture *);
-    //void showHideDogEar();
-    //void hideSplash();
 
 private:
     QWidget *contentWidget;
