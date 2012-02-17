@@ -15,18 +15,17 @@ public:
 	TweaksSettingsHomeMenuView(TweaksPlugin *plugin, QWidget *parent);
 
 public slots:
-    void customMenuEnabled(bool);
-    void showLibrary(bool);
-    void on_shortlist_stateChanged(int);
-    void showDictionary(bool);
-    void showReadingLife(bool);
-    void showStore(bool);
-    void showSync(bool);
-    void showHelp(bool);
-    void showBrowser(bool);
-    void showAirplaneMode(bool);
-    void showWifiOnOff(bool);
-    void showPowerOff(bool);
+    void on_customMenu_toggled(bool);
+    void on_shortlist_toggled(bool);
+    void on_dictionary_toggled(bool);
+    void on_readingLife_toggled(bool);
+    void on_store_toggled(bool);
+    void on_sync_toggled(bool);
+    void on_help_toggled(bool);
+    void on_browser_toggled(bool);
+    void on_airplaneMode_toggled(bool);
+    void on_toggleWifi_toggled(bool);
+    void on_powerOff_toggled(bool);
 
 private:
     TweaksPlugin *plugin;

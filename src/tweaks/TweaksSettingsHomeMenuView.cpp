@@ -15,43 +15,46 @@ TweaksSettingsHomeMenuView::TweaksSettingsHomeMenuView(TweaksPlugin *plugin, QWi
     customMenu->setChecked(plugin->settings()->value("Menu/customMenuEnabled", false).toBool());
 }
 
-void TweaksSettingsHomeMenuView::customMenuEnabled(bool enabled) {
-    plugin->settings()->setValue("Menu/customMenuEnabled", customMenu->isChecked());
+void TweaksSettingsHomeMenuView::on_customMenu_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/customMenuEnabled", enabled);
 }
 
-void TweaksSettingsHomeMenuView::on_shortlist_stateChanged(int state) {
-    plugin->settings()->setValue("Menu/showShortlist", shortlist->isChecked());
-    cout << "shortlist" << endl << flush;
+void TweaksSettingsHomeMenuView::on_shortlist_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showShortlist", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showDictionary(bool enabled) {
-    plugin->settings()->setValue("Menu/showDictionary", dictionary->isChecked());
+void TweaksSettingsHomeMenuView::on_dictionary_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showDictionary", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showReadingLife(bool enabled) {
-    plugin->settings()->setValue("Menu/showReadingLife", readingLife->isChecked());
+void TweaksSettingsHomeMenuView::on_readingLife_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showReadingLife", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showStore(bool enabled) {
-    plugin->settings()->setValue("Menu/showStore", store->isChecked());
+void TweaksSettingsHomeMenuView::on_store_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showStore", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showSync(bool enabled) {
-    plugin->settings()->setValue("Menu/showSync", sync->isChecked());
+void TweaksSettingsHomeMenuView::on_sync_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showSync", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showHelp(bool enabled) {
-    plugin->settings()->setValue("Menu/showHelp", help->isChecked());
+void TweaksSettingsHomeMenuView::on_help_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showHelp", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showBrowser(bool enabled) {
+void TweaksSettingsHomeMenuView::on_browser_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showBrowser", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showAirplaneMode(bool enabled) {
+void TweaksSettingsHomeMenuView::on_airplaneMode_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showAirplaneMode", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showWifiOnOff(bool enabled) {
+void TweaksSettingsHomeMenuView::on_toggleWifi_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showWifiOnOff", enabled);
 }
 
-void TweaksSettingsHomeMenuView::showPowerOff(bool enabled) {
+void TweaksSettingsHomeMenuView::on_powerOff_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showPowerOff", enabled);
 }
