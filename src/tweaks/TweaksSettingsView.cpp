@@ -5,6 +5,7 @@
 #include "MainWindowController.h"
 #include "TweaksSettingsHomeMenuView.h"
 #include "TweaksSettingsLEDView.h"
+#include "TweaksSettingsMiscView.h"
 #include "TweaksSettingsPageView.h"
 
 using namespace std;
@@ -23,17 +24,17 @@ TweaksSettingsView::TweaksSettingsView(TweaksPlugin *plugin, QWidget *parent)
 void TweaksSettingsView::led()
 {
     TweaksSettingsPageView *pv = new TweaksSettingsPageView(this, new TweaksSettingsLEDView(0));
-    MainWindowController *mwc = MainWindowController::sharedInstance();
-    mwc->pushView(pv);
+    MainWindowController::sharedInstance()->pushView(pv);
 }
 
 void TweaksSettingsView::misc()
 {
+    TweaksSettingsPageView *pv = new TweaksSettingsPageView(this, new TweaksSettingsMiscView(plugin, 0));
+    MainWindowController::sharedInstance()->pushView(pv);
 }
 
 void TweaksSettingsView::homeMenu()
 {
     TweaksSettingsPageView *pv = new TweaksSettingsPageView(this, new TweaksSettingsHomeMenuView(plugin, 0));
-    MainWindowController *mwc = MainWindowController::sharedInstance();
-    mwc->pushView(pv);
+    MainWindowController::sharedInstance()->pushView(pv);
 }

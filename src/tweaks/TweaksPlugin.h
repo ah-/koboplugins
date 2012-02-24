@@ -33,6 +33,7 @@ public slots:
     void open(QString mimeType);
     void enableBrowserShortcut(bool enable);
     void enableWirelessTimeout(bool enable);
+    void enableShelves(bool enable);
     void hideRecommendations(bool enable);
     void sync(bool);
     void uninstallPlugin();

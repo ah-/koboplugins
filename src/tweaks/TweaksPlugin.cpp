@@ -388,9 +388,17 @@ void TweaksPlugin::hideRecommendations(bool enable)
     pluginSettings->setValue("Tweaks/hideRecommendations", enable);
 }
 
+void TweaksPlugin::enableShelves(bool enable)
+{
+    cout << "TweaksPlugin::enableShelves(): " << enable << endl << flush; 
+    pluginSettings->setValue("Menu/showShelves", enable);
+}
+
 void TweaksPlugin::uninstallPlugin()
 {
+    cout << "TweaksPlugin::uninstallPlugin()" << endl << flush; 
     QFile::remove("/usr/local/Kobo/libtweaks.so");
+    system("/bin/busybox reboot");
 }
 
 void TweaksPlugin::sync(bool)

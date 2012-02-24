@@ -9,8 +9,8 @@ CONFIG += plugin \
           resources
 
 INCLUDEPATH += ../../include \
-                ../../libs/common/include \
-                ../../libs/support/include
+               ../../libs/common/include \
+               ../../libs/support/include
 
 ;LIBS += -lsupport
 ;LIBS += -L../../libs/release
@@ -21,6 +21,7 @@ FORMS = tweakview.ui \
     TweaksSettingsPageView.ui \
     TweaksSettingsView.ui \
     TweaksSettingsLEDView.ui \
+    TweaksSettingsMiscView.ui \
     TweaksSettingsHomeMenuView.ui
 
 SOURCES += TweaksPlugin.cpp \
@@ -28,6 +29,7 @@ SOURCES += TweaksPlugin.cpp \
     TweaksSettingsPageView.cpp \
     TweaksSettingsView.cpp \
     TweaksSettingsLEDView.cpp \
+    TweaksSettingsMiscView.cpp \
     TweaksSettingsHomeMenuView.cpp
 
 RESOURCES += ../../res/koboplugins.qrc
@@ -38,6 +40,7 @@ HEADERS += ../../include/PluginInterface.h \
     TweaksSettingsPageView.h \
     TweaksSettingsView.h \
     TweaksSettingsLEDView.h \
+    TweaksSettingsMiscView.h \
     TweaksSettingsHomeMenuView.h
 
 TRANSLATIONS = koboplugins_de.ts \
