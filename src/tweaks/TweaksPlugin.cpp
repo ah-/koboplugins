@@ -398,6 +398,7 @@ void TweaksPlugin::uninstallPlugin()
 {
     cout << "TweaksPlugin::uninstallPlugin()" << endl << flush; 
     QFile::remove("/usr/local/Kobo/libtweaks.so");
+    QFile::remove("/mnt/onboard/.kobo/koboplugins.ini");
     system("/bin/busybox reboot");
 }
 
