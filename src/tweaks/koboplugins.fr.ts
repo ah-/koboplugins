@@ -90,7 +90,7 @@
     <message>
         <location filename="tweakview.ui" line="578"/>
         <source>Sync now</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Synchroniser</translation>
     </message>
     <message>
         <location filename="tweakview.ui" line="602"/>
@@ -172,7 +172,7 @@
     <message>
         <location filename="TweaksPlugin.cpp" line="230"/>
         <source>Airplane Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mode Avion</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="233"/>
@@ -207,12 +207,12 @@
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="57"/>
         <source>Change the content of the START menu.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifier le contenu du menu ACCUEIL</translation>
     </message>
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="173"/>
         <source>Airplane Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mode Avion</translation>
     </message>
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="341"/>
@@ -275,7 +275,7 @@
         <location filename="TweaksSettingsLEDView.ui" line="14"/>
         <location filename="TweaksSettingsLEDView.ui" line="29"/>
         <source>LED CONTROL</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">LED CONTROL</translation>
     </message>
     <message>
         <location filename="TweaksSettingsLEDView.ui" line="57"/>
@@ -307,17 +307,17 @@
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="14"/>
         <source>MISCELLANEOUS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Réglages divers</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="29"/>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Réglages divers</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="57"/>
         <source>Hide recommendations on the Homescreen.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cacher les recommandations sur la page d&apos;accueil</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="101"/>
@@ -327,32 +327,32 @@
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="125"/>
         <source>Hide page numbers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Cacher le numéro des pages</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="143"/>
         <source>Experimental</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Experimental</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="174"/>
         <source>Enable Shelves. Be careful, this feature is not finished and might corrupt your database.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activer les Étagères. Attention! Cette fonction n&apos;est pas finie et peut corrompre votre base de données.</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="218"/>
         <source>Enable Shelves</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activer les Étagères</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="236"/>
         <source>Uninstall</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Désinstallation</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="267"/>
         <source>Uninstall the Tweaks plugin and reboot the device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Désinstalle le plugin et redémarre l&apos;appareil.</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="289"/>
@@ -405,12 +405,12 @@
     <message>
         <location filename="TweaksSettingsView.ui" line="68"/>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Réglages divers</translation>
     </message>
     <message>
         <location filename="TweaksSettingsView.ui" line="94"/>
         <source>LEDs</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">LEDs</translation>
     </message>
 </context>
 </TS>
