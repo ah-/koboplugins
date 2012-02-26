@@ -106,92 +106,92 @@
 <context>
     <name>TweaksPlugin</name>
     <message>
-        <location filename="TweaksPlugin.cpp" line="185"/>
+        <location filename="TweaksPlugin.cpp" line="191"/>
         <source>Library</source>
         <translation type="unfinished">Bibliothèque</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="197"/>
+        <location filename="TweaksPlugin.cpp" line="203"/>
         <source>Dictionary</source>
         <translation type="unfinished">Dictionnaire</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="188"/>
-        <location filename="TweaksPlugin.cpp" line="214"/>
-        <location filename="TweaksPlugin.cpp" line="254"/>
+        <location filename="TweaksPlugin.cpp" line="194"/>
+        <location filename="TweaksPlugin.cpp" line="220"/>
+        <location filename="TweaksPlugin.cpp" line="260"/>
         <source>Shortlist</source>
         <translation type="unfinished">Favoris</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="191"/>
-        <location filename="TweaksPlugin.cpp" line="262"/>
+        <location filename="TweaksPlugin.cpp" line="197"/>
+        <location filename="TweaksPlugin.cpp" line="268"/>
         <source>Bookshelves</source>
         <translation type="unfinished">Étagères</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="194"/>
-        <location filename="TweaksPlugin.cpp" line="257"/>
+        <location filename="TweaksPlugin.cpp" line="200"/>
+        <location filename="TweaksPlugin.cpp" line="263"/>
         <source>Library Search</source>
         <translation type="unfinished">Rechercher</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="200"/>
+        <location filename="TweaksPlugin.cpp" line="206"/>
         <source>Reading Life</source>
         <translation type="unfinished">Reading Life</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="203"/>
+        <location filename="TweaksPlugin.cpp" line="209"/>
         <source>Store</source>
         <translation type="unfinished">Librairie</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="206"/>
+        <location filename="TweaksPlugin.cpp" line="212"/>
         <source>Sync</source>
         <translation type="unfinished">Synchroniser</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="209"/>
+        <location filename="TweaksPlugin.cpp" line="215"/>
         <source>Help</source>
         <translation type="unfinished">Aide</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="211"/>
+        <location filename="TweaksPlugin.cpp" line="217"/>
         <source>Settings</source>
         <translation type="unfinished">Paramètres</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="218"/>
+        <location filename="TweaksPlugin.cpp" line="224"/>
         <source>Tweaks</source>
         <translation type="unfinished">Tweaks</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="221"/>
+        <location filename="TweaksPlugin.cpp" line="227"/>
         <source>Browser</source>
         <translation type="unfinished">Navigateur</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="224"/>
+        <location filename="TweaksPlugin.cpp" line="230"/>
         <source>Airplane Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="227"/>
+        <location filename="TweaksPlugin.cpp" line="233"/>
         <source>Toggle WiFi</source>
         <translation type="unfinished">WiFi On/Off</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="230"/>
+        <location filename="TweaksPlugin.cpp" line="236"/>
         <source>Power Off</source>
         <oldsource>Power off</oldsource>
         <translation type="unfinished">Éteindre</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="251"/>
+        <location filename="TweaksPlugin.cpp" line="257"/>
         <source>Books</source>
         <translation type="unfinished">Livres</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="261"/>
+        <location filename="TweaksPlugin.cpp" line="267"/>
         <source>Create Shelf</source>
         <translation type="unfinished">Nouvelle étagère</translation>
     </message>
@@ -325,37 +325,42 @@
         <translation type="unfinished">Cacher les recommandations</translation>
     </message>
     <message>
-        <location filename="TweaksSettingsMiscView.ui" line="113"/>
+        <location filename="TweaksSettingsMiscView.ui" line="125"/>
+        <source>Hide page numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TweaksSettingsMiscView.ui" line="143"/>
         <source>Experimental</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksSettingsMiscView.ui" line="141"/>
+        <location filename="TweaksSettingsMiscView.ui" line="174"/>
         <source>Enable Shelves. Be careful, this feature is not finished and might corrupt your database.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksSettingsMiscView.ui" line="185"/>
+        <location filename="TweaksSettingsMiscView.ui" line="218"/>
         <source>Enable Shelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksSettingsMiscView.ui" line="197"/>
+        <location filename="TweaksSettingsMiscView.ui" line="236"/>
         <source>Uninstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksSettingsMiscView.ui" line="225"/>
+        <location filename="TweaksSettingsMiscView.ui" line="267"/>
         <source>Uninstall the Tweaks plugin and reboot the device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksSettingsMiscView.ui" line="247"/>
+        <location filename="TweaksSettingsMiscView.ui" line="289"/>
         <source>font: 22px Avenir; border: 2px solid black; border-radius: 5px;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksSettingsMiscView.ui" line="250"/>
+        <location filename="TweaksSettingsMiscView.ui" line="292"/>
         <source>Uninstall Plugin</source>
         <translation type="unfinished">Désinstaller</translation>
     </message>
@@ -368,7 +373,7 @@
         <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <location filename="TweaksSettingsPageHeader.ui" line="70"/>
+        <location filename="TweaksSettingsPageHeader.ui" line="76"/>
         <source>TWEAKS</source>
         <translation type="unfinished">TWEAKS</translation>
     </message>

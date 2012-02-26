@@ -4,7 +4,9 @@
 #include <QtGui>
 #include "PluginInterface.h"
 #include "TweaksSettingsPageView.h"
-//#include "loggerlib.h"
+
+class HomeMenuController;
+class NickelTouchMenu;
 
 #define CONFIG_PATH "/mnt/onboard/.kobo/koboplugins.ini"
 
@@ -34,6 +36,7 @@ public slots:
     void enableBrowserShortcut(bool enable);
     void enableWirelessTimeout(bool enable);
     void enableShelves(bool enable);
+    void hideFooter(bool enable);
     void hideRecommendations(bool enable);
     void sync(bool);
     void uninstallPlugin();
@@ -42,7 +45,7 @@ public slots:
 
 private:
     bool checkFirmwareVersion();
-    bool createHomeMenuEntry(QString mapping, QString icon, QString text);
+    bool createHomeMenuEntry(QString mapping, QString icon, QString text, HomeMenuController *hmc, NickelTouchMenu *ntm);
     bool createLibraryMenuEntry(QString mapping, QString text);
 
 private:

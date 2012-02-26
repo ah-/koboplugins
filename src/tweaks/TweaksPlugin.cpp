@@ -20,6 +20,7 @@
 #include "N3FSSyncManager.h"
 #include "N3ReaderOpener.h"
 #include "N3SettingsController.h"
+#include "ReadingFooter.h"
 #include "ReadingView.h"
 #include "ReadingViewMixin.h"
 #include "TouchLabel.h"
@@ -123,6 +124,11 @@ void TweaksPlugin::windowChanged(int index)
         if(readv) {
             if(pluginSettings->value("Reader/tweakFooter", false).toBool())
                 connect(readv, SIGNAL(footerMenuOpened()), this, SLOT(bookFooterOpened()));
+            if(pluginSettings->value("Reader/hideFooter", false).toBool()) {
+                ReadingFooter *readingFooter = currentWidget->findChild<ReadingFooter *>("footer");
+                if(readingFooter)
+                    readingFooter->hide();
+            }
         }
         else if (hpgv) {
             cout << "TweaksPlugin::windowChanged() found HomePageGridView, trying to patch menu" << endl << flush; 
@@ -182,52 +188,52 @@ void TweaksPlugin::patchMenu()
             ntm->clear();
 
             if(pluginSettings->value("Menu/showLibrary", true).toBool())
-                createHomeMenuEntry(MENTRY_LIBRARY, ":/images/menu/trilogy_library.png", tr("Library"));
+                createHomeMenuEntry(MENTRY_LIBRARY, ":/images/menu/trilogy_library.png", tr("Library"), hmc, ntm);
 
             if(lmc && pluginSettings->value("Menu/showShortlist", false).toBool())
-                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"));
+                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"), hmc, ntm);
 
             if(lmc && pluginSettings->value("Menu/showShelves", false).toBool())
-                createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_01.png", tr("Bookshelves"));
+                createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_01.png", tr("Bookshelves"), hmc, ntm);
 
             if(lmc && pluginSettings->value("Menu/showSearch", true).toBool())
-                createHomeMenuEntry(MENTRY_LIBRARYSEARCH, ":/koboplugins/icons/menu/search_02.png", tr("Library Search"));
+                createHomeMenuEntry(MENTRY_LIBRARYSEARCH, ":/koboplugins/icons/menu/search_02.png", tr("Library Search"), hmc, ntm);
 
             if(pluginSettings->value("Menu/showDictionary", true).toBool())
-                createHomeMenuEntry(MENTRY_DICTIONARY, ":/koboplugins/icons/menu/dictionary_01.png", tr("Dictionary"));
+                createHomeMenuEntry(MENTRY_DICTIONARY, ":/koboplugins/icons/menu/dictionary_01.png", tr("Dictionary"), hmc, ntm);
 
             if(pluginSettings->value("Menu/showReadingLife", true).toBool())
-                createHomeMenuEntry(MENTRY_READINGLIFE, ":/images/menu/trilogy_readinglife.png", tr("Reading Life"));
+                createHomeMenuEntry(MENTRY_READINGLIFE, ":/images/menu/trilogy_readinglife.png", tr("Reading Life"), hmc, ntm);
 
             if(pluginSettings->value("Menu/showStore", true).toBool())
-                createHomeMenuEntry(MENTRY_STORE, ":/images/menu/trilogy_store.png", tr("Store"));
+                createHomeMenuEntry(MENTRY_STORE, ":/images/menu/trilogy_store.png", tr("Store"), hmc, ntm);
 
             if(pluginSettings->value("Menu/showSync", true).toBool())
-                createHomeMenuEntry(MENTRY_SYNC, ":/images/menu/trilogy_sync.png", tr("Sync"));
+                createHomeMenuEntry(MENTRY_SYNC, ":/images/menu/trilogy_sync.png", tr("Sync"), hmc, ntm);
 
             if(pluginSettings->value("Menu/showHelp", true).toBool())
-                createHomeMenuEntry(MENTRY_HELP, ":/images/menu/trilogy_help.png", tr("Help"));
+                createHomeMenuEntry(MENTRY_HELP, ":/images/menu/trilogy_help.png", tr("Help"), hmc, ntm);
 
-            createHomeMenuEntry(MENTRY_SETTINGS, ":/images/menu/trilogy_settings.png", tr("Settings"));
+            createHomeMenuEntry(MENTRY_SETTINGS, ":/images/menu/trilogy_settings.png", tr("Settings"), hmc, ntm);
         } else {
             if(lmc && pluginSettings->value("Menu/showShortlist", false).toBool())
-                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"));
+                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"), hmc, ntm);
         }
 
         if(pluginSettings->value("Menu/showTweaksEntry", true).toBool())
-            createHomeMenuEntry(MENTRY_TWEAKS, ":/koboplugins/icons/menu/tweak_01.png", tr("Tweaks"));
+            createHomeMenuEntry(MENTRY_TWEAKS, ":/koboplugins/icons/menu/tweak_01.png", tr("Tweaks"), hmc, ntm);
 
         if(pluginSettings->value("Menu/showBrowser", false).toBool())
-            createHomeMenuEntry(MENTRY_BROWSER, ":/koboplugins/icons/menu/browser_02.png", tr("Browser"));
+            createHomeMenuEntry(MENTRY_BROWSER, ":/koboplugins/icons/menu/browser_02.png", tr("Browser"), hmc, ntm);
 
         if(pluginSettings->value("Menu/showAirplaneMode", false).toBool())
-            createHomeMenuEntry(MENTRY_AIRPLANEMODE, ":/images/statusbar/wifi_airplane.png", tr("Airplane Mode"));
+            createHomeMenuEntry(MENTRY_AIRPLANEMODE, ":/images/statusbar/wifi_airplane.png", tr("Airplane Mode"), hmc, ntm);
 
         if(pluginSettings->value("Menu/showWifiOnOff", false).toBool())
-            createHomeMenuEntry(MENTRY_WIFIONOFF, ":/images/statusbar/wifi_4.png", tr("Toggle WiFi"));
+            createHomeMenuEntry(MENTRY_WIFIONOFF, ":/images/statusbar/wifi_4.png", tr("Toggle WiFi"), hmc, ntm);
 
         if(pluginSettings->value("Menu/showPowerOff", false).toBool())
-            createHomeMenuEntry(MENTRY_POWEROFF, ":/koboplugins/icons/menu/power_01.png", tr("Power Off"));
+            createHomeMenuEntry(MENTRY_POWEROFF, ":/koboplugins/icons/menu/power_01.png", tr("Power Off"), hmc, ntm);
 
         // store that we already patched this menu so the item doesn't get added twice
         lastPatchedMenu = (void *) ntm;
@@ -381,6 +387,12 @@ bool TweaksPlugin::wirelessTimeoutEnabled()
     return pluginSettings->value("Tweaks/enableWirelessTimeout", true).toBool();
 }
 
+void TweaksPlugin::hideFooter(bool enable)
+{
+    cout << "TweaksPlugin::hideFooter(): " << enable << endl << flush; 
+    pluginSettings->setValue("Reader/hideFooter", enable);
+}
+
 void TweaksPlugin::hideRecommendations(bool enable)
 {
     cout << "TweaksPlugin::hideRecommendations(): " << enable << endl << flush; 
@@ -473,11 +485,8 @@ bool TweaksPlugin::checkFirmwareVersion()
     return true;
 }
 
-// TODO: don't call findChild all the time
-bool TweaksPlugin::createHomeMenuEntry(QString mapping, QString icon, QString text)
+bool TweaksPlugin::createHomeMenuEntry(QString mapping, QString icon, QString text, HomeMenuController *hmc, NickelTouchMenu *ntm)
 {
-    HomeMenuController *hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
-    NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
     MenuTextItem *mti = NULL;
 
     mti = hmc->createMenuTextItem(ntm, text, false);

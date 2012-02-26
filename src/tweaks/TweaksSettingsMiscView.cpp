@@ -14,9 +14,11 @@ TweaksSettingsMiscView::TweaksSettingsMiscView(TweaksPlugin *plugin, QWidget *pa
 
     recommendations->setChecked(plugin->settings()->value("Tweaks/hideRecommendations", false).toBool());
     shelves->setChecked(plugin->settings()->value("Menu/showShelves", false).toBool());
+    pagenumbers->setChecked(plugin->settings()->value("Reader/hideFooter", false).toBool());
     uninstallButton->setAttribute(Qt::WA_AcceptTouchEvents);
 
     connect(recommendations, SIGNAL(toggled(bool)), plugin, SLOT(hideRecommendations(bool)));
     connect(shelves, SIGNAL(toggled(bool)), plugin, SLOT(enableShelves(bool)));
-	connect(uninstallButton, SIGNAL(clicked()), plugin, SLOT(uninstallPlugin()));
+    connect(pagenumbers, SIGNAL(toggled(bool)), plugin, SLOT(hideFooter(bool)));
+    connect(uninstallButton, SIGNAL(clicked()), plugin, SLOT(uninstallPlugin()));
 }
