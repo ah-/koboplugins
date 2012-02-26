@@ -10,7 +10,7 @@ class TweaksSettingsPageView : public QWidget, private Ui::TweaksSettingsPageVie
 	Q_OBJECT
 
 public:
-	TweaksSettingsPageView(QWidget *parent, QWidget *contentWidget=0);
+	TweaksSettingsPageView(QWidget *parent, QWidget *contentWidget=0, bool showBackButton=true);
 
     QWidget *getContentWidget();
     void setContentWidget(QWidget *);

@@ -5,7 +5,7 @@
 
 #include "ui_TweaksSettingsPageHeader.h"
 
-class TweaksSettingsPageHeader : public QWidget, private Ui::TweaksSettingsPageHeader
+class TweaksSettingsPageHeader : public QWidget, public Ui::TweaksSettingsPageHeader
 {
 	Q_OBJECT
 

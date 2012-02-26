@@ -6,7 +6,7 @@
 
 using namespace std;
 
-TweaksSettingsPageView::TweaksSettingsPageView(QWidget *parent, QWidget *contentWidget)
+TweaksSettingsPageView::TweaksSettingsPageView(QWidget *parent, QWidget *contentWidget, bool showBackButton)
     : QWidget(parent)
 {
     cout << "TweaksSettingsPageView()" << endl << flush; 
@@ -15,6 +15,9 @@ TweaksSettingsPageView::TweaksSettingsPageView(QWidget *parent, QWidget *content
     contentWidget->setParent(this);
     setContentWidget(contentWidget);
     connect(header, SIGNAL(back()), this, SLOT(dismissDialog()));
+
+    if (!showBackButton)
+        header->backLabel->hide();
 }
 
 void TweaksSettingsPageView::dismissDialog()

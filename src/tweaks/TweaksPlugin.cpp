@@ -280,7 +280,7 @@ void TweaksPlugin::open(QString mimeType)
     else if (mimeType == MENTRY_TWEAKS) {
         // TODO: proper parent/lifecycle management
         TweaksSettingsView *settingsView = new TweaksSettingsView(this, 0);
-        TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow(), settingsView);
+        TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow(), settingsView, false);
         MainWindowController::sharedInstance()->pushView(v);
     }
     else if (mimeType == MENTRY_WIFIONOFF) {
