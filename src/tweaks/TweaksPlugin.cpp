@@ -51,9 +51,8 @@ TweaksPlugin::TweaksPlugin() :
         return;
 
     //LOG("init translator");
-
     QTranslator* pTranslator = new QTranslator;
-    pTranslator->load(QString("koboplugins_") + pluginSettings->value("Global/language", "en").toString(), ":/koboplugins/translations/");
+    pTranslator->load(QString("koboplugins.") + QLocale().name(), ":/koboplugins/translations/");
     qApp->installTranslator(pTranslator);
 
     //LOG("TweaksPlugin()");

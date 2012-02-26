@@ -15,8 +15,8 @@
         <file alias="koboplugins.ini">../templates/koboplugins.ini</file>
     </qresource>
     <qresource prefix="/koboplugins/translations">
-        <file alias="koboplugins_de.qm">../src/tweaks/koboplugins_de.qm</file>
-        <file alias="koboplugins_fr.qm">../src/tweaks/koboplugins_fr.qm</file>
-        <file alias="koboplugins_es.qm">../src/tweaks/koboplugins_es.qm</file>
+        <file alias="koboplugins.de.qm">../src/tweaks/koboplugins.de.qm</file>
+        <file alias="koboplugins.fr.qm">../src/tweaks/koboplugins.fr.qm</file>
+        <file alias="koboplugins.es.qm">../src/tweaks/koboplugins.es.qm</file>
     </qresource>
 </RCC>

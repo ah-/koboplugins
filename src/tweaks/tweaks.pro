@@ -43,6 +43,6 @@ HEADERS += ../../include/PluginInterface.h \
     TweaksSettingsMiscView.h \
     TweaksSettingsHomeMenuView.h
 
-TRANSLATIONS = koboplugins_de.ts \
-               koboplugins_fr.ts \
-               koboplugins_es.ts
+TRANSLATIONS = koboplugins.de.ts \
+               koboplugins.fr.ts \
+               koboplugins.es.ts
