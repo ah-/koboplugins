@@ -11,7 +11,6 @@ TweaksSettingsHomeMenuView::TweaksSettingsHomeMenuView(TweaksPlugin *plugin, QWi
     setupUi(this);
     cout << "TweaksSettingsHomeMenuView()" << endl << flush; 
 
-    customMenu->setChecked(plugin->settings()->value("Menu/customMenuEnabled", false).toBool());
     shortlist->setChecked(plugin->settings()->value("Menu/showShortlist", false).toBool());
     dictionary->setChecked(plugin->settings()->value("Menu/showDictionary", false).toBool());
     readingLife->setChecked(plugin->settings()->value("Menu/showReadingLife", false).toBool());
@@ -23,10 +22,6 @@ TweaksSettingsHomeMenuView::TweaksSettingsHomeMenuView(TweaksPlugin *plugin, QWi
     airplaneMode->setChecked(plugin->settings()->value("Menu/showAirplaneMode", false).toBool());
     toggleWifi->setChecked(plugin->settings()->value("Menu/showWifiOnOff", false).toBool());
     powerOff->setChecked(plugin->settings()->value("Menu/showPowerOff", false).toBool());
-}
-
-void TweaksSettingsHomeMenuView::on_customMenu_toggled(bool enabled) {
-    plugin->settings()->setValue("Menu/customMenuEnabled", enabled);
 }
 
 void TweaksSettingsHomeMenuView::on_shortlist_toggled(bool enabled) {

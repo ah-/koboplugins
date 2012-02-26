@@ -79,174 +79,6 @@ padding-bottom: 10;</string>
       <number>10</number>
      </property>
      <item row="0" column="1">
-      <widget class="TouchCheckBox" name="customMenu">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox {
-    spacing: 15px;
-    font: bold 20px &quot;Avenir&quot;;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/images/widgets/checkbox_off.png);
-}
-QCheckBox::indicator:checked {
-    image: url(:/images/widgets/checkbox_on.png);
-}
-QCheckBox::indicator:disabled {
-    image: url(:/images/widgets/checkbox_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Change default entries</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="TouchCheckBox" name="airplaneMode">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox {
-    spacing: 15px;
-    font: bold 20px &quot;Avenir&quot;;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/images/widgets/checkbox_off.png);
-}
-QCheckBox::indicator:checked {
-    image: url(:/images/widgets/checkbox_on.png);
-}
-QCheckBox::indicator:disabled {
-    image: url(:/images/widgets/checkbox_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Airplane Mode</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="TouchCheckBox" name="browser">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox {
-    spacing: 15px;
-    font: bold 20px &quot;Avenir&quot;;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/images/widgets/checkbox_off.png);
-}
-QCheckBox::indicator:checked {
-    image: url(:/images/widgets/checkbox_on.png);
-}
-QCheckBox::indicator:disabled {
-    image: url(:/images/widgets/checkbox_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Browser</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="TouchCheckBox" name="dictionary">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox {
-    spacing: 15px;
-    font: bold 20px &quot;Avenir&quot;;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/images/widgets/checkbox_off.png);
-}
-QCheckBox::indicator:checked {
-    image: url(:/images/widgets/checkbox_on.png);
-}
-QCheckBox::indicator:disabled {
-    image: url(:/images/widgets/checkbox_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Dictionary</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="TouchCheckBox" name="help">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox {
-    spacing: 15px;
-    font: bold 20px &quot;Avenir&quot;;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/images/widgets/checkbox_off.png);
-}
-QCheckBox::indicator:checked {
-    image: url(:/images/widgets/checkbox_on.png);
-}
-QCheckBox::indicator:disabled {
-    image: url(:/images/widgets/checkbox_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Help</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="TouchCheckBox" name="readingLife">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox {
-    spacing: 15px;
-    font: bold 20px &quot;Avenir&quot;;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/images/widgets/checkbox_off.png);
-}
-QCheckBox::indicator:checked {
-    image: url(:/images/widgets/checkbox_on.png);
-}
-QCheckBox::indicator:disabled {
-    image: url(:/images/widgets/checkbox_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Reading Life</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="TouchCheckBox" name="store">
-       <property name="styleSheet">
-        <string notr="true">QCheckBox {
-    spacing: 15px;
-    font: bold 20px &quot;Avenir&quot;;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url(:/images/widgets/checkbox_off.png);
-}
-QCheckBox::indicator:checked {
-    image: url(:/images/widgets/checkbox_on.png);
-}
-QCheckBox::indicator:disabled {
-    image: url(:/images/widgets/checkbox_disabled.png);
-}
-</string>
-       </property>
-       <property name="text">
-        <string>Store</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
       <widget class="TouchCheckBox" name="shortlist">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
@@ -270,7 +102,7 @@ QCheckBox::indicator:disabled {
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
+     <item row="1" column="1">
       <widget class="TouchCheckBox" name="search">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
@@ -290,12 +122,12 @@ QCheckBox::indicator:disabled {
 </string>
        </property>
        <property name="text">
-        <string>Search</string>
+        <string>Library Search</string>
        </property>
       </widget>
      </item>
-     <item row="11" column="1">
-      <widget class="TouchCheckBox" name="sync">
+     <item row="2" column="1">
+      <widget class="TouchCheckBox" name="dictionary">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
     spacing: 15px;
@@ -314,11 +146,59 @@ QCheckBox::indicator:disabled {
 </string>
        </property>
        <property name="text">
-        <string>Sync</string>
+        <string>Dictionary</string>
        </property>
       </widget>
      </item>
-     <item row="13" column="1">
+     <item row="8" column="1">
+      <widget class="TouchCheckBox" name="airplaneMode">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox {
+    spacing: 15px;
+    font: bold 20px &quot;Avenir&quot;;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/images/widgets/checkbox_off.png);
+}
+QCheckBox::indicator:checked {
+    image: url(:/images/widgets/checkbox_on.png);
+}
+QCheckBox::indicator:disabled {
+    image: url(:/images/widgets/checkbox_disabled.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Airplane Mode</string>
+       </property>
+      </widget>
+     </item>
+     <item row="19" column="1">
+      <widget class="TouchCheckBox" name="toggleWifi">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox {
+    spacing: 15px;
+    font: bold 20px &quot;Avenir&quot;;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/images/widgets/checkbox_off.png);
+}
+QCheckBox::indicator:checked {
+    image: url(:/images/widgets/checkbox_on.png);
+}
+QCheckBox::indicator:disabled {
+    image: url(:/images/widgets/checkbox_disabled.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Toggle WiFi</string>
+       </property>
+      </widget>
+     </item>
+     <item row="20" column="1">
       <widget class="TouchCheckBox" name="powerOff">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
@@ -342,8 +222,8 @@ QCheckBox::indicator:disabled {
        </property>
       </widget>
      </item>
-     <item row="12" column="1">
-      <widget class="TouchCheckBox" name="toggleWifi">
+     <item row="3" column="1">
+      <widget class="TouchCheckBox" name="readingLife">
        <property name="styleSheet">
         <string notr="true">QCheckBox {
     spacing: 15px;
@@ -362,7 +242,103 @@ QCheckBox::indicator:disabled {
 </string>
        </property>
        <property name="text">
-        <string>Toggle WiFi</string>
+        <string>Reading Life</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="TouchCheckBox" name="store">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox {
+    spacing: 15px;
+    font: bold 20px &quot;Avenir&quot;;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/images/widgets/checkbox_off.png);
+}
+QCheckBox::indicator:checked {
+    image: url(:/images/widgets/checkbox_on.png);
+}
+QCheckBox::indicator:disabled {
+    image: url(:/images/widgets/checkbox_disabled.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Store</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="TouchCheckBox" name="sync">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox {
+    spacing: 15px;
+    font: bold 20px &quot;Avenir&quot;;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/images/widgets/checkbox_off.png);
+}
+QCheckBox::indicator:checked {
+    image: url(:/images/widgets/checkbox_on.png);
+}
+QCheckBox::indicator:disabled {
+    image: url(:/images/widgets/checkbox_disabled.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Sync</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="TouchCheckBox" name="help">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox {
+    spacing: 15px;
+    font: bold 20px &quot;Avenir&quot;;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/images/widgets/checkbox_off.png);
+}
+QCheckBox::indicator:checked {
+    image: url(:/images/widgets/checkbox_on.png);
+}
+QCheckBox::indicator:disabled {
+    image: url(:/images/widgets/checkbox_disabled.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Help</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="TouchCheckBox" name="browser">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox {
+    spacing: 15px;
+    font: bold 20px &quot;Avenir&quot;;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/images/widgets/checkbox_off.png);
+}
+QCheckBox::indicator:checked {
+    image: url(:/images/widgets/checkbox_on.png);
+}
+QCheckBox::indicator:disabled {
+    image: url(:/images/widgets/checkbox_disabled.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Browser</string>
        </property>
       </widget>
      </item>

@@ -178,7 +178,7 @@ void TweaksPlugin::patchMenu()
     if (hmc && ntm && lastPatchedMenu != (void *) ntm) {
         // Clear menu and add entries based on configuration
 
-        if(pluginSettings->value("Menu/customMenuEnabled", false).toBool()) {
+        if(pluginSettings->value("Menu/customMenuEnabled", true).toBool()) {
             ntm->clear();
 
             if(pluginSettings->value("Menu/showLibrary", true).toBool())
@@ -221,10 +221,10 @@ void TweaksPlugin::patchMenu()
             createHomeMenuEntry(MENTRY_BROWSER, ":/koboplugins/icons/menu/browser_02.png", tr("Browser"));
 
         if(pluginSettings->value("Menu/showAirplaneMode", false).toBool())
-            createHomeMenuEntry(MENTRY_AIRPLANEMODE, ":/images/statusbar/wifi_airplane.png", tr("Toggle WiFi"));
+            createHomeMenuEntry(MENTRY_AIRPLANEMODE, ":/images/statusbar/wifi_airplane.png", tr("Airplane Mode"));
 
         if(pluginSettings->value("Menu/showWifiOnOff", false).toBool())
-            createHomeMenuEntry(MENTRY_WIFIONOFF, ":/images/statusbar/wifi_4.png", tr("WiFi On/Off"));
+            createHomeMenuEntry(MENTRY_WIFIONOFF, ":/images/statusbar/wifi_4.png", tr("Toggle WiFi"));
 
         if(pluginSettings->value("Menu/showPowerOff", false).toBool())
             createHomeMenuEntry(MENTRY_POWEROFF, ":/koboplugins/icons/menu/power_01.png", tr("Power Off"));

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>MISCELLANEOUS</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -278,7 +278,6 @@ padding-bottom: 10;</string>
   <zorder>frame_2</zorder>
   <zorder>label_4</zorder>
   <zorder>uninstallButton</zorder>
-  <zorder>label_6</zorder>
   <zorder>frame_3</zorder>
   <zorder>label_6</zorder>
   <zorder>label_7</zorder>

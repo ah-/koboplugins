@@ -15,7 +15,6 @@ public:
 	TweaksSettingsHomeMenuView(TweaksPlugin *plugin, QWidget *parent);
 
 public slots:
-    void on_customMenu_toggled(bool);
     void on_shortlist_toggled(bool);
     void on_dictionary_toggled(bool);
     void on_readingLife_toggled(bool);
