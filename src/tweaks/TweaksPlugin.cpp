@@ -194,7 +194,7 @@ void TweaksPlugin::patchMenu()
                 createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"), hmc, ntm);
 
             if(lmc && pluginSettings->value("Menu/showShelves", false).toBool())
-                createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_01.png", tr("Bookshelves"), hmc, ntm);
+                createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_02.png", tr("Bookshelves"), hmc, ntm);
 
             if(lmc && pluginSettings->value("Menu/showSearch", true).toBool())
                 createHomeMenuEntry(MENTRY_LIBRARYSEARCH, ":/koboplugins/icons/menu/search_02.png", tr("Library Search"), hmc, ntm);
