@@ -172,7 +172,7 @@
     <message>
         <location filename="TweaksPlugin.cpp" line="230"/>
         <source>Airplane Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo avión</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="233"/>
@@ -182,7 +182,7 @@
     <message>
         <location filename="TweaksPlugin.cpp" line="236"/>
         <source>Power Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="257"/>
@@ -211,7 +211,7 @@
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="173"/>
         <source>Airplane Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modo avión</translation>
     </message>
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="341"/>
@@ -256,7 +256,7 @@
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="221"/>
         <source>Power Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apagar</translation>
     </message>
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="197"/>
@@ -306,17 +306,17 @@
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="14"/>
         <source>MISCELLANEOUS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Miscelánea</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="29"/>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Miscelánea</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="57"/>
         <source>Hide recommendations on the Homescreen.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ocultar recomendaciones en la pantalla principal.</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="101"/>
@@ -326,7 +326,7 @@
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="125"/>
         <source>Hide page numbers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ocultar números de página</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="143"/>
@@ -336,22 +336,22 @@
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="174"/>
         <source>Enable Shelves. Be careful, this feature is not finished and might corrupt your database.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Advertencia: esta funcionalidad no está terminada y puede corromper la base de datos.</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="218"/>
         <source>Enable Shelves</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activar Estanterías</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="236"/>
         <source>Uninstall</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desinstalar</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="267"/>
         <source>Uninstall the Tweaks plugin and reboot the device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Desintala el plugin Tweaks y reinicia el dispositivo.</translation>
     </message>
     <message>
         <location filename="TweaksSettingsMiscView.ui" line="289"/>
@@ -404,7 +404,7 @@
     <message>
         <location filename="TweaksSettingsView.ui" line="68"/>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Miscelánea</translation>
     </message>
     <message>
         <location filename="TweaksSettingsView.ui" line="94"/>

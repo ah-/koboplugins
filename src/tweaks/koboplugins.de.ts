@@ -410,7 +410,7 @@
     <message>
         <location filename="TweaksSettingsPageHeader.ui" line="76"/>
         <source>TWEAKS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">TWEAKS</translation>
     </message>
 </context>
 <context>
