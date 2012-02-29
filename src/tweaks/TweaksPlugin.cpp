@@ -52,6 +52,7 @@ TweaksPlugin::TweaksPlugin() :
         return;
 
     //LOG("init translator");
+    std::cout << "QLocale().name(): " << QLocale().name().toStdString() << std::endl;
     QTranslator* pTranslator = new QTranslator;
     pTranslator->load(QString("koboplugins.") + QLocale().name(), ":/koboplugins/translations/");
     qApp->installTranslator(pTranslator);
