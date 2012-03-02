@@ -106,91 +106,91 @@
 <context>
     <name>TweaksPlugin</name>
     <message>
-        <location filename="TweaksPlugin.cpp" line="191"/>
+        <location filename="TweaksPlugin.cpp" line="192"/>
         <source>Library</source>
         <translation>Biblioteca</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="203"/>
+        <location filename="TweaksPlugin.cpp" line="204"/>
         <source>Dictionary</source>
         <translation>Diccionario</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="194"/>
-        <location filename="TweaksPlugin.cpp" line="220"/>
-        <location filename="TweaksPlugin.cpp" line="260"/>
+        <location filename="TweaksPlugin.cpp" line="195"/>
+        <location filename="TweaksPlugin.cpp" line="221"/>
+        <location filename="TweaksPlugin.cpp" line="261"/>
         <source>Shortlist</source>
         <translation>Favoritos</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="197"/>
-        <location filename="TweaksPlugin.cpp" line="268"/>
+        <location filename="TweaksPlugin.cpp" line="198"/>
+        <location filename="TweaksPlugin.cpp" line="269"/>
         <source>Bookshelves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="200"/>
-        <location filename="TweaksPlugin.cpp" line="263"/>
+        <location filename="TweaksPlugin.cpp" line="201"/>
+        <location filename="TweaksPlugin.cpp" line="264"/>
         <source>Library Search</source>
         <translation>Búsqueda</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="206"/>
+        <location filename="TweaksPlugin.cpp" line="207"/>
         <source>Reading Life</source>
         <translation>Reading Life</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="209"/>
+        <location filename="TweaksPlugin.cpp" line="210"/>
         <source>Store</source>
         <translation>Tienda</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="212"/>
+        <location filename="TweaksPlugin.cpp" line="213"/>
         <source>Sync</source>
         <translation>Sincronizar</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="215"/>
+        <location filename="TweaksPlugin.cpp" line="216"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="217"/>
+        <location filename="TweaksPlugin.cpp" line="218"/>
         <source>Settings</source>
         <translation>Parámetros</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="224"/>
+        <location filename="TweaksPlugin.cpp" line="225"/>
         <source>Tweaks</source>
         <translation>Tweaks</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="227"/>
+        <location filename="TweaksPlugin.cpp" line="228"/>
         <source>Browser</source>
         <translation>Navegador</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="230"/>
+        <location filename="TweaksPlugin.cpp" line="231"/>
         <source>Airplane Mode</source>
         <translation>Modo avión</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="233"/>
+        <location filename="TweaksPlugin.cpp" line="234"/>
         <source>Toggle WiFi</source>
         <translation>WiFi On/Off</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="236"/>
+        <location filename="TweaksPlugin.cpp" line="237"/>
         <source>Power Off</source>
         <translation>Apagar</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="257"/>
+        <location filename="TweaksPlugin.cpp" line="258"/>
         <source>Books</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="267"/>
+        <location filename="TweaksPlugin.cpp" line="268"/>
         <source>Create Shelf</source>
         <translation type="unfinished"></translation>
     </message>
