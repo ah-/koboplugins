@@ -22,6 +22,7 @@ TweaksSettingsHomeMenuView::TweaksSettingsHomeMenuView(TweaksPlugin *plugin, QWi
     airplaneMode->setChecked(plugin->settings()->value("Menu/showAirplaneMode", false).toBool());
     toggleWifi->setChecked(plugin->settings()->value("Menu/showWifiOnOff", false).toBool());
     powerOff->setChecked(plugin->settings()->value("Menu/showPowerOff", false).toBool());
+    sleep->setChecked(plugin->settings()->value("Menu/showSleep", false).toBool());
 }
 
 void TweaksSettingsHomeMenuView::on_shortlist_toggled(bool enabled) {
@@ -66,4 +67,8 @@ void TweaksSettingsHomeMenuView::on_toggleWifi_toggled(bool enabled) {
 
 void TweaksSettingsHomeMenuView::on_powerOff_toggled(bool enabled) {
     plugin->settings()->setValue("Menu/showPowerOff", enabled);
+}
+
+void TweaksSettingsHomeMenuView::on_sleep_toggled(bool enabled) {
+    plugin->settings()->setValue("Menu/showSleep", enabled);
 }

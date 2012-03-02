@@ -11,6 +11,7 @@
         <file alias="shortlist_01.png">shortlist_01.png</file>
         <file alias="sketch_01.png">sketch_01.png</file>
         <file alias="tweak_01.png">tweak_01.png</file>
+        <file alias="sleep_01.png">sleep_01.png</file>
     </qresource>
     <qresource prefix="/koboplugins/templates">
         <file alias="koboplugins.ini">../templates/koboplugins.ini</file>

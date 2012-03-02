@@ -124,7 +124,10 @@ void TweaksPlugin::windowChanged(int index)
 
         if(readv) {
             if(pluginSettings->value("Reader/tweakFooter", false).toBool())
-                connect(readv, SIGNAL(footerMenuOpened()), this, SLOT(bookFooterOpened()));
+                {
+            	connect(readv, SIGNAL(footerMenuOpened()), this, SLOT(bookFooterOpened()));
+                connect(readv, SIGNAL(footerMenuClosed()), this, SLOT(bookFooterClosed()));
+                }
             if(pluginSettings->value("Reader/hideFooter", false).toBool()) {
                 ReadingFooter *readingFooter = currentWidget->findChild<ReadingFooter *>("footer");
                 if(readingFooter)
@@ -235,6 +238,9 @@ void TweaksPlugin::patchMenu()
 
         if(pluginSettings->value("Menu/showPowerOff", false).toBool())
             createHomeMenuEntry(MENTRY_POWEROFF, ":/koboplugins/icons/menu/power_01.png", tr("Power Off"), hmc, ntm);
+
+        if(pluginSettings->value("Menu/showSleep", false).toBool())
+            createHomeMenuEntry(MENTRY_SLEEP, ":/koboplugins/icons/menu/sleep_01.png", tr("Sleep"), hmc, ntm);
 
         // store that we already patched this menu so the item doesn't get added twice
         lastPatchedMenu = (void *) ntm;
@@ -360,6 +366,12 @@ void TweaksPlugin::open(QString mimeType)
         if(p)
             p->powerOff(false);
     }
+    else if (mimeType == MENTRY_SLEEP) {
+        N3PowerWorkflowManager::sharedInstance()->showSleepView();
+        DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
+        if(p)
+            p->toggleSleep();
+    }
     else {
         Volume v;
         v.setMimeType(mimeType);
@@ -427,34 +439,53 @@ void TweaksPlugin::openBrowser()
     WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
 }
 
+void TweaksPlugin::sleep()
+{
+    N3PowerWorkflowManager::sharedInstance()->showSleepView();
+    DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
+    if(p)
+        p->toggleSleep();
+}
+
 void TweaksPlugin::bookFooterOpened()
 {
     if(pluginSettings->value("Reader/showBrowser", false).toBool()) {
         // add browser icon before dict label
-        if(!qApp->activeWindow()->findChild<TouchLabel *>("readerBrowserLabel")) {
-            TouchLabel *dict = qApp->activeWindow()->findChild<TouchLabel *>("dict");
-            if(dict) {
-                QList<QHBoxLayout*> layouts = qApp->activeWindow()->findChildren<QHBoxLayout *>("horizontalLayout_2");
-                QHBoxLayout* parent = NULL;
-                if(layouts.size() >= 4)
-                    parent = layouts.at(3);
-
-                if(parent) {
-                    TouchLabel *browser = new TouchLabel("Browser", qApp->activeWindow());
-                    if(browser) {
-                        browser->setObjectName("readerBrowserLabel");
-                        //                    browser->setSelectedPixmap(":/koboplugins/icons/menu/browser_02.png");
-                        //                    browser->setDeselectedPixmap(":/koboplugins/icons/menu/browser_02.png");
-                        connect(browser, SIGNAL(tapped()), this, SLOT(openBrowser()));
-                        parent->addWidget(browser);
-                        browser->show();
-                    }
+        if(!qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn")) {
+			TouchLabel *browser = new TouchLabel(tr("SLEEP"), qApp->activeWindow());
+			if(browser) {
+				browser->setObjectName("sleepBtn");
+				browser->setSelectedPixmap(":/koboplugins/icons/menu/sleep_01.png");
+				browser->setDeselectedPixmap(":/koboplugins/icons/menu/sleep_01.png");
+				connect(browser, SIGNAL(tapped()), this, SLOT(sleep()));
+				browser->show();
                 }
             }
+        else {
+            TouchLabel *browser = qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn");
+            if(browser)
+            	browser->show();
         }
     } else {
-        if(qApp->activeWindow()->findChild<TouchLabel *>("readerBrowserLabel")) {
-            TouchLabel *browser = qApp->activeWindow()->findChild<TouchLabel *>("readerBrowserLabel");
+        if(qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn")) {
+            TouchLabel *browser = qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn");
+            if(browser)
+                browser->hide();
+        }
+    }
+}
+
+void TweaksPlugin::bookFooterClosed()
+{
+    if(pluginSettings->value("Reader/showBrowser", false).toBool()) {
+		if(qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn")) {
+			TouchLabel *browser = qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn");
+			if(browser)
+				browser->hide();
+        }
+    } else {
+        if(qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn")) {
+            TouchLabel *browser = qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn");
             if(browser)
                 browser->hide();
         }

@@ -222,6 +222,30 @@ QCheckBox::indicator:disabled {
        </property>
       </widget>
      </item>
+     <item row="21" column="1">
+      <widget class="TouchCheckBox" name="sleep">
+       <property name="styleSheet">
+        <string notr="true">QCheckBox {
+    spacing: 15px;
+    font: bold 20px &quot;Avenir&quot;;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(:/images/widgets/checkbox_off.png);
+}
+QCheckBox::indicator:checked {
+    image: url(:/images/widgets/checkbox_on.png);
+}
+QCheckBox::indicator:disabled {
+    image: url(:/images/widgets/checkbox_disabled.png);
+}
+</string>
+       </property>
+       <property name="text">
+        <string>Sleep</string>
+       </property>
+      </widget>
+     </item>
      <item row="3" column="1">
       <widget class="TouchCheckBox" name="readingLife">
        <property name="styleSheet">

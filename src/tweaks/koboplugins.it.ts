@@ -113,19 +113,19 @@
     <message>
         <location filename="TweaksPlugin.cpp" line="195"/>
         <location filename="TweaksPlugin.cpp" line="221"/>
-        <location filename="TweaksPlugin.cpp" line="261"/>
+        <location filename="TweaksPlugin.cpp" line="264"/>
         <source>Shortlist</source>
         <translation>Preferiti</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="198"/>
-        <location filename="TweaksPlugin.cpp" line="269"/>
+        <location filename="TweaksPlugin.cpp" line="272"/>
         <source>Bookshelves</source>
         <translation>Librerie</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="201"/>
-        <location filename="TweaksPlugin.cpp" line="264"/>
+        <location filename="TweaksPlugin.cpp" line="267"/>
         <source>Library Search</source>
         <translation>Ricerca</translation>
     </message>
@@ -185,12 +185,17 @@
         <translation>Spegni</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="258"/>
+        <location filename="TweaksPlugin.cpp" line="240"/>
+        <source>Sleep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TweaksPlugin.cpp" line="261"/>
         <source>Books</source>
         <translation>Libri</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="268"/>
+        <location filename="TweaksPlugin.cpp" line="271"/>
         <source>Create Shelf</source>
         <translation>Crea Libreria</translation>
     </message>
@@ -240,26 +245,31 @@
     </message>
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="245"/>
+        <source>Sleep</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TweaksSettingsHomeMenuView.ui" line="269"/>
         <source>Reading Life</source>
         <translation>Reading Life</translation>
     </message>
     <message>
-        <location filename="TweaksSettingsHomeMenuView.ui" line="269"/>
+        <location filename="TweaksSettingsHomeMenuView.ui" line="293"/>
         <source>Store</source>
         <translation>Store</translation>
     </message>
     <message>
-        <location filename="TweaksSettingsHomeMenuView.ui" line="293"/>
+        <location filename="TweaksSettingsHomeMenuView.ui" line="317"/>
         <source>Sync</source>
         <translation>Sincronizza</translation>
     </message>
     <message>
-        <location filename="TweaksSettingsHomeMenuView.ui" line="317"/>
+        <location filename="TweaksSettingsHomeMenuView.ui" line="341"/>
         <source>Help</source>
         <translation>Aiuto</translation>
     </message>
     <message>
-        <location filename="TweaksSettingsHomeMenuView.ui" line="341"/>
+        <location filename="TweaksSettingsHomeMenuView.ui" line="365"/>
         <source>Browser</source>
         <translation>Browser Internet</translation>
     </message>

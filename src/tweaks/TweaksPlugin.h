@@ -41,7 +41,9 @@ public slots:
     void sync(bool);
     void uninstallPlugin();
     void bookFooterOpened();
+    void bookFooterClosed();
     void openBrowser();
+    void sleep();
 
 private:
     bool checkFirmwareVersion();
