@@ -44,6 +44,7 @@ public slots:
     void bookFooterClosed();
     void openBrowser();
     void sleep();
+    void library();
 
 private:
     bool checkFirmwareVersion();
@@ -53,6 +54,7 @@ private:
 private:
     QSharedPointer<QSettings> pluginSettings;
     TweaksSettingsPageView *settingsPageView;
+    HomeMenuController *hmc;
     QSignalMapper mapper;
     QStackedWidget *sw;
     void *lastPatchedMenu;
