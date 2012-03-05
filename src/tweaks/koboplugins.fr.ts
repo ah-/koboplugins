@@ -188,7 +188,7 @@
     <message>
         <location filename="TweaksPlugin.cpp" line="240"/>
         <source>Sleep</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mettre en veille</translation>
     </message>
     <message>
         <location filename="TweaksPlugin.cpp" line="261"/>
@@ -222,7 +222,7 @@
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="245"/>
         <source>Sleep</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mettre en veille</translation>
     </message>
     <message>
         <location filename="TweaksSettingsHomeMenuView.ui" line="365"/>
