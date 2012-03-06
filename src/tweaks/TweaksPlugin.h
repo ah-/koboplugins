@@ -45,6 +45,7 @@ public slots:
     void openBrowser();
     void sleep();
     void library();
+    void powerOff();
 
 private:
     bool checkFirmwareVersion();

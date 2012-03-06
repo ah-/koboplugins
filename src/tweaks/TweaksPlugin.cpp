@@ -149,6 +149,10 @@ void TweaksPlugin::windowChanged(int index)
                 connect(home, SIGNAL(mouseDown()), this, SLOT(patchMenu()), (Qt::ConnectionType) 0);
             }
 
+            if(pluginSettings->value("Menu/replaceWithButtons", false).toBool()) {
+                patchMenu();
+            }
+
             if(pluginSettings->value("Tweaks/hideRecommendations", false).toBool()) {
                 HomePageGridViewFooter *footer = hpgv->findChild<HomePageGridViewFooter *>("footer");
                 footer->hide();
@@ -362,10 +366,7 @@ void TweaksPlugin::open(QString mimeType)
             lmc->search();
     }
     else if (mimeType == MENTRY_POWEROFF) {
-        N3PowerWorkflowManager::sharedInstance()->showPowerOffView();
-        DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();    
-        if(p)
-            p->powerOff(false);
+        powerOff();
     }
     else if (mimeType == MENTRY_SLEEP) {
     	sleep();
@@ -440,10 +441,19 @@ void TweaksPlugin::openBrowser()
 void TweaksPlugin::sleep()
 {
     N3PowerWorkflowManager::sharedInstance()->showSleepView();
+
     DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
     if(p)
         p->toggleSleep();
 }
+
+void TweaksPlugin::powerOff()
+    {
+    N3PowerWorkflowManager::sharedInstance()->showPowerOffView();
+    DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
+    if(p)
+        p->powerOff(false);
+    }
 
 void TweaksPlugin::library()
 {
@@ -510,7 +520,7 @@ void TweaksPlugin::bookFooterOpened()
         	browser->hide();
     }
 
-	// show browser btn if configured
+	// show sleep btn if configured
     if(pluginSettings->value("Reader/showSleep", false).toBool()) {
         if(!qApp->activeWindow()->findChild<TouchLabel *>("sleepBtn")) {
         	QHBoxLayout* pMainLayout = qApp->activeWindow()->findChild<QHBoxLayout *>("menuContainer");
@@ -537,6 +547,35 @@ void TweaksPlugin::bookFooterOpened()
         if(sleep)
         	sleep->hide();
     }
+
+    // show powerOff btn if configured
+    if(pluginSettings->value("Reader/showPowerOff", false).toBool()) {
+        if(!qApp->activeWindow()->findChild<TouchLabel *>("powerOffBtn")) {
+            QHBoxLayout* pMainLayout = qApp->activeWindow()->findChild<QHBoxLayout *>("menuContainer");
+            if(pMainLayout) {
+                TouchLabel *pwr = new TouchLabel(tr("POWEROFF"));
+                if(pwr) {
+                    pwr->setObjectName("powerOffBtn");
+                    pwr->setPixmap(QPixmap(":/koboplugins/icons/menu/power_01.png"));
+                    pwr->setSelectedPixmap(":/koboplugins/icons/menu/power_01.png");
+                    pwr->setDeselectedPixmap(":/koboplugins/icons/menu/power_01.png");
+                    connect(pwr, SIGNAL(tapped()), this, SLOT(powerOff()));
+                    pMainLayout->addWidget(pwr);
+                    pwr->show();
+                    }
+            }
+        } else {
+            TouchLabel *pwr = qApp->activeWindow()->findChild<TouchLabel *>("powerOffBtn");
+            if(pwr)
+                pwr->show();
+        }
+    // if not configured -->hide if found
+    } else {
+        TouchLabel *pwr = qApp->activeWindow()->findChild<TouchLabel *>("powerOffBtn");
+        if(pwr)
+            pwr->hide();
+    }
+
 }
 
 void TweaksPlugin::bookFooterClosed()
@@ -583,13 +622,47 @@ bool TweaksPlugin::createHomeMenuEntry(QString mapping, QString icon, QString te
 {
     MenuTextItem *mti = NULL;
 
-    mti = hmc->createMenuTextItem(ntm, text, false);
-    if(!icon.isEmpty())
-        mti->setSelectedImage(icon);
+    if(pluginSettings->value("Menu/replaceWithButtons", false).toBool()) {
+        HomePageGridView *hpgv = qApp->activeWindow()->findChild<HomePageGridView *>();
+        HomePageGridViewHeader *hpgvh = hpgv->findChild<HomePageGridViewHeader *>("header");
+        if(hpgvh) {
+            TextHeader* home = hpgvh->findChild<TextHeader *>();
+            if(home)
+                home->hide();
 
-    mti->setSelected(true);
-    hmc->addWidgetActionWithMapper(ntm, mti, &mapper, mapping, true, true);
-    ntm->addSeparator();
+            QHBoxLayout* pL = hpgvh->findChild<QHBoxLayout *>();
+            if(pL) {
+                pL->setAlignment(Qt::AlignCenter);
+                if(!qApp->activeWindow()->findChild<TouchLabel *>(mapping)) {
+                    TouchLabel *btn = new TouchLabel(text);
+                    if(btn) {
+                        btn->setObjectName(mapping);
+                        btn->setPixmap(QPixmap(icon));
+                        btn->setSelectedPixmap(icon);
+                        btn->setDeselectedPixmap(icon);
+                        pL->addWidget(btn);
+                        pL->addSpacing(15);
+                        connect(btn, SIGNAL(tapped()), &mapper, SLOT(map()));
+                        mapper.setMapping(btn, mapping);
+                        btn->show();
+                        }
+                } else {
+                    TouchLabel *browser = qApp->activeWindow()->findChild<TouchLabel *>(mapping);
+                    if(browser)
+                        browser->show();
+                }
+            }
+        }
+    } else {
+        mti = hmc->createMenuTextItem(ntm, text, false);
+        if(!icon.isEmpty())
+            mti->setSelectedImage(icon);
+
+        mti->setSelected(true);
+        hmc->addWidgetActionWithMapper(ntm, mti, &mapper, mapping, true, true);
+        ntm->addSeparator();
+    }
+
     return true;
 }
 
