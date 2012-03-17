@@ -9,7 +9,7 @@ class DevicePowerWorkflowManager : public QObject
 };
 
 
-class N3PowerWorkflowManager : public QObject
+class N3PowerWorkflowManager : public DevicePowerWorkflowManager
 {
 	public:
 		static N3PowerWorkflowManager* sharedInstance();

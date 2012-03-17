@@ -428,20 +428,19 @@ void TweaksPlugin::openBrowser()
 
 void TweaksPlugin::sleep()
 {
-    N3PowerWorkflowManager::sharedInstance()->showSleepView();
-
-    DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
-    if(p)
-        p->toggleSleep();
+    N3PowerWorkflowManager::sharedInstance()->toggleSleep();
+    //N3PowerWorkflowManager::sharedInstance()->showSleepView(); 
+    //DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
+    //if(p)
+        //p->toggleSleep();
 }
 
 void TweaksPlugin::powerOff()
 {
-    /* doesn't work with 1.9.17 update, don't give the impression that it does
-       N3PowerWorkflowManager::sharedInstance()->showPowerOffView();
-       DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
-       if(p)
-       p->powerOff(false);*/
+       N3PowerWorkflowManager::sharedInstance()->powerOff(false);
+       //DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
+       //if(p)
+       //p->powerOff(false);*/
 }
 
 void TweaksPlugin::library()
