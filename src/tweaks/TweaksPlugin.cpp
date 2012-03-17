@@ -287,14 +287,12 @@ void TweaksPlugin::open(QString mimeType)
     cout << "TweaksPlugin::open(\"" << mimeType.toStdString() << "\")" << endl << flush; 
     if (mimeType == MENTRY_BROWSER) {
         WirelessWorkflowManager::sharedInstance()->openBrowser(QUrl());
-    } 
-    else if (mimeType == MENTRY_TWEAKS) {
+    } else if (mimeType == MENTRY_TWEAKS) {
         // TODO: proper parent/lifecycle management
         TweaksSettingsView *settingsView = new TweaksSettingsView(this, 0);
         TweaksSettingsPageView *v = new TweaksSettingsPageView(QApplication::activeWindow(), settingsView, false);
         MainWindowController::sharedInstance()->pushView(v);
-    }
-    else if (mimeType == MENTRY_WIFIONOFF) {
+    } else if (mimeType == MENTRY_WIFIONOFF) {
         WirelessWorkflowManager* wfm = WirelessWorkflowManager::sharedInstance();
         if(!wfm->isAirplaneMode()) {
             wfm->turnWifiOff();
@@ -304,67 +302,53 @@ void TweaksPlugin::open(QString mimeType)
             wfm->connectWirelessSilently();
             enableWirelessTimeout(wirelessTimeoutEnabled());
         }
-    }
-    else if (mimeType == MENTRY_LIBRARY) {
+    } else if (mimeType == MENTRY_LIBRARY) {
         if(hmc)
             hmc->library();
-    }
-    else if (mimeType == MENTRY_DICTIONARY) {
+    } else if (mimeType == MENTRY_DICTIONARY) {
         if(hmc)
             hmc->dictionary();
-    }
-    else if (mimeType == MENTRY_SETTINGS) {
+    } else if (mimeType == MENTRY_SETTINGS) {
         if(hmc)
             hmc->settings();
-    }
-    else if (mimeType == MENTRY_READINGLIFE) {
+    } else if (mimeType == MENTRY_READINGLIFE) {
         if(hmc)
             hmc->readingLife();
-    }
-    else if (mimeType == MENTRY_STORE) {
+    } else if (mimeType == MENTRY_STORE) {
         if(hmc)
             hmc->store();
-    }
-    else if (mimeType == MENTRY_SYNC) {
+    } else if (mimeType == MENTRY_SYNC) {
         if(hmc)
             hmc->sync();
-    }
-    else if (mimeType == MENTRY_HELP) {
+    } else if (mimeType == MENTRY_HELP) {
         if(hmc)
             hmc->help();
-    }
-    else if (mimeType == MENTRY_AIRPLANEMODE) {
+    } else if (mimeType == MENTRY_AIRPLANEMODE) {
         N3SettingsWirelessController* p = QApplication::activeWindow()->findChild<N3SettingsWirelessController *>();    
         if(p)
             p->airplaneModeToggled();
-    }
-    else if (mimeType == MENTRY_SHORTLIST) {
+    } else if (mimeType == MENTRY_SHORTLIST) {
         if(lmc)
             lmc->favourites();
-    }
-    else if (mimeType == MENTRY_BOOKS) {
+    } else if (mimeType == MENTRY_BOOKS) {
         if(lmc)
             lmc->lists();
-    }
-    else if (mimeType == MENTRY_CREATESHELF) {
+    } else if (mimeType == MENTRY_CREATESHELF) {
         if(lmc)
             lmc->createShelf();
-    }
-    else if (mimeType == MENTRY_SHELVES) {
+    } else if (mimeType == MENTRY_SHELVES) {
         if(lmc)
             lmc->shelves();
-    }
-    else if (mimeType == MENTRY_LIBRARYSEARCH) {
+    } else if (mimeType == MENTRY_LIBRARYSEARCH) {
         if(lmc)
             lmc->search();
-    }
-    else if (mimeType == MENTRY_POWEROFF) {
+    } else if (mimeType == MENTRY_POWEROFF) {
+        /* doesn't work with 1.9.17 update, don't give the impression that it does
         N3PowerWorkflowManager::sharedInstance()->showPowerOffView();
         DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();    
         if(p)
-            p->powerOff(false);
-    }
-    else {
+            p->powerOff(false); */
+    } else {
         Volume v;
         v.setMimeType(mimeType);
         v.setTitle("Tweaks");
