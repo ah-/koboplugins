@@ -32,6 +32,8 @@
 
 #include "menudefines.h"
 
+#define REQUIRED_VERSION "1.9.17"
+
 using namespace std;
 
 TweaksPlugin::TweaksPlugin() :
@@ -147,8 +149,10 @@ void TweaksPlugin::windowChanged(int index)
             }
 
             if(pluginSettings->value("Tweaks/hideRecommendations", false).toBool()) {
-                HomePageGridViewFooter *footer = hpgv->findChild<HomePageGridViewFooter *>("footer");
-                footer->hide();
+                //HomePageGridViewFooter *footer = hpgv->findChild<HomePageGridViewFooter *>("footer");
+                QWidget *footer = hpgv->findChild<QWidget *>("HomePageFooterView");
+                if (footer)
+                    footer->hide();
             }
 
             if(pluginSettings->value("Tweaks/hideSyncIcon", false).toBool()) {
@@ -188,6 +192,9 @@ void TweaksPlugin::patchMenu()
         if(pluginSettings->value("Menu/customMenuEnabled", true).toBool()) {
             ntm->clear();
 
+            if(pluginSettings->value("Menu/showStore", true).toBool())
+                createHomeMenuEntry(MENTRY_STORE, ":/images/menu/trilogy_store.png", tr("Store"), hmc, ntm);
+
             if(pluginSettings->value("Menu/showLibrary", true).toBool())
                 createHomeMenuEntry(MENTRY_LIBRARY, ":/images/menu/trilogy_library.png", tr("Library"), hmc, ntm);
 
@@ -197,23 +204,20 @@ void TweaksPlugin::patchMenu()
             if(lmc && pluginSettings->value("Menu/showShelves", false).toBool())
                 createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_02.png", tr("Bookshelves"), hmc, ntm);
 
-            if(lmc && pluginSettings->value("Menu/showSearch", true).toBool())
+            if(lmc && pluginSettings->value("Menu/showSearch", false).toBool())
                 createHomeMenuEntry(MENTRY_LIBRARYSEARCH, ":/koboplugins/icons/menu/search_02.png", tr("Library Search"), hmc, ntm);
 
-            if(pluginSettings->value("Menu/showDictionary", true).toBool())
+            if(pluginSettings->value("Menu/showDictionary", false).toBool())
                 createHomeMenuEntry(MENTRY_DICTIONARY, ":/koboplugins/icons/menu/dictionary_01.png", tr("Dictionary"), hmc, ntm);
 
             if(pluginSettings->value("Menu/showReadingLife", true).toBool())
                 createHomeMenuEntry(MENTRY_READINGLIFE, ":/images/menu/trilogy_readinglife.png", tr("Reading Life"), hmc, ntm);
 
-            if(pluginSettings->value("Menu/showStore", true).toBool())
-                createHomeMenuEntry(MENTRY_STORE, ":/images/menu/trilogy_store.png", tr("Store"), hmc, ntm);
+            if(pluginSettings->value("Menu/showHelp", true).toBool())
+                createHomeMenuEntry(MENTRY_HELP, ":/images/menu/trilogy_help.png", tr("Help"), hmc, ntm);
 
             if(pluginSettings->value("Menu/showSync", true).toBool())
                 createHomeMenuEntry(MENTRY_SYNC, ":/images/menu/trilogy_sync.png", tr("Sync"), hmc, ntm);
-
-            if(pluginSettings->value("Menu/showHelp", true).toBool())
-                createHomeMenuEntry(MENTRY_HELP, ":/images/menu/trilogy_help.png", tr("Help"), hmc, ntm);
 
             createHomeMenuEntry(MENTRY_SETTINGS, ":/images/menu/trilogy_settings.png", tr("Settings"), hmc, ntm);
         } else {
@@ -463,11 +467,19 @@ void TweaksPlugin::bookFooterOpened()
 
 bool TweaksPlugin::checkFirmwareVersion()
 {
-    QString requiredVersion = pluginSettings->value("Global/compatFirmware", "1.9.16").toString();
-    if(requiredVersion == "0.0.0")
+    QString requiredVersion = pluginSettings->value("Global/compatFirmware", REQUIRED_VERSION).toString();
+    if (requiredVersion == "0.0.0")
         return true;	
 
-    // check if firmware version matches 1.9.16
+    // a few early versions of the plugin created a koboplugins.ini that hardcoded 1.9.16 as compatFirmware
+    // remove this setting as compatFirmware should only be an override, not the main method to specify the
+    // compatible firmware version
+    if (requiredVersion == "1.9.16") {
+        pluginSettings->remove("Global/compatFirmware");
+        requiredVersion = REQUIRED_VERSION;
+    }
+
+    // check if firmware version matches
     QFile f("/mnt/onboard/.kobo/version");
     if(!f.open(QIODevice::ReadOnly))
         return false;

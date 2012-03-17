@@ -13,11 +13,11 @@ TweaksSettingsHomeMenuView::TweaksSettingsHomeMenuView(TweaksPlugin *plugin, QWi
 
     shortlist->setChecked(plugin->settings()->value("Menu/showShortlist", false).toBool());
     dictionary->setChecked(plugin->settings()->value("Menu/showDictionary", false).toBool());
-    readingLife->setChecked(plugin->settings()->value("Menu/showReadingLife", false).toBool());
+    readingLife->setChecked(plugin->settings()->value("Menu/showReadingLife", true).toBool());
     search->setChecked(plugin->settings()->value("Menu/showSearch", false).toBool());
-    store->setChecked(plugin->settings()->value("Menu/showStore", false).toBool());
-    sync->setChecked(plugin->settings()->value("Menu/showSync", false).toBool());
-    help->setChecked(plugin->settings()->value("Menu/showHelp", false).toBool());
+    store->setChecked(plugin->settings()->value("Menu/showStore", true).toBool());
+    sync->setChecked(plugin->settings()->value("Menu/showSync", true).toBool());
+    help->setChecked(plugin->settings()->value("Menu/showHelp", true).toBool());
     browser->setChecked(plugin->settings()->value("Menu/showBrowser", false).toBool());
     airplaneMode->setChecked(plugin->settings()->value("Menu/showAirplaneMode", false).toBool());
     toggleWifi->setChecked(plugin->settings()->value("Menu/showWifiOnOff", false).toBool());
