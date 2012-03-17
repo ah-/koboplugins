@@ -26,6 +26,7 @@ public slots:
     void on_airplaneMode_toggled(bool);
     void on_toggleWifi_toggled(bool);
     void on_powerOff_toggled(bool);
+    void on_sleep_toggled(bool);
 
 private:
     TweaksPlugin *plugin;

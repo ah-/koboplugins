@@ -5,6 +5,7 @@ class DevicePowerWorkflowManager : public QObject
 {
 	public:
 		void powerOff(bool b);
+		void toggleSleep();
 };
 
 
@@ -14,6 +15,7 @@ class N3PowerWorkflowManager : public QObject
 		static N3PowerWorkflowManager* sharedInstance();
 
 		void showPowerOffView();
+		void showSleepView();
 };
 
 #endif // __DEVICE_POWER_WORKFLOW_MANAGER_H__

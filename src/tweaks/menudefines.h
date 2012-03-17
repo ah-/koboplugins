@@ -18,5 +18,6 @@
 #define MENTRY_CREATESHELF      "Create Shelf"
 #define MENTRY_SHELVES          "Bookshelves"
 #define MENTRY_BOOKS            "Books"
+#define MENTRY_SLEEP			"Sleep"
 
 #endif // __MENU_DEFINES_H__
