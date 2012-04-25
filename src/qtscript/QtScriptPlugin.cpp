@@ -30,6 +30,7 @@ QtScriptPlugin::QtScriptPlugin()
 {
     cout << "QtScriptPlugin()" << endl << flush; 
     // make the active window accessible by qtscript
+    engine.globalObject().setProperty("qapp", engine.newQObject(QApplication::instance()));
     engine.globalObject().setProperty("aw", engine.newQObject(QApplication::activeWindow()));
     engine.globalObject().setProperty("MassStorageManager", engine.newQObject(MassStorageManager::sharedInstance()));
     // deprecated?

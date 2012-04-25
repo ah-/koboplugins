@@ -4,6 +4,7 @@
 class NavigationController : public QObject {
 public:
     static NavigationController *sharedInstance();
+    void tryPowerOff(PowerWindow::STATE);
 };
 
 #endif
