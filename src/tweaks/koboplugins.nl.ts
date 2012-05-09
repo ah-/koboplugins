@@ -145,99 +145,119 @@
 <context>
     <name>TweaksPlugin</name>
     <message>
-        <location filename="TweaksPlugin.cpp" line="192"/>
+        <location filename="TweaksPlugin.cpp" line="206"/>
         <source>Library</source>
         <translation>Bibliotheek</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="204"/>
+        <location filename="TweaksPlugin.cpp" line="218"/>
         <source>Dictionary</source>
         <translation>Woordenboek</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="195"/>
-        <location filename="TweaksPlugin.cpp" line="221"/>
-        <location filename="TweaksPlugin.cpp" line="264"/>
+        <location filename="TweaksPlugin.cpp" line="209"/>
+        <location filename="TweaksPlugin.cpp" line="232"/>
+        <location filename="TweaksPlugin.cpp" line="275"/>
         <source>Shortlist</source>
         <translation>Favorieten</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="198"/>
-        <location filename="TweaksPlugin.cpp" line="272"/>
+        <location filename="TweaksPlugin.cpp" line="212"/>
+        <location filename="TweaksPlugin.cpp" line="283"/>
         <source>Bookshelves</source>
         <translation>Boekenplanken</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="201"/>
-        <location filename="TweaksPlugin.cpp" line="267"/>
+        <location filename="TweaksPlugin.cpp" line="215"/>
+        <location filename="TweaksPlugin.cpp" line="278"/>
         <source>Library Search</source>
         <translation>Doorzoek Bibliotheek</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="207"/>
+        <location filename="TweaksPlugin.cpp" line="221"/>
         <source>Reading Life</source>
         <translation>Reading Life</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="210"/>
+        <location filename="TweaksPlugin.cpp" line="203"/>
         <source>Store</source>
         <translation>Shop</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="213"/>
+        <location filename="TweaksPlugin.cpp" line="227"/>
         <source>Sync</source>
         <translation>Synchroniseren</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="216"/>
+        <location filename="TweaksPlugin.cpp" line="224"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="218"/>
+        <location filename="TweaksPlugin.cpp" line="229"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="225"/>
+        <location filename="TweaksPlugin.cpp" line="236"/>
         <source>Tweaks</source>
         <translation>Aanpassingen</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="228"/>
+        <location filename="TweaksPlugin.cpp" line="239"/>
         <source>Browser</source>
         <translation>Browser</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="231"/>
+        <location filename="TweaksPlugin.cpp" line="242"/>
         <source>Airplane Mode</source>
         <translation>Vliegtuigmodus</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="234"/>
+        <location filename="TweaksPlugin.cpp" line="245"/>
         <source>Toggle WiFi</source>
         <translation>WiFi Aan/Uit</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="237"/>
+        <location filename="TweaksPlugin.cpp" line="248"/>
         <source>Power Off</source>
         <oldsource>Power off</oldsource>
         <translation>Uitschakelen</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="240"/>
+        <location filename="TweaksPlugin.cpp" line="251"/>
         <source>Sleep</source>
         <translation>Slaapstand</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="261"/>
+        <location filename="TweaksPlugin.cpp" line="272"/>
         <source>Books</source>
         <translation>Boeken</translation>
     </message>
     <message>
-        <location filename="TweaksPlugin.cpp" line="271"/>
+        <location filename="TweaksPlugin.cpp" line="282"/>
         <source>Create Shelf</source>
         <translation>Boekenplank aanmaken</translation>
+    </message>
+    <message>
+        <location filename="TweaksPlugin.cpp" line="460"/>
+        <source>DICTIONARY</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TweaksPlugin.cpp" line="488"/>
+        <source>BROWSER</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TweaksPlugin.cpp" line="516"/>
+        <source>SLEEP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TweaksPlugin.cpp" line="544"/>
+        <source>POWEROFF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

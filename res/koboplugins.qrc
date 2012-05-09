@@ -22,5 +22,6 @@
         <file alias="koboplugins.fr.qm">../src/tweaks/koboplugins.fr.qm</file>
         <file alias="koboplugins.it.qm">../src/tweaks/koboplugins.it.qm</file>
         <file alias="koboplugins.pt.qm">../src/tweaks/koboplugins.pt.qm</file>
+        <file alias="koboplugins.nl.qm">../src/tweaks/koboplugins.nl.qm</file>
     </qresource>
 </RCC>

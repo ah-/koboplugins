@@ -47,4 +47,5 @@ TRANSLATIONS = koboplugins.de.ts \
                koboplugins.es.ts \
                koboplugins.fr.ts \
                koboplugins.it.ts \
-               koboplugins.pt.ts
+               koboplugins.pt.ts \
+               koboplugins.nl.ts
