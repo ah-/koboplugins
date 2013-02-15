@@ -35,11 +35,15 @@ class TouchMenu : public QMenu {
 public:
     TouchMenu(QString const&, QWidget *);
     void initialize();
+    void forceFullUpdate();
 };
 
 class NickelTouchMenu : public TouchMenu {
 public:
     NickelTouchMenu(QWidget*, DecorationPosition);
+    void setCustomPopupPosition(QPoint const&);
+    void setCustomPopupPositionOffset(QPoint const&);
+    void popupPosition(QWidget*);
 };
 
 class HomeMenuController : public AbstractNickelMenuController {
@@ -52,16 +56,12 @@ public:
     void sync();
     void help();
 };
+class HomePageFooterController : public QObject
+{
+public:
+    void library();
+};
 
-class LibraryMenuController : public AbstractNickelMenuController
-    {
-    public:
-        void favourites();
-		void search();
-		void shelves();
-		void createShelf();
-		void lists();
-    };
 
 #endif // __HOME_MENU_CONTROLLER_H__
 

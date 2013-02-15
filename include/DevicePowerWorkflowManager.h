@@ -9,13 +9,4 @@ class DevicePowerWorkflowManager : public QObject
 };
 
 
-class N3PowerWorkflowManager : public DevicePowerWorkflowManager
-{
-	public:
-		static N3PowerWorkflowManager* sharedInstance();
-
-		void showPowerOffView();
-		void showSleepView();
-};
-
 #endif // __DEVICE_POWER_WORKFLOW_MANAGER_H__

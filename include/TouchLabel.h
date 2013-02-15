@@ -11,8 +11,8 @@ public:
     TouchLabel(QWidget * = 0, QFlags<Qt::WindowType> = 0);
     virtual ~TouchLabel();
 
-    void setSelectedPixmap(const QString&);
-    void setDeselectedPixmap(const QString&);
+    void setSelectedPixmap(const QPixmap&);
+    void setDeselectedPixmap(const QPixmap&);
 
 signals:
     void tapped();

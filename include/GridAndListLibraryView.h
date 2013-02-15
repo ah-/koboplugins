@@ -7,6 +7,9 @@ class GridAndListLibraryView : public QObject {
     Q_OBJECT
 };
 
+class GridLibraryView : public QObject {
+    Q_OBJECT
+};
 
 class LibraryViewHeader : public QWidget {
 public: 

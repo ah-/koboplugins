@@ -14,5 +14,10 @@ public:
 
 class HomePageGridViewFooter : public QWidget {
 };
+class HomePageView : public QObject
+{
+    Q_OBJECT
+
+};
 
 #endif

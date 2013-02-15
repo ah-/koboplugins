@@ -4,7 +4,10 @@
 class N3SettingsExtrasController : public QObject
 {
 public:
-        void openBrowser();
+    void openBrowser();
+    void openChess();
+    void openSudoku();
+    void openScribble();
 };
 
 class N3SettingsWirelessController : public QObject

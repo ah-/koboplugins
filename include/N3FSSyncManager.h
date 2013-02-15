@@ -1,6 +1,8 @@
 #ifndef __N3FSSYNC_MANAGER_H__
 #define __N3FSSYNC_MANAGER_H__
 
+#include <QObject>
+
 class N3FSSyncManager : public QObject {
     Q_OBJECT
 public:
