@@ -32,34 +32,23 @@
 
 #include "menudefines.h"
 
-#define REQUIRED_VERSION "1.9.17"
+#define REQUIRED_VERSION "2.3.1"
 
 using namespace std;
 
 TweaksPlugin::TweaksPlugin() :
     pluginSettings(new QSettings(CONFIG_PATH, QSettings::IniFormat)),
-    sw(NULL),
-    lastPatchedMenu(NULL),
-    lastPatchedLibraryMenu(NULL)
+    sw(NULL)
 {
-    // init logging engine
-    //m_pLogBase = LoggerBase::get();
-    //FileLogger* pLoggerFile = new FileLogger("/mnt/onboard/", true);
-    //m_pLogBase->addLogObject("FileLogger", pLoggerFile);
-    //m_pLogBase->start();
-
-    //LOG("checking firmware version");
-
+    std::cout << "TweaksPlugin" << std::endl;
     if(!checkFirmwareVersion())
         return;
 
-    //LOG("init translator");
+    std::cout << "init translator" << std::endl;
     std::cout << "QLocale().name(): " << QLocale().name().toStdString() << std::endl;
     QTranslator* pTranslator = new QTranslator;
     pTranslator->load(QString("koboplugins.") + QLocale().name(), ":/koboplugins/translations/");
     qApp->installTranslator(pTranslator);
-
-    //LOG("TweaksPlugin()");
 
     // try to register with the qtscript plugin
     // TODO: use interface, proper casting
@@ -73,16 +62,15 @@ TweaksPlugin::TweaksPlugin() :
     MainWindowController *mwc = MainWindowController::sharedInstance();
     if (mwc) {
         cout << "found MainWindowController: " << mwc << endl << flush;
-        sw = QApplication::activeWindow()->findChild<QStackedWidget *>();
-        if (sw) {
-            cout << "found QStackedWidget: " << sw << endl << flush;
-            connect(sw, SIGNAL(currentChanged(int)), this, SLOT(windowChanged(int)));
-            cout << "connected windowChanged signal" << endl << flush;
-        }
+        //sw = QApplication::activeWindow()->findChild<QStackedWidget *>();
+        //if (sw) {
+            //cout << "found QStackedWidget: " << sw << endl << flush;
+            //connect(sw, SIGNAL(currentChanged(int)), this, SLOT(windowChanged(int)));
+            //cout << "connected windowChanged signal" << endl << flush;
+        //}
     }
 
     connect(&mapper, SIGNAL(mapped(QString)), this, SLOT(open(QString)));
-    enableWirelessTimeout(pluginSettings->value("Tweaks/enableWirelessTimeout", false).toBool());
 }
 
 TweaksPlugin::~TweaksPlugin()
@@ -188,105 +176,11 @@ void TweaksPlugin::patchMenu()
     //LOG("patchMenu");
 
     cout << "TweaksPlugin::patchMenu()" << endl << flush; 
-    hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
-    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
-    NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
-
-    cout << "TweaksPlugin::patchMenu(), ntm: " << ntm << ", hmc: " << hmc << endl << flush; 
-    if (hmc && ntm && lastPatchedMenu != (void *) ntm) {
-        // Clear menu and add entries based on configuration
-
-        if(pluginSettings->value("Menu/customMenuEnabled", true).toBool()) {
-            ntm->clear();
-
-            if(pluginSettings->value("Menu/showStore", true).toBool())
-                createHomeMenuEntry(MENTRY_STORE, ":/images/menu/trilogy_store.png", tr("Store"), hmc, ntm);
-
-            if(pluginSettings->value("Menu/showLibrary", true).toBool())
-                createHomeMenuEntry(MENTRY_LIBRARY, ":/images/menu/trilogy_library.png", tr("Library"), hmc, ntm);
-
-            if(lmc && pluginSettings->value("Menu/showShortlist", false).toBool())
-                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"), hmc, ntm);
-
-            if(lmc && pluginSettings->value("Menu/showShelves", false).toBool())
-                createHomeMenuEntry(MENTRY_SHELVES, ":/koboplugins/icons/menu/shelve_02.png", tr("Bookshelves"), hmc, ntm);
-
-            if(lmc && pluginSettings->value("Menu/showSearch", false).toBool())
-                createHomeMenuEntry(MENTRY_LIBRARYSEARCH, ":/koboplugins/icons/menu/search_02.png", tr("Library Search"), hmc, ntm);
-
-            if(pluginSettings->value("Menu/showDictionary", false).toBool())
-                createHomeMenuEntry(MENTRY_DICTIONARY, ":/koboplugins/icons/menu/dictionary_01.png", tr("Dictionary"), hmc, ntm);
-
-            if(pluginSettings->value("Menu/showReadingLife", true).toBool())
-                createHomeMenuEntry(MENTRY_READINGLIFE, ":/images/menu/trilogy_readinglife.png", tr("Reading Life"), hmc, ntm);
-
-            if(pluginSettings->value("Menu/showHelp", true).toBool())
-                createHomeMenuEntry(MENTRY_HELP, ":/images/menu/trilogy_help.png", tr("Help"), hmc, ntm);
-
-            if(pluginSettings->value("Menu/showSync", true).toBool())
-                createHomeMenuEntry(MENTRY_SYNC, ":/images/menu/trilogy_sync.png", tr("Sync"), hmc, ntm);
-
-            createHomeMenuEntry(MENTRY_SETTINGS, ":/images/menu/trilogy_settings.png", tr("Settings"), hmc, ntm);
-        } else {
-            if(lmc && pluginSettings->value("Menu/showShortlist", false).toBool())
-                createHomeMenuEntry(MENTRY_SHORTLIST, ":/koboplugins/icons/menu/shortlist_01.png", tr("Shortlist"), hmc, ntm);
-        }
-
-        if(pluginSettings->value("Menu/showTweaksEntry", true).toBool())
-            createHomeMenuEntry(MENTRY_TWEAKS, ":/koboplugins/icons/menu/tweak_01.png", tr("Tweaks"), hmc, ntm);
-
-        if(pluginSettings->value("Menu/showBrowser", false).toBool())
-            createHomeMenuEntry(MENTRY_BROWSER, ":/koboplugins/icons/menu/browser_02.png", tr("Browser"), hmc, ntm);
-
-        if(pluginSettings->value("Menu/showAirplaneMode", false).toBool())
-            createHomeMenuEntry(MENTRY_AIRPLANEMODE, ":/images/statusbar/wifi_airplane.png", tr("Airplane Mode"), hmc, ntm);
-
-        if(pluginSettings->value("Menu/showWifiOnOff", false).toBool())
-            createHomeMenuEntry(MENTRY_WIFIONOFF, ":/images/statusbar/wifi_4.png", tr("Toggle WiFi"), hmc, ntm);
-
-        if(pluginSettings->value("Menu/showPowerOff", false).toBool())
-            createHomeMenuEntry(MENTRY_POWEROFF, ":/koboplugins/icons/menu/power_01.png", tr("Power Off"), hmc, ntm);
-
-        if(pluginSettings->value("Menu/showSleep", false).toBool())
-            createHomeMenuEntry(MENTRY_SLEEP, ":/koboplugins/icons/menu/sleep_01.png", tr("Sleep"), hmc, ntm);
-
-        // store that we already patched this menu so the item doesn't get added twice
-        lastPatchedMenu = (void *) ntm;
-        cout << "TweaksPlugin::patchMenu(), success!" << endl << flush; 
-    }
 }
 
 void TweaksPlugin::patchLibraryMenu()
 {
     cout << "TweaksPlugin::patchMenu()" << endl << flush;
-    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
-    NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
-
-    if (lmc && ntm && lastPatchedLibraryMenu != (void *) ntm) {
-        // Clear menu and add entries based on configuration
-
-        if(pluginSettings->value("Library/customMenuEnabled", false).toBool()) {
-            ntm->clear();
-
-            if(pluginSettings->value("Library/showBooks", true).toBool())
-                createLibraryMenuEntry(MENTRY_BOOKS, tr("Books"));
-
-            if(pluginSettings->value("Library/showSortlist", true).toBool())
-                createLibraryMenuEntry(MENTRY_SHORTLIST, tr("Shortlist"));
-
-            if(pluginSettings->value("Library/showSearch", true).toBool())
-                createLibraryMenuEntry(MENTRY_LIBRARYSEARCH, tr("Library Search"));
-        }
-
-        if(pluginSettings->value("Library/showShelves", true).toBool()) {
-            createLibraryMenuEntry(MENTRY_CREATESHELF, tr("Create Shelf"));
-            createLibraryMenuEntry(MENTRY_SHELVES, tr("Bookshelves"));
-        }
-
-        // store that we already patched this menu so the item doesn't get added twice
-        lastPatchedLibraryMenu = (void *) ntm;
-        cout << "TweaksPlugin::patchMenu(), success!" << endl << flush;
-    }
 }
 
 void TweaksPlugin::open(QString mimeType)
@@ -294,7 +188,7 @@ void TweaksPlugin::open(QString mimeType)
 	if(!hmc)
 		hmc = QApplication::activeWindow()->findChild<HomeMenuController *>();
 
-    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+    //LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
 
     cout << "TweaksPlugin::open(\"" << mimeType.toStdString() << "\")" << endl << flush; 
     if (mimeType == MENTRY_BROWSER) {
@@ -312,7 +206,6 @@ void TweaksPlugin::open(QString mimeType)
         } else {
             wfm->setAirplaneMode(false);
             wfm->connectWirelessSilently();
-            enableWirelessTimeout(wirelessTimeoutEnabled());
         }
     } else if (mimeType == MENTRY_LIBRARY) {
         if(hmc)
@@ -339,21 +232,21 @@ void TweaksPlugin::open(QString mimeType)
         N3SettingsWirelessController* p = QApplication::activeWindow()->findChild<N3SettingsWirelessController *>();    
         if(p)
             p->airplaneModeToggled();
-    } else if (mimeType == MENTRY_SHORTLIST) {
-        if(lmc)
-            lmc->favourites();
-    } else if (mimeType == MENTRY_BOOKS) {
-        if(lmc)
-            lmc->lists();
-    } else if (mimeType == MENTRY_CREATESHELF) {
-        if(lmc)
-            lmc->createShelf();
-    } else if (mimeType == MENTRY_SHELVES) {
-        if(lmc)
-            lmc->shelves();
-    } else if (mimeType == MENTRY_LIBRARYSEARCH) {
-        if(lmc)
-            lmc->search();
+    //} else if (mimeType == MENTRY_SHORTLIST) {
+        //if(lmc)
+            //lmc->favourites();
+    //} else if (mimeType == MENTRY_BOOKS) {
+        //if(lmc)
+            //lmc->lists();
+    //} else if (mimeType == MENTRY_CREATESHELF) {
+        //if(lmc)
+            //lmc->createShelf();
+    //} else if (mimeType == MENTRY_SHELVES) {
+        //if(lmc)
+            //lmc->shelves();
+    //} else if (mimeType == MENTRY_LIBRARYSEARCH) {
+        //if(lmc)
+            //lmc->search();
     } else if (mimeType == MENTRY_POWEROFF) {
         powerOff();
     } else if (mimeType == MENTRY_SLEEP) {
@@ -372,19 +265,6 @@ void TweaksPlugin::enableBrowserShortcut(bool enable)
 {
     cout << "TweaksPlugin::enableBrowserShortcut(): " << enable << endl << flush; 
     pluginSettings->setValue("Menu/showBrowser", enable);
-}
-
-void TweaksPlugin::enableWirelessTimeout(bool enable)
-{
-    cout << "TweaksPlugin::enableWirelessTimeout(): " << enable << endl << flush; 
-    pluginSettings->setValue("Tweaks/enableWirelessTimeout", enable);
-
-    WirelessWatchdog::sharedInstance()->setEnabled(enable);
-}
-
-bool TweaksPlugin::wirelessTimeoutEnabled()
-{
-    return pluginSettings->value("Tweaks/enableWirelessTimeout", true).toBool();
 }
 
 void TweaksPlugin::hideFooter(bool enable)
@@ -428,7 +308,7 @@ void TweaksPlugin::openBrowser()
 
 void TweaksPlugin::sleep()
 {
-    N3PowerWorkflowManager::sharedInstance()->toggleSleep();
+    //N3PowerWorkflowManager::sharedInstance()->toggleSleep();
     //N3PowerWorkflowManager::sharedInstance()->showSleepView(); 
     //DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
     //if(p)
@@ -437,7 +317,7 @@ void TweaksPlugin::sleep()
 
 void TweaksPlugin::powerOff()
 {
-       N3PowerWorkflowManager::sharedInstance()->powerOff(false);
+       //N3PowerWorkflowManager::sharedInstance()->powerOff(false);
        //DevicePowerWorkflowManager* p = qApp->findChild<DevicePowerWorkflowManager *>();
        //if(p)
        //p->powerOff(false);*/
@@ -461,8 +341,8 @@ void TweaksPlugin::bookFooterOpened()
 				if(lib) {
 					lib->setObjectName("libraryBtn");
 					lib->setPixmap(QPixmap(":/images/menu/trilogy_library.png"));
-					lib->setSelectedPixmap(":/images/menu/trilogy_library.png");
-					lib->setDeselectedPixmap(":/images/menu/trilogy_library.png");
+					lib->setSelectedPixmap(QPixmap(":/images/menu/trilogy_library.png"));
+					lib->setDeselectedPixmap(QPixmap(":/images/menu/trilogy_library.png"));
 					connect(lib, SIGNAL(tapped()), this, SLOT(library()));
 					pMainLayout->addWidget(lib);
 					lib->show();
@@ -489,8 +369,8 @@ void TweaksPlugin::bookFooterOpened()
 				if(browser) {
 					browser->setObjectName("browserBtn");
 					browser->setPixmap(QPixmap(":/koboplugins/icons/menu/browser_02.png"));
-					browser->setSelectedPixmap(":/koboplugins/icons/menu/browser_02.png");
-					browser->setDeselectedPixmap(":/koboplugins/icons/menu/browser_02.png");
+					browser->setSelectedPixmap(QPixmap(":/koboplugins/icons/menu/browser_02.png"));
+					browser->setDeselectedPixmap(QPixmap(":/koboplugins/icons/menu/browser_02.png"));
 					connect(browser, SIGNAL(tapped()), this, SLOT(openBrowser()));
 					pMainLayout->addWidget(browser);
 					browser->show();
@@ -517,8 +397,8 @@ void TweaksPlugin::bookFooterOpened()
 				if(sleep) {
 					sleep->setObjectName("sleepBtn");
 					sleep->setPixmap(QPixmap(":/koboplugins/icons/menu/sleep_01.png"));
-					sleep->setSelectedPixmap(":/koboplugins/icons/menu/sleep_01.png");
-					sleep->setDeselectedPixmap(":/koboplugins/icons/menu/sleep_01.png");
+					sleep->setSelectedPixmap(QPixmap(":/koboplugins/icons/menu/sleep_01.png"));
+					sleep->setDeselectedPixmap(QPixmap(":/koboplugins/icons/menu/sleep_01.png"));
 					connect(sleep, SIGNAL(tapped()), this, SLOT(sleep()));
 					pMainLayout->addWidget(sleep);
 					sleep->show();
@@ -545,8 +425,8 @@ void TweaksPlugin::bookFooterOpened()
                 if(pwr) {
                     pwr->setObjectName("powerOffBtn");
                     pwr->setPixmap(QPixmap(":/koboplugins/icons/menu/power_01.png"));
-                    pwr->setSelectedPixmap(":/koboplugins/icons/menu/power_01.png");
-                    pwr->setDeselectedPixmap(":/koboplugins/icons/menu/power_01.png");
+                    pwr->setSelectedPixmap(QPixmap(":/koboplugins/icons/menu/power_01.png"));
+                    pwr->setDeselectedPixmap(QPixmap(":/koboplugins/icons/menu/power_01.png"));
                     connect(pwr, SIGNAL(tapped()), this, SLOT(powerOff()));
                     pMainLayout->addWidget(pwr);
                     pwr->show();
@@ -586,14 +466,6 @@ bool TweaksPlugin::checkFirmwareVersion()
     QString requiredVersion = pluginSettings->value("Global/compatFirmware", REQUIRED_VERSION).toString();
     if (requiredVersion == "0.0.0")
         return true;	
-
-    // a few early versions of the plugin created a koboplugins.ini that hardcoded 1.9.16 as compatFirmware
-    // remove this setting as compatFirmware should only be an override, not the main method to specify the
-    // compatible firmware version
-    if (requiredVersion == "1.9.16") {
-        pluginSettings->remove("Global/compatFirmware");
-        requiredVersion = REQUIRED_VERSION;
-    }
 
     // check if firmware version matches
     QFile f("/mnt/onboard/.kobo/version");
@@ -664,13 +536,13 @@ bool TweaksPlugin::createHomeMenuEntry(QString mapping, QString icon, QString te
 
 bool TweaksPlugin::createLibraryMenuEntry(QString mapping,QString text)
 {
-    LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
-    NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
-    MenuTextItem *mti = NULL;
+    //LibraryMenuController *lmc = QApplication::activeWindow()->findChild<LibraryMenuController *>();
+    //NickelTouchMenu *ntm = QApplication::activeWindow()->findChild<NickelTouchMenu *>();
+    //MenuTextItem *mti = NULL;
 
-    mti = lmc->createMenuTextItem(ntm, text, false);
-    lmc->addWidgetActionWithMapper(ntm, mti, &mapper, mapping, true, true);
-    ntm->addSeparator();
+    //mti = lmc->createMenuTextItem(ntm, text, false);
+    //lmc->addWidgetActionWithMapper(ntm, mti, &mapper, mapping, true, true);
+    //ntm->addSeparator();
     return true;
 }
 

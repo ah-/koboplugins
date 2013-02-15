@@ -8,7 +8,7 @@
 class HomeMenuController;
 class NickelTouchMenu;
 
-#define CONFIG_PATH "/mnt/onboard/.kobo/koboplugins.ini"
+#define CONFIG_PATH "/mnt/onboard/.kobo/kobotweaks.ini"
 
 class TweaksPlugin : public QObject, public PluginInterface
 {
@@ -26,15 +26,12 @@ public:
 
     QSharedPointer<QSettings> settings();
 
-    bool wirelessTimeoutEnabled();
-
 public slots:
     void windowChanged(int index);
     void patchMenu();
     void patchLibraryMenu();
     void open(QString mimeType);
     void enableBrowserShortcut(bool enable);
-    void enableWirelessTimeout(bool enable);
     void enableShelves(bool enable);
     void hideFooter(bool enable);
     void hideRecommendations(bool enable);
@@ -60,7 +57,6 @@ private:
     QStackedWidget *sw;
     void *lastPatchedMenu;
     void *lastPatchedLibraryMenu;
-    //LoggerBase* m_pLogBase;
 };
 
 #endif
