@@ -16,6 +16,9 @@ TweaksSettingsPageView::TweaksSettingsPageView(QWidget *parent, QWidget *content
     setContentWidget(contentWidget);
     connect(header, SIGNAL(back()), this, SLOT(dismissDialog()));
 
+    // TODO: needed?
+    setFocusPolicy(Qt::StrongFocus);
+
     if (!showBackButton)
         header->backLabel->hide();
 }
@@ -38,4 +41,11 @@ void TweaksSettingsPageView::setContentWidget(QWidget *w)
 
     contentWidget = w;
     contentLayout->addWidget(w);
+}
+
+void TweaksSettingsPageView::keyPressEvent(QKeyEvent *e)
+{
+    cout << "keyPressEvent: " << e->key() << endl;
+
+    QWidget::keyPressEvent(e);
 }

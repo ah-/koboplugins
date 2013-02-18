@@ -9,11 +9,7 @@ CONFIG += plugin \
           resources
 
 INCLUDEPATH += ../../include \
-               ../../libs/common/include \
-               ../../libs/support/include
-
-;LIBS += -lsupport
-;LIBS += -L../../libs/release
+               ../../external/cpplog
 
 TARGET = tweaks
 FORMS = tweakview.ui \
@@ -30,7 +26,8 @@ SOURCES += TweaksPlugin.cpp \
     TweaksSettingsView.cpp \
     TweaksSettingsLEDView.cpp \
     TweaksSettingsMiscView.cpp \
-    TweaksSettingsHomeMenuView.cpp
+    TweaksSettingsHomeMenuView.cpp \
+    MenuEntry.cpp
 
 RESOURCES += ../../res/koboplugins.qrc
 

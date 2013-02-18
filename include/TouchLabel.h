@@ -25,6 +25,7 @@ private:
     int unkown2;
     bool b1;
     bool b2;
+    int padding[10];
 };
 
 #endif

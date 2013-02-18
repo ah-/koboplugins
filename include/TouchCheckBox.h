@@ -8,6 +8,8 @@
 class TouchCheckBox : public QCheckBox, public GestureReceiver, public GestureDelegate {
 public:
     TouchCheckBox(QWidget *);
+private:
+    int padding[10];
 };
 
 #endif

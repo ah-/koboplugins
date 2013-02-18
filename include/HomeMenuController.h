@@ -26,7 +26,7 @@ public:
 
 class AbstractNickelMenuController : public AbstractMenuController {
 public:
-    MenuTextItem * createMenuTextItem(QMenu *, const QString &, bool);
+    MenuTextItem* createMenuTextItem(QMenu *, const QString &, bool, bool);
 };
 
 enum DecorationPosition { ONE };
@@ -46,16 +46,6 @@ public:
     void popupPosition(QWidget*);
 };
 
-class HomeMenuController : public AbstractNickelMenuController {
-public:
-    void store();
-	void settings();
-	void dictionary();
-	void library();
-    void readingLife();
-    void sync();
-    void help();
-};
 class HomePageFooterController : public QObject
 {
 public:

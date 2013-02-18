@@ -19,6 +19,9 @@ public:
 public slots:
     void dismissDialog();
 
+protected:
+    void keyPressEvent(QKeyEvent *e);
+
 private slots:
 
 signals:

@@ -1,62 +1,75 @@
 #ifndef __TWEAKS_PLUGIN_H__
 #define __TWEAKS_PLUGIN_H__
 
+#include <QImageIOPlugin>
 #include <QtGui>
-#include "PluginInterface.h"
+#include <QtScript>
+
+#include "../../include/PluginInterface.h"
 #include "TweaksSettingsPageView.h"
 
-class HomeMenuController;
-class NickelTouchMenu;
+#include "MenuEntry.h"
+
+class N3SettingsExtrasController;
+class TweaksSettingsView;
 
 #define CONFIG_PATH "/mnt/onboard/.kobo/kobotweaks.ini"
 
-class TweaksPlugin : public QObject, public PluginInterface
+class TweaksPlugin : public QImageIOPlugin
 {
-Q_OBJECT
-    Q_INTERFACES(PluginInterface)
+    Q_OBJECT
 
 public:
-    TweaksPlugin();
+    TweaksPlugin(QObject *parent = 0);
     ~TweaksPlugin();
 
-    QStringList mimeTypes();
+    // Fake QImageIOPlugin implementation
+    Capabilities capabilities(QIODevice *device, const QByteArray &format) const;
+    QImageIOHandler* create(QIODevice *device, const QByteArray &format = QByteArray()) const;
+    QStringList keys() const;
 
-    QWidget *reader(void* plugin_state, QWidget *parent = 0);
-    ParserInterface *parser();
+    void initialize();
 
     QSharedPointer<QSettings> settings();
 
 public slots:
+    void focusChanged(QWidget *old, QWidget *now);
     void windowChanged(int index);
-    void patchMenu();
-    void patchLibraryMenu();
     void open(QString mimeType);
+
     void enableBrowserShortcut(bool enable);
-    void enableShelves(bool enable);
-    void hideFooter(bool enable);
-    void hideRecommendations(bool enable);
-    void sync(bool);
-    void uninstallPlugin();
-    void bookFooterOpened();
-    void bookFooterClosed();
-    void openBrowser();
-    void sleep();
+
+    void hideShop(bool enable);
+    void hideWishlist(bool enable);
+
+    void patchReadingLife();
+
     void library();
+    void tweaksSettings();
+    void openBrowser();
+    void connectWifi();
+    void toggleAirplaneMode();
+    void uninstallPlugin();
+    void sync(bool);
+    void sleep();
     void powerOff();
+    void shelves();
+    void readingLife();
+    void sudoku();
+    void chess();
+    void scribble();
+    void executeSystemCmd(QString cmd);
 
 private:
     bool checkFirmwareVersion();
-    bool createHomeMenuEntry(QString mapping, QString icon, QString text, HomeMenuController *hmc, NickelTouchMenu *ntm);
-    bool createLibraryMenuEntry(QString mapping, QString text);
 
 private:
     QSharedPointer<QSettings> pluginSettings;
-    TweaksSettingsPageView *settingsPageView;
-    HomeMenuController *hmc;
+    QScriptEngine engine;
     QSignalMapper mapper;
-    QStackedWidget *sw;
-    void *lastPatchedMenu;
-    void *lastPatchedLibraryMenu;
+    QStackedWidget *stackedWidget;
+    N3SettingsExtrasController *n3SettingsExtrasController;
+    QList<MenuEntry> menuEntries;
 };
 
 #endif
